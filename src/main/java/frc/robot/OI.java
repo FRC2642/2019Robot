@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.XboxController;
 
 public class OI {
     public static XboxController xbox = new XboxController(RobotMap.xboxControllerPort);
+    public static XboxController aux = new XboxController(RobotMap.xboxControllerPort);
 
 
 }
