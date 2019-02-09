@@ -8,11 +8,10 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.buttons.Button;
-
-import frc.commands.SuccOffCommand;
-import frc.commands.SuccOnCommand;
+import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import frc.commands.vacuum.SuccOffCommand;
+import frc.commands.vacuum.SuccOnCommand;
 
 public class OI {
     public static XboxController xbox = new XboxController(RobotMap.xboxControllerPort);

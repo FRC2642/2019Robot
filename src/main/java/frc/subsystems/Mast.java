@@ -7,9 +7,11 @@
 
 package frc.subsystems;
 
-import edu.wpi.first.wpilibj.command.Subsystem;
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+
+import edu.wpi.first.wpilibj.command.Subsystem;
+import frc.commands.mast.LiftCommand;
 import frc.robot.RobotMap;
 
 /**
@@ -47,10 +49,8 @@ public class Mast extends Subsystem {
       //this takes inches from the bottom of mast as input and turns it into pulses 
       // on a 22-tooth sprocket + chain links w/ .25 inch pitch 
       public void moveToPosition(float inches, int pidIndex, int timeout){
-        //4096 = total pulses in 1 rotation
-        //5.5 = length (in inches) of 22 chain links
+        
         int pulses = Math.round((RobotMap.PULSES_PER_ROTATION / RobotMap.mastChainLength) * inches);
-
         mastMaster.setSelectedSensorPosition(pulses, pidIndex, timeout);
       }
 

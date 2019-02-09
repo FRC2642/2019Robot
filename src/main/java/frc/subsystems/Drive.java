@@ -12,7 +12,7 @@ import com.ctre.phoenix.motorcontrol.DemandType;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
-import frc.commands.DriveCommand;
+import frc.commands.drive.DriveCommand;
 import frc.robot.RobotMap;
 
 
