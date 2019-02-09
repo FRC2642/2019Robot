@@ -15,7 +15,7 @@ public class Lift extends Command {
   public Lift() {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
-    Robot.mast.lift((OI.xbox.getRawAxis(1)) * 0.6);
+    Robot.mast.lift((OI.aux.getRawAxis(1)) * 0.6);
   }
 
   // Called just before this Command runs the first time
