@@ -5,14 +5,15 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.commands;
+package frc.commands.drive;
 
-import frc.robot.Robot;
 import edu.wpi.first.wpilibj.command.Command;
+import frc.robot.OI;
+import frc.robot.Robot;
 
-public class SuccOffCommand extends Command {
-  public SuccOffCommand() {
- requires(Robot.vacuum);
+public class DriveCommand extends Command {
+  public DriveCommand() {
+    requires(Robot.drive);
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
   }
@@ -25,25 +26,31 @@ public class SuccOffCommand extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.vacuum.succOff();
+    
+    Robot.drive.arcadeDrive((OI.xbox.getRawAxis(1)) * 0.6, OI.xbox.getRawAxis(0));
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return false;
+    //if x axis is being held down, end drive command
+   /* if(OI.xbox.getRawAxis(0) > 0.1 || OI.xbox.getRawAxis(0) < -0.1){
+      return true;
+    } else {*/
+      return false;
+    //}
   }
 
   // Called once after isFinished returns true
   @Override
   protected void end() {
-      Robot.vacuum.succOff();
+    
   }
 
   // Called when another command which requires one or more of the same
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
-      Robot.vacuum.succOff();
+    Robot.drive.stop();
   }
 }
