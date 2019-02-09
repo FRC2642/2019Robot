@@ -6,12 +6,12 @@
 /*----------------------------------------------------------------------------*/
  /*
 put name and message below and push to git
-
 anisha sadhale hello ppl
 sean jung hi everyone
 Joseph Sowers Bonkey Dong Kongos
 
 
+git 
 
 
 */
@@ -41,6 +41,7 @@ public class Robot extends TimedRobot {
   public static OI oi = new OI();
   
   public static Drive drive = new Drive();
+  public static VacuumSubsystem vacuum = new VacuumSubsystem();
   public PowerDistributionPanel pdp = new PowerDistributionPanel(0);
 
   /**

@@ -12,5 +12,12 @@ import edu.wpi.first.wpilibj.XboxController;
 public class OI {
     public static XboxController xbox = new XboxController(RobotMap.xboxControllerPort);
 
+ public Button XboxA = new JoystickButton(xbox, 1);
+ public Button XboxB = new JoystickButton(xbox, 2);
+ Button XboxX = new JoystickButton(xbox, 3);
+public OI() {
+    xboxB.whenPressed(new SuccOn());
+    xboxX.whenPressed(new SuccOff());
+}
 
 }
