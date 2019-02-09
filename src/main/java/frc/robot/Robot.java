@@ -25,7 +25,6 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
-import frc.subsystems.Mast;
 
 import frc.subsystems.Drive;
 
@@ -45,10 +44,6 @@ public class Robot extends TimedRobot {
   public static OI oi = new OI();
   
   public static Drive drive = new Drive();
-  public static Mast mast = new Mast();
-  
-  
-  
   public PowerDistributionPanel pdp = new PowerDistributionPanel(0);
 
   /**
