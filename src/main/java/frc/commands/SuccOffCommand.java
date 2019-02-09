@@ -7,10 +7,11 @@
 
 package frc.commands;
 
+import frc.robot.Robot;
 import edu.wpi.first.wpilibj.command.Command;
 
-public class succOffCommand extends Command {
-  public succOffCommand() {
+public class SuccOffCommand extends Command {
+  public SuccOffCommand() {
  requires(Robot.vacuum);
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);

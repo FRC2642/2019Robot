@@ -8,17 +8,22 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import edu.wpi.first.wpilibj.buttons.Button;
+
+import frc.commands.SuccOffCommand;
+import frc.commands.SuccOnCommand;
 
 public class OI {
     public static XboxController xbox = new XboxController(RobotMap.xboxControllerPort);
     public static XboxController aux = new XboxController(RobotMap.xboxControllerPort);
 
- public Button XboxA = new JoystickButton(xbox, 1);
- public Button XboxB = new JoystickButton(xbox, 2);
- Button XboxX = new JoystickButton(xbox, 3);
+ public Button xboxA = new JoystickButton(xbox, 1);
+ public Button xboxB = new JoystickButton(xbox, 2);
+ Button xboxX = new JoystickButton(xbox, 3);
 public OI() {
-    xboxB.whenPressed(new SuccOn());
-    xboxX.whenPressed(new SuccOff());
+    xboxB.whenPressed(new SuccOnCommand());
+    xboxX.whenPressed(new SuccOffCommand());
 }
 
 }

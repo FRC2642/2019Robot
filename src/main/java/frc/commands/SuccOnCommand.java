@@ -7,6 +7,7 @@
 
 package frc.commands;
 
+import frc.robot.Robot;
 import edu.wpi.first.wpilibj.command.Command;
 
 public class SuccOnCommand extends Command {
