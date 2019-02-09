@@ -17,14 +17,14 @@ import frc.robot.RobotMap;
 /**
  * Add your docs here.
  */
-public class Mast extends Subsystem {
+public class MastSubsystem extends Subsystem {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
   public TalonSRX mastMaster = new TalonSRX(RobotMap.ID_MAST_MASTER);
   public TalonSRX mastSlave = new TalonSRX(RobotMap.ID_MAST_SLAVE);
 
 
-  public Mast(){
+  public MastSubsystem(){
     mastSlave.set(ControlMode.Follower, mastMaster.getDeviceID());
     
     mastMaster.enableCurrentLimit(RobotMap.IS_CURRENT_LIMIT);

@@ -10,6 +10,9 @@ package frc.robot;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import frc.commands.mast.MoveMastToBottomCommand;
+import frc.commands.mast.MoveMastToMiddleCommand;
+import frc.commands.mast.MoveMastToTopCommand;
 import frc.commands.vacuum.SuccOffCommand;
 import frc.commands.vacuum.SuccOnCommand;
 
@@ -20,9 +23,18 @@ public class OI {
  public Button xboxA = new JoystickButton(xbox, 1);
  public Button xboxB = new JoystickButton(xbox, 2);
  Button xboxX = new JoystickButton(xbox, 3);
-public OI() {
+
+ Button auxXboxA = new JoystickButton(aux, 1);
+ Button auxXboxB = new JoystickButton(aux, 2);
+ Button auxXboxY = new JoystickButton(aux, 4);
+
+ public OI() {
     xboxB.whenPressed(new SuccOnCommand());
     xboxX.whenPressed(new SuccOffCommand());
+
+    auxXboxA.whenPressed(new MoveMastToBottomCommand());
+    auxXboxB.whenPressed(new MoveMastToMiddleCommand());
+    auxXboxY.whenPressed(new MoveMastToTopCommand());
 }
 
 }
