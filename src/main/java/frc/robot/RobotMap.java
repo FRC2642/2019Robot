@@ -31,4 +31,7 @@ public class RobotMap {
     //xbox controller port
     public static final int xboxControllerPort = 0;
 
+    //Vacuum Intake
+    public static final int ID_VACUUM_MOTOR = 7;
+
 }
