@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.command.Command;
 
 public class SuccOnCommand extends Command {
   public SuccOnCommand() {
+requires(Robot.vacuum);
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
   }
