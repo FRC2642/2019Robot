@@ -5,15 +5,14 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.commands;
+package frc.commands.vacuum;
 
-import edu.wpi.first.wpilibj.command.Command;
-import frc.robot.OI;
 import frc.robot.Robot;
+import edu.wpi.first.wpilibj.command.Command;
 
-public class TurnCommand extends Command {
-  public TurnCommand() {
-    requires(Robot.drive);
+public class SuccOffCommand extends Command {
+  public SuccOffCommand() {
+ requires(Robot.vacuum);
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
   }
@@ -26,7 +25,7 @@ public class TurnCommand extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.drive.turn((OI.xbox.getRawAxis(0)) * 0.6);
+    Robot.vacuum.succOff();
   }
 
   // Make this return true when this Command no longer needs to run execute()
@@ -38,12 +37,13 @@ public class TurnCommand extends Command {
   // Called once after isFinished returns true
   @Override
   protected void end() {
+      Robot.vacuum.succOff();
   }
 
   // Called when another command which requires one or more of the same
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
-    Robot.drive.stop();
+      Robot.vacuum.succOff();
   }
 }

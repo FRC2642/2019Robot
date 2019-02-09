@@ -44,13 +44,31 @@ public class Mast extends Subsystem {
         setMastSpeed(lift);
       }
      
-      
-    
-    
+      //this takes inches from the bottom of mast as input and turns it into pulses 
+      // on a 22-tooth sprocket + chain links w/ .25 inch pitch 
+      public void moveToPosition(float inches, int pidIndex, int timeout){
+        //4096 = total pulses in 1 rotation
+        //5.5 = length (in inches) of 22 chain links
+        int pulses = Math.round((RobotMap.PULSES_PER_ROTATION / RobotMap.mastChainLength) * inches);
 
+        mastMaster.setSelectedSensorPosition(pulses, pidIndex, timeout);
+      }
+
+      public void moveMastToBottomPosition(){
+        moveToPosition((float) 27.5, 0, 0);
+      }
+
+      public void moveMastToMiddlePosition(){
+        moveToPosition((float) 55.5, 0, 0);
+      }
+
+      public void moveMastToTopPosition(){
+        moveToPosition((float) 83.5, 0, 0);
+      }
+    
   @Override
   public void initDefaultCommand() {
     // Set the default command for a subsystem here.
-    // setDefaultCommand(new MySpecialCommand());
+    setDefaultCommand(new LiftCommand());
   }
 }
