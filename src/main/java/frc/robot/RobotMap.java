@@ -16,8 +16,6 @@ public class RobotMap {
     public static final int ID_LEFT_REAR = 4;
     public static final int ID_RIGHT_FRONT = 1;
     public static final int ID_RIGHT_REAR = 2;
-    public static final int ID_MAST_MASTER = 5;
-    public static final int ID_MAST_SLAVE = 6;
 
     //drive motor limit settings
     public static final boolean IS_CURRENT_LIMIT = false;
