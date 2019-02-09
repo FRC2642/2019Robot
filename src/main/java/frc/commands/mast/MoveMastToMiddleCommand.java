@@ -8,14 +8,13 @@
 package frc.commands.mast;
 
 import edu.wpi.first.wpilibj.command.Command;
-import frc.robot.OI;
 import frc.robot.Robot;
 
-public class LiftCommand extends Command {
-  public LiftCommand() {
+public class MoveMastToMiddleCommand extends Command {
+  public MoveMastToMiddleCommand() {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
-    Robot.mast.lift((OI.aux.getRawAxis(1)) * 0.6);
+    requires(Robot.mast);
   }
 
   // Called just before this Command runs the first time
@@ -26,6 +25,7 @@ public class LiftCommand extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
+    Robot.mast.moveMastToMiddlePosition();
   }
 
   // Make this return true when this Command no longer needs to run execute()
