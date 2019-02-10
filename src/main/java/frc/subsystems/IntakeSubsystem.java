@@ -7,49 +7,50 @@
 
 package frc.subsystems;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
-import edu.wpi.first.wpilibj.command.Subsystem;
-import frc.robot.RobotMap;
 import edu.wpi.first.wpilibj.Solenoid;
+import edu.wpi.first.wpilibj.command.Subsystem;
+import frc.commands.intake.IntakeCommand;
+import frc.robot.RobotMap;
 
 
 /**
  * Add your docs here.
  */
 public class IntakeSubsystem extends Subsystem {
-  // Put methods for controlling this subsystem
-  // here. Call these from Commands.
+  
   public VictorSPX intakeMaster = new VictorSPX(RobotMap.ID_INTAKE_MOTOR);
- Solenoid intakeCylinder = new Solenoid(RobotMap.ID_SOLENOID)
- public intakeSubsystem() {
+
+  Solenoid intakeCylinder = new Solenoid(RobotMap.ID_SOLENOID);
+
+ public IntakeSubsystem() {
  }
 
-  public void Outtake() {
+  public void intake() {
     intakeMaster.set(ControlMode.PercentOutput, 0.6);
   }
     public void outtake() {
-      intakeMaster.set(ControlMode.PercentOutput, 0.6);
+      intakeMaster.set(ControlMode.PercentOutput, -0.6);
     }
 
 public void stop() {
   intakeMaster.set(ControlMode.PercentOutput, 0);
 }
 
-public void closeIntake() {
-  intake.set(true);
-}
-public void openIntake() {
-  intake.set(false);
-}
- 
 
- 
- 
+public void activateSucc() {
+  intakeCylinder.set(true);
+}
+public void deactivateSucc() {
+  intakeCylinder.set(false);
+}
+
   @Override
   public void initDefaultCommand() {
     // Set the default command for a subsystem here.
     // setDefaultCommand(new MySpecialCommand());
-    setDefaultCommand();
+    setDefaultCommand(new IntakeCommand());
   }
 }
