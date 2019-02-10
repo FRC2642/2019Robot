@@ -7,10 +7,12 @@
 
 package frc.subsystems;
 
-import edu.wpi.first.wpilibj.command.Subsystem;
-import frc.robot.RobotMap;
-
+import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
+
+import edu.wpi.first.wpilibj.command.Subsystem;
+import frc.commands.vacuum.SuccOffCommand;
+import frc.robot.RobotMap;
 
 /**
  * Add your docs here.
@@ -34,7 +36,7 @@ public void succOff() {
   @Override
   public void initDefaultCommand() {
     // Set the default command for a subsystem here.
-    // setDefaultCommand(new MySpecialCommand());
+    setDefaultCommand(new SuccOffCommand());
 
   }
 }

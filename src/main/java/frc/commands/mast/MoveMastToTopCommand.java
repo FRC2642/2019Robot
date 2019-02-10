@@ -5,17 +5,16 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.commands;
+package frc.commands.mast;
 
 import edu.wpi.first.wpilibj.command.Command;
-import frc.robot.OI;
 import frc.robot.Robot;
 
-public class TurnCommand extends Command {
-  public TurnCommand() {
-    requires(Robot.drive);
+public class MoveMastToTopCommand extends Command {
+  public MoveMastToTopCommand() {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
+    requires(Robot.mast);
   }
 
   // Called just before this Command runs the first time
@@ -26,7 +25,7 @@ public class TurnCommand extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.drive.turn((OI.xbox.getRawAxis(0)) * 0.6);
+    Robot.mast.moveMastToTopPosition();
   }
 
   // Make this return true when this Command no longer needs to run execute()
@@ -38,12 +37,13 @@ public class TurnCommand extends Command {
   // Called once after isFinished returns true
   @Override
   protected void end() {
+    Robot.mast.stop();
   }
 
   // Called when another command which requires one or more of the same
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
-    Robot.drive.stop();
+    Robot.mast.stop();
   }
 }
