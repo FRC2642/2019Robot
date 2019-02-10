@@ -5,13 +5,10 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.commands;
-import frc.robot.OI;
+package frc.commands.intake;
+
 import edu.wpi.first.wpilibj.command.Command;
-import com.ctre.phoenix.motorcontrol.can.VictorSPX;
-import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj.buttons.Button;
-import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import frc.robot.Robot;
 
 public class IntakeCommand extends Command {
  
@@ -31,9 +28,9 @@ public class IntakeCommand extends Command {
   protected void execute() {
    
     //if speed excedes 0, perform outtake. If speed precedes 0, perform intake.
-    if(Robot.oi.aux.getRawAxis() > 0.6) {
+    if(Robot.oi.aux.getRawAxis(1) > 0.6) {
       Robot.intake.outtake();
-    } else if(Robot.oi.aux.getRawAxis() < -0.6) {
+    } else if(Robot.oi.aux.getRawAxis(1) < -0.6) {
       Robot.intake.intake();
 
     } else {
@@ -57,7 +54,7 @@ public class IntakeCommand extends Command {
   // Called when another command which requires one or more of the same
   // subsystems is scheduled to run
   @Override
-  protected interrupted() {
+  protected void interrupted() {
       Robot.intake.stop();
   }
 }
