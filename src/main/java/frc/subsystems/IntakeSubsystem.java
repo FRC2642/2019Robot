@@ -21,9 +21,10 @@ import frc.robot.RobotMap;
  */
 public class IntakeSubsystem extends Subsystem {
   
-  public VictorSPX intakeMaster = new VictorSPX(RobotMap.ID_INTAKE_MOTOR);
+  public VictorSPX intakeMaster = new VictorSPX(RobotMap.ID_INTAKE_MASTER);
+  public VictorSPX intakeSlave = new VictorSPX(RobotMap.ID_INTAKE_SLAVE);
 
-  Solenoid intakeCylinder = new Solenoid(RobotMap.ID_SOLENOID);
+  Solenoid intakeCylinder = new Solenoid(RobotMap.cupsCylinder);
 
  public IntakeSubsystem() {
  }

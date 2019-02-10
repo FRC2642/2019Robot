@@ -20,7 +20,7 @@ import frc.robot.RobotMap;
 public class VacuumSubsystem extends Subsystem {
   // Put methods for controlling this subsystem
 // here. Call these from Commands.
-public VictorSPX vacuumMaster = new VictorSPX(RobotMap.ID_VACUUM_MOTOR);
+public VictorSPX vacuumMaster = new VictorSPX(RobotMap.ID_VACUUM);
 
   public VacuumSubsystem() {
     

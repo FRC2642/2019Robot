@@ -29,10 +29,10 @@ public TalonSRX rightFrontMaster, rightRearSlave;
 public boolean isWorking = false;
 
 public DriveSubsystem(){
-  leftFrontMaster = new TalonSRX(RobotMap.ID_LEFT_FRONT);
-  leftRearSlave = new TalonSRX(RobotMap.ID_LEFT_REAR);
-  rightFrontMaster = new TalonSRX(RobotMap.ID_RIGHT_FRONT);
-  rightRearSlave = new TalonSRX(RobotMap.ID_RIGHT_REAR);
+  leftFrontMaster = new TalonSRX(RobotMap.ID_LEFT_FRONT_DRIVE);
+  leftRearSlave = new TalonSRX(RobotMap.ID_LEFT_REAR_DRIVE);
+  rightFrontMaster = new TalonSRX(RobotMap.ID_RIGHT_FRONT_DRIVE);
+  rightRearSlave = new TalonSRX(RobotMap.ID_RIGHT_REAR_DRIVE);
 
   //set master-slave motors
   leftRearSlave.set(ControlMode.Follower, leftFrontMaster.getDeviceID());
