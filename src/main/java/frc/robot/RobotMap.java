@@ -14,12 +14,12 @@ public class RobotMap {
     //IDs for drive motors
     public static final int ID_LEFT_FRONT = 3;
     public static final int ID_LEFT_REAR = 4;
-    public static final int ID_RIGHT_FRONT = 1;
-    public static final int ID_RIGHT_REAR = 2;
+    public static final int ID_RIGHT_FRONT = 5;
+    public static final int ID_RIGHT_REAR = 6;
     
     //IDs for mast motors
-    public static final int ID_MAST_MASTER = 5;
-    public static final int ID_MAST_SLAVE = 6;
+    public static final int ID_MAST_MASTER = 1;
+    public static final int ID_MAST_SLAVE = 2;
 
     //ID for vacuum motor
     public static final int ID_VACUUM_MOTOR = 7;
@@ -35,6 +35,7 @@ public class RobotMap {
 
     //xbox controller port
     public static int xboxControllerPort = 0;
+    public static int auxXboxControllerPort = 1;
 
     //# of pulses in 1 rotation
     public static final int PULSES_PER_ROTATION = 4096;

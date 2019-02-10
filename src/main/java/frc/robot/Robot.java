@@ -39,14 +39,13 @@ public class Robot extends TimedRobot {
   private String m_autoSelected;
   private final SendableChooser<String> m_chooser = new SendableChooser<>();
 
-  public static OI oi = new OI();
-  
   public static DriveSubsystem drive = new DriveSubsystem();
   public static MastSubsystem mast = new MastSubsystem();
   public static VacuumSubsystem vacuum = new VacuumSubsystem();
   
-  
   public PowerDistributionPanel pdp = new PowerDistributionPanel(0);
+
+  public static OI oi = new OI();
 
   /**
    * This function is run when the robot is first started up and should be
@@ -116,7 +115,7 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
     Scheduler.getInstance().run();
-    System.out.println("we runnin bois");
+    //System.out.println("we runnin bois");
   }
 
   /**
