@@ -5,21 +5,17 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.commands;
-import frc.robot.OI;
-import edu.wpi.first.wpilibj.command.Command;
-import com.ctre.phoenix.motorcontrol.can.VictorSPX;
-import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj.buttons.Button;
-import edu.wpi.first.wpilibj.buttons.JoystickButton;
+package frc.commands.mast;
 
-public class IntakeCommand extends Command {
- 
+import edu.wpi.first.wpilibj.command.Command;
+import frc.robot.Robot;
+
+public class MoveMastToBottomCommand extends Command {
+  public MoveMastToBottomCommand() {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
-    public IntakeCommand() {
-      requires(Robot.intake);
-    }
+    requires(Robot.mast);
+  }
 
   // Called just before this Command runs the first time
   @Override
@@ -29,17 +25,7 @@ public class IntakeCommand extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-   
-    //if speed excedes 0, perform outtake. If speed precedes 0, perform intake.
-    if(Robot.oi.aux.getRawAxis() > 0.6) {
-      Robot.intake.outtake();
-    } else if(Robot.oi.aux.getRawAxis() < -0.6) {
-      Robot.intake.intake();
-
-    } else {
-      Robot.intake.stop();
-    }
-
+    Robot.mast.moveMastToBottomPosition();
   }
 
   // Make this return true when this Command no longer needs to run execute()
@@ -51,13 +37,11 @@ public class IntakeCommand extends Command {
   // Called once after isFinished returns true
   @Override
   protected void end() {
-      Robot.intake.stop();
   }
 
   // Called when another command which requires one or more of the same
   // subsystems is scheduled to run
   @Override
-  protected interrupted() {
-      Robot.intake.stop();
+  protected void interrupted() {
   }
 }

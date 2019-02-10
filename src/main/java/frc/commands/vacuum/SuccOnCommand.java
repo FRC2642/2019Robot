@@ -5,13 +5,14 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.commands;
+package frc.commands.vacuum;
 
+import frc.robot.Robot;
 import edu.wpi.first.wpilibj.command.Command;
 
-public class succOffCommand extends Command {
-  public succOffCommand() {
- requires(Robot.vacuum);
+public class SuccOnCommand extends Command {
+  public SuccOnCommand() {
+requires(Robot.vacuum);
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
   }
@@ -24,8 +25,10 @@ public class succOffCommand extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.vacuum.succOff();
+    Robot.vacuum.succOn();
+  
   }
+
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
@@ -36,13 +39,13 @@ public class succOffCommand extends Command {
   // Called once after isFinished returns true
   @Override
   protected void end() {
-      Robot.vacuum.succOff();
+    Robot.vacuum.succOff();
   }
 
   // Called when another command which requires one or more of the same
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
-      Robot.vacuum.succOff();
+    Robot.vacuum.succOff();
   }
 }

@@ -16,8 +16,18 @@ public class RobotMap {
     public static final int ID_LEFT_REAR = 4;
     public static final int ID_RIGHT_FRONT = 1;
     public static final int ID_RIGHT_REAR = 2;
+    
+    //IDs for mast motors
     public static final int ID_MAST_MASTER = 5;
     public static final int ID_MAST_SLAVE = 6;
+
+    //ID for vacuum motor
+    public static final int ID_VACUUM_MOTOR = 7;
+
+    //Intake Motor ID
+    public static final int ID_INTAKE_MOTOR = 8;
+
+    public static final int ID_SOLENOID = 9;
 
     //drive motor limit settings
     public static final boolean IS_CURRENT_LIMIT = false;
@@ -29,9 +39,10 @@ public class RobotMap {
     public static final double VOLTAGE_SATURATION = 12.5;
 git 
     //xbox controller port
-    public static final int xboxControllerPort = 0;
+    public static int xboxControllerPort = 0;
 
-    //Vacuum Intake
-    public static final int ID_VACUUM_MOTOR = 7;
-
+    //# of pulses in 1 rotation
+    public static final int PULSES_PER_ROTATION = 4096;
+    //length of chain used in one rotation (mast)
+    public static float mastChainLength = (float) 5.5;
 }

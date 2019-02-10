@@ -12,14 +12,14 @@ import com.ctre.phoenix.motorcontrol.DemandType;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
-import frc.commands.DriveCommand;
+import frc.commands.drive.DriveCommand;
 import frc.robot.RobotMap;
 
 
 /**
  * Add your docs here.
  */
-public class Drive extends Subsystem {
+public class DriveSubsystem extends Subsystem {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
 
@@ -28,7 +28,7 @@ public TalonSRX rightFrontMaster, rightRearSlave;
 
 public boolean isWorking = false;
 
-public Drive(){
+public DriveSubsystem(){
   leftFrontMaster = new TalonSRX(RobotMap.ID_LEFT_FRONT);
   leftRearSlave = new TalonSRX(RobotMap.ID_LEFT_REAR);
   rightFrontMaster = new TalonSRX(RobotMap.ID_RIGHT_FRONT);

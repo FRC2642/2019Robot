@@ -5,17 +5,16 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.commands;
+package frc.commands.vacuum;
 
-import edu.wpi.first.wpilibj.command.Command;
-import frc.robot.OI;
 import frc.robot.Robot;
+import edu.wpi.first.wpilibj.command.Command;
 
-public class Lift extends Command {
-  public Lift() {
+public class SuccOffCommand extends Command {
+  public SuccOffCommand() {
+ requires(Robot.vacuum);
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
-    Robot.mast.lift((OI.aux.getRawAxis(1)) * 0.6);
   }
 
   // Called just before this Command runs the first time
@@ -26,6 +25,7 @@ public class Lift extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
+    Robot.vacuum.succOff();
   }
 
   // Make this return true when this Command no longer needs to run execute()
@@ -37,11 +37,13 @@ public class Lift extends Command {
   // Called once after isFinished returns true
   @Override
   protected void end() {
+      Robot.vacuum.succOff();
   }
 
   // Called when another command which requires one or more of the same
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
+      Robot.vacuum.succOff();
   }
 }
