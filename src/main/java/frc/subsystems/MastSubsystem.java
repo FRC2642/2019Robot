@@ -34,7 +34,7 @@ public class MastSubsystem extends Subsystem {
     }
     
     public void setMastSpeed(double speed){
-      mastMaster.set(ControlMode.PercentOutput, speed);
+      mastMaster.set(ControlMode.PercentOutput, speed * .6);
       }
       
     

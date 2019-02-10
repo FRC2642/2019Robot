@@ -24,6 +24,11 @@ public class RobotMap {
     //ID for vacuum motor
     public static final int ID_VACUUM_MOTOR = 7;
 
+    //Intake Motor ID
+    public static final int ID_INTAKE_MOTOR = 8;
+
+    public static final int ID_SOLENOID = 9;
+
     //drive motor limit settings
     public static final boolean IS_CURRENT_LIMIT = false;
     public static final int PEAK_CURRENT = 45;
@@ -32,7 +37,7 @@ public class RobotMap {
     //drive motor voltage settings
     public static final boolean IS_VOLTAGE_COMP = false;
     public static final double VOLTAGE_SATURATION = 12.5;
-
+git 
     //xbox controller port
     public static int xboxControllerPort = 0;
     public static int auxXboxControllerPort = 1;
