@@ -24,6 +24,11 @@ public class RobotMap {
     //ID for vacuum motor
     public static final int ID_VACUUM_MOTOR = 7;
 
+    //Intake Motor ID
+    public static final int ID_INTAKE_MOTOR = 8;
+
+    public static final int ID_SOLENOID = 9;
+
     //drive motor limit settings
     public static final boolean IS_CURRENT_LIMIT = false;
     public static final int PEAK_CURRENT = 45;

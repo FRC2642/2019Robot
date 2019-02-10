@@ -23,6 +23,7 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.subsystems.DriveSubsystem;
+import frc.subsystems.IntakeSubsystem;
 import frc.subsystems.MastSubsystem;
 import frc.subsystems.VacuumSubsystem;
 
@@ -44,7 +45,7 @@ public class Robot extends TimedRobot {
   public static DriveSubsystem drive = new DriveSubsystem();
   public static MastSubsystem mast = new MastSubsystem();
   public static VacuumSubsystem vacuum = new VacuumSubsystem();
-  
+  public static IntakeSubsystem intake = new IntakeSubsystem();
   
   public PowerDistributionPanel pdp = new PowerDistributionPanel(0);
 
