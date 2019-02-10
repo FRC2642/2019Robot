@@ -20,5 +20,4 @@ public OI() {
     xboxB.whenPressed(new SuccOn());
     xboxX.whenPressed(new SuccOff());
 }
-
 }
