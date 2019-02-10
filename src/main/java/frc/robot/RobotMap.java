@@ -23,6 +23,8 @@ public class RobotMap {
 
     //ID for vacuum motor
     public static final int ID_VACUUM_MOTOR = 7;
+    
+    public static final int liftPotPort = 0;
 
     //drive motor limit settings
     public static final boolean IS_CURRENT_LIMIT = false;
@@ -40,4 +42,11 @@ public class RobotMap {
     public static final int PULSES_PER_ROTATION = 4096;
     //length of chain used in one rotation (mast)
     public static float mastChainLength = (float) 5.5;
-}
+
+    //mast height limits
+    public static int maxMastHeight = 8;
+    public static int minMastHeight = 7;
+
+
+    }
+
