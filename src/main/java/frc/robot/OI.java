@@ -18,10 +18,10 @@ import frc.commands.vacuum.SuccOnCommand;
 
 public class OI {
     public static XboxController xbox = new XboxController(RobotMap.xboxControllerPort);
-    public static XboxController aux = new XboxController(RobotMap.xboxControllerPort);
+    public static XboxController aux = new XboxController(RobotMap.auxXboxControllerPort);
 
- public Button xboxA = new JoystickButton(xbox, 1);
- public Button xboxB = new JoystickButton(xbox, 2);
+ Button xboxA = new JoystickButton(xbox, 1);
+ Button xboxB = new JoystickButton(xbox, 2);
  Button xboxX = new JoystickButton(xbox, 3);
 
  Button auxXboxA = new JoystickButton(aux, 1);
