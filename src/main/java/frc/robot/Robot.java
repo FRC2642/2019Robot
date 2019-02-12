@@ -26,7 +26,7 @@ import frc.subsystems.DriveSubsystem;
 import frc.subsystems.IntakeSubsystem;
 import frc.subsystems.MastSubsystem;
 import frc.subsystems.VacuumSubsystem;
-
+import frc.subsystems.ThrustSubsystem;
 /**
  * The VM is configured to automatically run this class, and to call the
  * functions corresponding to each mode, as described in the TimedRobot
@@ -44,6 +44,7 @@ public class Robot extends TimedRobot {
   public static MastSubsystem mast = new MastSubsystem();
   public static VacuumSubsystem vacuum = new VacuumSubsystem();
   public static IntakeSubsystem intake = new IntakeSubsystem();
+  public static ThrustSubsystem thrust = new ThrustSubsystem();
   
   public PowerDistributionPanel pdp = new PowerDistributionPanel(0);
 

@@ -23,10 +23,12 @@ public class OI {
  Button xboxA = new JoystickButton(xbox, 1);
  Button xboxB = new JoystickButton(xbox, 2);
  Button xboxX = new JoystickButton(xbox, 3);
+ Button xboxLeftAnalog = new JoystickButton(xbox, 9);
 
  Button auxXboxA = new JoystickButton(aux, 1);
  Button auxXboxB = new JoystickButton(aux, 2);
  Button auxXboxY = new JoystickButton(aux, 4);
+ 
 
  public OI() {
     xboxB.whenPressed(new SuccOnCommand());

@@ -5,18 +5,19 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.commands.Intake;
+package frc.commands.Thrust;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
-public class IntakeCommand extends Command {
- 
+public class ThrustCommand extends Command {
+  
+
+  public ThrustCommand() {
+    requires(Robot.thrust);
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
-    public IntakeCommand() {
-      requires(Robot.intake);
-    }
+  }
 
   // Called just before this Command runs the first time
   @Override
@@ -26,18 +27,9 @@ public class IntakeCommand extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-   
-    //if speed excedes 0, perform outtake. If speed precedes 0, perform intake.
-    if(Robot.oi.aux.getRawAxis(1) > 0.6) {
-      Robot.intake.outtake();
-    } else if(Robot.oi.aux.getRawAxis(1) < -0.6) {
-      Robot.intake.intake();
-
-    } else {
-      Robot.intake.stop();
-    }
-
+  Robot.thrust.stop();
   }
+
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
@@ -48,13 +40,13 @@ public class IntakeCommand extends Command {
   // Called once after isFinished returns true
   @Override
   protected void end() {
-      Robot.intake.stop();
+    
   }
 
   // Called when another command which requires one or more of the same
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
-      Robot.intake.stop();
+Robot.thrust.stop();
   }
 }
