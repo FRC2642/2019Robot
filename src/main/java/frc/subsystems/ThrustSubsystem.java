@@ -7,9 +7,10 @@
 
 package frc.subsystems;
 import com.ctre.phoenix.motorcontrol.ControlMode;
-import frc.robot.RobotMap;
-import edu.wpi.first.wpilibj.command.Subsystem;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+
+import edu.wpi.first.wpilibj.command.Subsystem;
+import frc.robot.RobotMap;
 
 /**
  * Add your docs here.
@@ -27,11 +28,15 @@ public TalonSRX rollerMaster = new TalonSRX(RobotMap.ID_ROLLER);
     }
     
     public void jackDown() {
-      jackMaster.set(ControlMode.PercentOutput, 1);
+      jackMaster.set(ControlMode.PercentOutput, -1);
     }
 
   public void rollerRolling() {
     rollerMaster.set(ControlMode.PercentOutput, 0.95);
+  }
+  public void stop() {
+    rollerMaster.set(ControlMode.PercentOutput, 0);
+    jackMaster.set(ControlMode.PercentOutput, 0);
   }
 
 

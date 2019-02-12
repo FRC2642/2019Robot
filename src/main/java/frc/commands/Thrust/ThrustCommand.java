@@ -6,15 +6,12 @@
 /*----------------------------------------------------------------------------*/
 
 package frc.commands.Thrust;
-import com.ctre.phoenix.motorcontrol.ControlMode;
-import frc.robot.Robot;
-import edu.wpi.first.wpilibj.command.Command;
 
-import com.ctre.phoenix.motorcontrol.can.BaseMotorController;
+import edu.wpi.first.wpilibj.command.Command;
+import frc.robot.Robot;
 
 public class ThrustCommand extends Command {
-  private BaseMotorController rollerMaster;
-  private BaseMotorController jackMaster;
+  
 
   public ThrustCommand() {
     requires(Robot.thrust);
@@ -30,7 +27,9 @@ public class ThrustCommand extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
+  Robot.thrust.stop();
   }
+
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
@@ -41,15 +40,13 @@ public class ThrustCommand extends Command {
   // Called once after isFinished returns true
   @Override
   protected void end() {
-    rollerMaster.set(ControlMode.PercentOutput, 0);
-    jackMaster.set(ControlMode.PercentOutput, 0);
+    
   }
 
   // Called when another command which requires one or more of the same
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
-    rollerMaster.set(ControlMode.PercentOutput, 0);
-
+Robot.thrust.stop();
   }
 }
