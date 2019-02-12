@@ -12,7 +12,7 @@ package frc.robot;
  */
 public class RobotMap {
     //IDs for drive motors
-    public static final int ID_RIGHT_FRONT_DRIVE = 1;
+    public static final int ID_RIGHT_FRONT_DRIVE = 22;
     public static final int ID_RIGHT_REAR_DRIVE = 16;
     public static final int ID_LEFT_FRONT_DRIVE = 2;
     public static final int ID_LEFT_REAR_DRIVE = 3;
@@ -28,7 +28,7 @@ public class RobotMap {
     public static final int ID_ROLLER = 10;
 
     //ID for jack motor
-    public static final int ID_JACK = 12;
+    public static final int ID_JACK = 1;
 
     //IDs for mast motors
     public static final int ID_MAST_MASTER = 15;

@@ -5,18 +5,22 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.commands.Intake;
-
-import edu.wpi.first.wpilibj.command.Command;
+package frc.commands.Thrust;
+import com.ctre.phoenix.motorcontrol.ControlMode;
 import frc.robot.Robot;
+import edu.wpi.first.wpilibj.command.Command;
 
-public class IntakeCommand extends Command {
- 
+import com.ctre.phoenix.motorcontrol.can.BaseMotorController;
+
+public class ThrustCommand extends Command {
+  private BaseMotorController rollerMaster;
+  private BaseMotorController jackMaster;
+
+  public ThrustCommand() {
+    requires(Robot.thrust);
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
-    public IntakeCommand() {
-      requires(Robot.intake);
-    }
+  }
 
   // Called just before this Command runs the first time
   @Override
@@ -26,17 +30,6 @@ public class IntakeCommand extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-   
-    //if speed excedes 0, perform outtake. If speed precedes 0, perform intake.
-    if(Robot.oi.aux.getRawAxis(1) > 0.6) {
-      Robot.intake.outtake();
-    } else if(Robot.oi.aux.getRawAxis(1) < -0.6) {
-      Robot.intake.intake();
-
-    } else {
-      Robot.intake.stop();
-    }
-
   }
 
   // Make this return true when this Command no longer needs to run execute()
@@ -48,13 +41,15 @@ public class IntakeCommand extends Command {
   // Called once after isFinished returns true
   @Override
   protected void end() {
-      Robot.intake.stop();
+    rollerMaster.set(ControlMode.PercentOutput, 0);
+    jackMaster.set(ControlMode.PercentOutput, 0);
   }
 
   // Called when another command which requires one or more of the same
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
-      Robot.intake.stop();
+    rollerMaster.set(ControlMode.PercentOutput, 0);
+
   }
 }
