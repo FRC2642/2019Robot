@@ -30,9 +30,12 @@ public class RobotMap {
     //ID for jack motor
     public static final int ID_JACK = 12;
 
-    //IDs for mast motors
-    public static final int ID_MAST_MASTER = 15;
+    //ID for wrist motor
+    public static final int ID_WRIST = 13;
+
+    //IDs for mast motors 
     public static final int ID_MAST_SLAVE = 14;
+    public static final int ID_MAST_MASTER = 15;
 
    //ID for PCM 
    public static final int ID_PCM = 17;
@@ -40,20 +43,29 @@ public class RobotMap {
     //mast pot port
     public static int liftPotPort = 0;
 
-    //suction cup piston port
+    //port for suction cup piston
     public static int cupsCylinder = 0;
+
+    //port for intake piston
+    public static int intakeCylinder = 1;
+
+    //port for brake cylinder
+    public static int brakeCylinder = 2;
    
+    //port for climb release cylinder
+    public static int climbReleaseCylinder = 3;
 
     //drive motor limit settings
     public static final boolean IS_CURRENT_LIMIT = false;
     public static final int PEAK_CURRENT = 45;
     public static final int CONTINUOUS_CURRENT = 30;
     public static final int PEAK_CURRENT_DURATION = 200;
+
     //drive motor voltage settings
     public static final boolean IS_VOLTAGE_COMP = false;
     public static final double VOLTAGE_SATURATION = 12.5;
  
-    //xbox controller port
+    //xbox controller ports
     public static int xboxControllerPort = 0;
     public static int auxXboxControllerPort = 1;
 
