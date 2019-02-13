@@ -18,15 +18,17 @@ import frc.commands.vacuum.SuccOnCommand;
 
 public class OI {
     public static XboxController xbox = new XboxController(RobotMap.xboxControllerPort);
-    public static XboxController aux = new XboxController(RobotMap.xboxControllerPort);
+    public static XboxController aux = new XboxController(RobotMap.auxXboxControllerPort);
 
- public Button xboxA = new JoystickButton(xbox, 1);
- public Button xboxB = new JoystickButton(xbox, 2);
+ Button xboxA = new JoystickButton(xbox, 1);
+ Button xboxB = new JoystickButton(xbox, 2);
  Button xboxX = new JoystickButton(xbox, 3);
+ Button xboxLeftAnalog = new JoystickButton(xbox, 9);
 
  Button auxXboxA = new JoystickButton(aux, 1);
  Button auxXboxB = new JoystickButton(aux, 2);
  Button auxXboxY = new JoystickButton(aux, 4);
+ 
 
  public OI() {
     xboxB.whenPressed(new SuccOnCommand());
@@ -36,5 +38,4 @@ public class OI {
     auxXboxB.whenPressed(new MoveMastToMiddleCommand());
     auxXboxY.whenPressed(new MoveMastToTopCommand());
 }
-
 }

@@ -5,17 +5,18 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.commands.mast;
+package frc.commands.Thrust;
 
 import edu.wpi.first.wpilibj.command.Command;
-import frc.robot.OI;
 import frc.robot.Robot;
 
-public class LiftCommand extends Command {
-  public LiftCommand() {
+public class ThrustCommand extends Command {
+  
+
+  public ThrustCommand() {
+    requires(Robot.thrust);
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
-   requires(Robot.mast);
   }
 
   // Called just before this Command runs the first time
@@ -26,8 +27,9 @@ public class LiftCommand extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.mast.lift((OI.aux.getRawAxis(5)) * 0.6);
+  Robot.thrust.stop();
   }
+
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
@@ -38,13 +40,13 @@ public class LiftCommand extends Command {
   // Called once after isFinished returns true
   @Override
   protected void end() {
-    Robot.mast.stop();
+    
   }
 
   // Called when another command which requires one or more of the same
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
-    Robot.mast.stop();
+Robot.thrust.stop();
   }
 }

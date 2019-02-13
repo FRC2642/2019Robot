@@ -12,17 +12,37 @@ package frc.robot;
  */
 public class RobotMap {
     //IDs for drive motors
-    public static final int ID_LEFT_FRONT = 3;
-    public static final int ID_LEFT_REAR = 4;
-    public static final int ID_RIGHT_FRONT = 1;
-    public static final int ID_RIGHT_REAR = 2;
-    
-    //IDs for mast motors
-    public static final int ID_MAST_MASTER = 5;
-    public static final int ID_MAST_SLAVE = 6;
+    public static final int ID_RIGHT_FRONT_DRIVE = 1;
+    public static final int ID_RIGHT_REAR_DRIVE = 16;
+    public static final int ID_LEFT_FRONT_DRIVE = 2;
+    public static final int ID_LEFT_REAR_DRIVE = 3;
 
-    //ID for vacuum motor
-    public static final int ID_VACUUM_MOTOR = 7;
+     //ID for vacuum motor
+    public static final int ID_VACUUM = 4;
+
+    //ID for intake motors
+    public static final int ID_INTAKE_MASTER = 8;
+    public static final int ID_INTAKE_SLAVE = 9;
+
+    //ID for roller lifting motor 
+    public static final int ID_ROLLER = 10;
+
+    //ID for jack motor
+    public static final int ID_JACK = 12;
+
+    //IDs for mast motors
+    public static final int ID_MAST_MASTER = 15;
+    public static final int ID_MAST_SLAVE = 14;
+
+   //ID for PCM 
+   public static final int ID_PCM = 17;
+
+    //mast pot port
+    public static int liftPotPort = 0;
+
+    //suction cup piston port
+    public static int cupsCylinder = 0;
+   
 
     //drive motor limit settings
     public static final boolean IS_CURRENT_LIMIT = false;
@@ -32,13 +52,20 @@ public class RobotMap {
     //drive motor voltage settings
     public static final boolean IS_VOLTAGE_COMP = false;
     public static final double VOLTAGE_SATURATION = 12.5;
-
+ 
     //xbox controller port
     public static int xboxControllerPort = 0;
+    public static int auxXboxControllerPort = 1;
 
     //# of pulses in 1 rotation
     public static final int PULSES_PER_ROTATION = 4096;
     //length of chain used in one rotation (mast)
     public static float mastChainLength = (float) 5.5;
-    public static int liftPotPort = 0;
-}
+
+    //mast height limits
+    public static int maxMastHeight = 8;
+    public static int minMastHeight = 7;
+
+
+    }
+

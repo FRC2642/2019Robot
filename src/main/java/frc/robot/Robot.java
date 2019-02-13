@@ -23,9 +23,10 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.subsystems.DriveSubsystem;
+import frc.subsystems.IntakeSubsystem;
 import frc.subsystems.MastSubsystem;
 import frc.subsystems.VacuumSubsystem;
-
+import frc.subsystems.ThrustSubsystem;
 /**
  * The VM is configured to automatically run this class, and to call the
  * functions corresponding to each mode, as described in the TimedRobot
@@ -39,14 +40,15 @@ public class Robot extends TimedRobot {
   private String m_autoSelected;
   private final SendableChooser<String> m_chooser = new SendableChooser<>();
 
-  public static OI oi = new OI();
-  
   public static DriveSubsystem drive = new DriveSubsystem();
   public static MastSubsystem mast = new MastSubsystem();
   public static VacuumSubsystem vacuum = new VacuumSubsystem();
-  
+  public static IntakeSubsystem intake = new IntakeSubsystem();
+  public static ThrustSubsystem thrust = new ThrustSubsystem();
   
   public PowerDistributionPanel pdp = new PowerDistributionPanel(0);
+
+  public static OI oi = new OI();
 
   /**
    * This function is run when the robot is first started up and should be
@@ -116,7 +118,7 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
     Scheduler.getInstance().run();
-    System.out.println("we runnin bois");
+    //System.out.println("we runnin bois");
   }
 
   /**

@@ -5,18 +5,18 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.commands.mast;
+package frc.commands.Intake;
 
 import edu.wpi.first.wpilibj.command.Command;
-import frc.robot.OI;
 import frc.robot.Robot;
 
-public class LiftCommand extends Command {
-  public LiftCommand() {
+public class IntakeCommand extends Command {
+ 
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
-   requires(Robot.mast);
-  }
+    public IntakeCommand() {
+      requires(Robot.intake);
+    }
 
   // Called just before this Command runs the first time
   @Override
@@ -26,7 +26,17 @@ public class LiftCommand extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.mast.lift((OI.aux.getRawAxis(5)) * 0.6);
+   
+    //if speed excedes 0, perform outtake. If speed precedes 0, perform intake.
+    if(Robot.oi.aux.getRawAxis(1) > 0.6) {
+      Robot.intake.outtake();
+    } else if(Robot.oi.aux.getRawAxis(1) < -0.6) {
+      Robot.intake.intake();
+
+    } else {
+      Robot.intake.stop();
+    }
+
   }
 
   // Make this return true when this Command no longer needs to run execute()
@@ -38,13 +48,13 @@ public class LiftCommand extends Command {
   // Called once after isFinished returns true
   @Override
   protected void end() {
-    Robot.mast.stop();
+      Robot.intake.stop();
   }
 
   // Called when another command which requires one or more of the same
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
-    Robot.mast.stop();
+      Robot.intake.stop();
   }
 }

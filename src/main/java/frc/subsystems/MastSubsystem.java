@@ -47,25 +47,36 @@ public class MastSubsystem extends Subsystem {
       public void lift(double lift){
         setMastSpeed(lift);
       }
-     
+      /*
+     //rip encoder logic that didn't work
       //this takes inches from the bottom of mast as input and turns it into pulses 
       // on a 22-tooth sprocket + chain links w/ .25 inch pitch 
-      public void moveToPosition(float inches, int pidIndex, int timeout){
+      public void moveToPosition(float inches, double speed, int pidIndex){
         
         int pulses = Math.round((RobotMap.PULSES_PER_ROTATION / RobotMap.mastChainLength) * inches);
-        mastMaster.setSelectedSensorPosition(pulses, pidIndex, timeout);
+
+        if(mastMaster.getSelectedSensorPosition(pidIndex) < pulses){
+          mastMaster.set(ControlMode.PercentOutput, speed);
+        } else if(mastMaster.getSelectedSensorPosition(pidIndex) > pulses){
+          mastMaster.set(ControlMode.PercentOutput, -speed);
+        } else {
+          mastMaster.set(ControlMode.PercentOutput, 0);
+        }
+          
       }
+      */
+
 
       public void moveMastToBottomPosition(){
-        moveToPosition((float) 27.5, 0, 0);
+      //  moveToPosition((float) 27.5, 0, 0);
       }
 
       public void moveMastToMiddlePosition(){
-        moveToPosition((float) 55.5, 0, 0);
+       // moveToPosition((float) 55.5, 0, 0);
       }
 
       public void moveMastToTopPosition(){
-        moveToPosition((float) 83.5, 0, 0);
+       // moveToPosition((float) 83.5, 0, 0);
       }
     
   @Override
@@ -75,18 +86,17 @@ public class MastSubsystem extends Subsystem {
   }
 
   public AnalogPotentiometer liftPot = new AnalogPotentiometer(RobotMap.liftPotPort); 
-
   protected double returnPIDInput() {
     return liftPot.pidGet();
   }
 
   protected void usePIDOutput(double output) {
-  //  moveLift(output);
+    moveLift(output);
   }
 
   //Raises or lowers lift
-  /*public void moveLift(double speed) {
-    if ((speed > 0) && (liftPot.get() > RobotMap.minMastHeight)) {
+  public void moveLift(double speed) {
+    if ((speed > 0) && (liftPot.get() > RobotMap. minMastHeight)) {
       mastMaster.set(ControlMode.PercentOutput, speed);
     }
     else if ((speed < 0) && (liftPot.get() < RobotMap.maxMastHeight)) {
@@ -95,7 +105,11 @@ public class MastSubsystem extends Subsystem {
     else {
       stop();
     }
-  }*/
+  }
   
   
   }
+
+
+
+

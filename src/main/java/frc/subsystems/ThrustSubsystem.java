@@ -6,37 +6,42 @@
 /*----------------------------------------------------------------------------*/
 
 package frc.subsystems;
-
 import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.can.VictorSPX;
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
-import frc.commands.vacuum.SuccOffCommand;
 import frc.robot.RobotMap;
 
 /**
  * Add your docs here.
  */
-public class VacuumSubsystem extends Subsystem {
+public class ThrustSubsystem extends Subsystem {
   // Put methods for controlling this subsystem
-// here. Call these from Commands.
-public VictorSPX vacuumMaster = new VictorSPX(RobotMap.ID_VACUUM);
-
-  public VacuumSubsystem() {
+  // here. Call these from Commands.
+public TalonSRX jackMaster = new TalonSRX(RobotMap.ID_JACK);
+public TalonSRX rollerMaster = new TalonSRX(RobotMap.ID_ROLLER);
+  public ThrustSubsystem() {
+  }
     
+  public void jackUp() {
+      jackMaster.set(ControlMode.PercentOutput, 1);
+    }
+    
+    public void jackDown() {
+      jackMaster.set(ControlMode.PercentOutput, -1);
+    }
+
+  public void rollerRolling() {
+    rollerMaster.set(ControlMode.PercentOutput, 0.95);
+  }
+  public void stop() {
+    rollerMaster.set(ControlMode.PercentOutput, 0);
+    jackMaster.set(ControlMode.PercentOutput, 0);
   }
 
-public void succOn() {
-  vacuumMaster.set(ControlMode.PercentOutput, 0.97);
-}
 
-public void succOff() {
-  vacuumMaster.set(ControlMode.PercentOutput, 0);
-}
-  @Override
   public void initDefaultCommand() {
     // Set the default command for a subsystem here.
-    setDefaultCommand(new SuccOffCommand());
-
+    // setDefaultCommand(new MySpecialCommand());
   }
 }
