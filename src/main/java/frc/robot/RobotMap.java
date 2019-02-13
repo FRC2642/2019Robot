@@ -16,33 +16,38 @@ public class RobotMap {
     public static final int ID_RIGHT_REAR_DRIVE = 16;
     public static final int ID_LEFT_FRONT_DRIVE = 2;
     public static final int ID_LEFT_REAR_DRIVE = 3;
-
      //ID for vacuum motor
     public static final int ID_VACUUM = 4;
-
     //ID for intake motors
     public static final int ID_INTAKE_MASTER = 8;
     public static final int ID_INTAKE_SLAVE = 9;
-
     //ID for roller lifting motor 
     public static final int ID_ROLLER = 10;
-
     //ID for jack motor
     public static final int ID_JACK = 12;
-
-    //IDs for mast motors
-    public static final int ID_MAST_MASTER = 15;
+    //ID for wrist motor
+    public static final int ID_WRIST = 13;
+    //IDs for mast motors 
     public static final int ID_MAST_SLAVE = 14;
-
-   //ID for PCM 
-   public static final int ID_PCM = 17;
+    public static final int ID_MAST_MASTER = 15;
+    //ID for PCM 
+    public static final int ID_PCM = 17;
 
     //mast pot port
     public static int liftPotPort = 0;
 
-    //suction cup piston port
+    //port for suction cup piston
     public static int cupsCylinder = 0;
-   
+    //port for intake piston
+    public static int intakeCylinder = 1;
+    //port for brake cylinder
+    public static int brakeCylinder = 2;
+    //port for climb release cylinder
+    public static int climbReleaseCylinder = 3;
+ 
+    //xbox controller ports
+    public static int xboxControllerPort = 0;
+    public static int auxXboxControllerPort = 1;
 
     //drive motor limit settings
     public static final boolean IS_CURRENT_LIMIT = false;
@@ -52,10 +57,6 @@ public class RobotMap {
     //drive motor voltage settings
     public static final boolean IS_VOLTAGE_COMP = false;
     public static final double VOLTAGE_SATURATION = 12.5;
- 
-    //xbox controller port
-    public static int xboxControllerPort = 0;
-    public static int auxXboxControllerPort = 1;
 
     //# of pulses in 1 rotation
     public static final int PULSES_PER_ROTATION = 4096;
