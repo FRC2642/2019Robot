@@ -40,4 +40,5 @@ public class RobotMap {
     public static final int PULSES_PER_ROTATION = 4096;
     //length of chain used in one rotation (mast)
     public static float mastChainLength = (float) 5.5;
+    public static int liftPotPort = 0;
 }

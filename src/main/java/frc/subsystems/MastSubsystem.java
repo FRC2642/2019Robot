@@ -9,10 +9,12 @@ package frc.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import edu.wpi.first.wpilibj.AnalogPotentiometer;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.commands.mast.LiftCommand;
 import frc.robot.RobotMap;
+
 
 /**
  * Add your docs here.
@@ -71,4 +73,29 @@ public class MastSubsystem extends Subsystem {
     // Set the default command for a subsystem here.
     setDefaultCommand(new LiftCommand());
   }
-}
+
+  public AnalogPotentiometer liftPot = new AnalogPotentiometer(RobotMap.liftPotPort); 
+
+  protected double returnPIDInput() {
+    return liftPot.pidGet();
+  }
+
+  protected void usePIDOutput(double output) {
+  //  moveLift(output);
+  }
+
+  //Raises or lowers lift
+  /*public void moveLift(double speed) {
+    if ((speed > 0) && (liftPot.get() > RobotMap.minMastHeight)) {
+      mastMaster.set(ControlMode.PercentOutput, speed);
+    }
+    else if ((speed < 0) && (liftPot.get() < RobotMap.maxMastHeight)) {
+      mastMaster.set(ControlMode.PercentOutput, speed);
+    }
+    else {
+      stop();
+    }
+  }*/
+  
+  
+  }
