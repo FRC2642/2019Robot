@@ -25,6 +25,8 @@ public class MastSubsystem extends Subsystem {
   public TalonSRX mastMaster = new TalonSRX(RobotMap.ID_MAST_MASTER);
   public TalonSRX mastSlave = new TalonSRX(RobotMap.ID_MAST_SLAVE);
 
+  public AnalogPotentiometer liftPot = new AnalogPotentiometer(RobotMap.liftPotPort); 
+
 
   public MastSubsystem(){
     mastSlave.set(ControlMode.Follower, mastMaster.getDeviceID());
@@ -85,7 +87,7 @@ public class MastSubsystem extends Subsystem {
     setDefaultCommand(new LiftCommand());
   }
 
-  public AnalogPotentiometer liftPot = new AnalogPotentiometer(RobotMap.liftPotPort); 
+  
   protected double returnPIDInput() {
     return liftPot.pidGet();
   }
@@ -96,7 +98,7 @@ public class MastSubsystem extends Subsystem {
 
   //Raises or lowers lift
   public void moveLift(double speed) {
-    if ((speed > 0) && (liftPot.get() > RobotMap. minMastHeight)) {
+    if ((speed > 0) && (liftPot.get() > RobotMap.minMastHeight)) {
       mastMaster.set(ControlMode.PercentOutput, speed);
     }
     else if ((speed < 0) && (liftPot.get() < RobotMap.maxMastHeight)) {
