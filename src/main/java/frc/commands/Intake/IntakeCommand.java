@@ -5,7 +5,7 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.commands.Intake;
+package frc.commands.intake;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
