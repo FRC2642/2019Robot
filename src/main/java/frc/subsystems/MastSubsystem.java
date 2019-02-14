@@ -47,40 +47,9 @@ public class MastSubsystem extends Subsystem {
       }
     
       public void lift(double lift){
-        setMastSpeed(lift);
-      }
-      /*
-     //rip encoder logic that didn't work
-      //this takes inches from the bottom of mast as input and turns it into pulses 
-      // on a 22-tooth sprocket + chain links w/ .25 inch pitch 
-      public void moveToPosition(float inches, double speed, int pidIndex){
-        
-        int pulses = Math.round((RobotMap.PULSES_PER_ROTATION / RobotMap.mastChainLength) * inches);
-
-        if(mastMaster.getSelectedSensorPosition(pidIndex) < pulses){
-          mastMaster.set(ControlMode.PercentOutput, speed);
-        } else if(mastMaster.getSelectedSensorPosition(pidIndex) > pulses){
-          mastMaster.set(ControlMode.PercentOutput, -speed);
-        } else {
-          mastMaster.set(ControlMode.PercentOutput, 0);
-        }
-          
-      }
-      */
-
-
-      public void moveMastToBottomPosition(){
-      //  moveToPosition((float) 27.5, 0, 0);
       }
 
-      public void moveMastToMiddlePosition(){
-       // moveToPosition((float) 55.5, 0, 0);
-      }
-
-      public void moveMastToTopPosition(){
-       // moveToPosition((float) 83.5, 0, 0);
-      }
-    
+      
   @Override
   public void initDefaultCommand() {
     // Set the default command for a subsystem here.
@@ -108,8 +77,42 @@ public class MastSubsystem extends Subsystem {
       stop();
     }
   }
-  
-  
+  public void moveToSetPosition(double pulses){
+    if(liftPot.get() > pulses) {
+    moveLift(-0.8);
+    }
+  }
+  //Moves the mast to the three loading levels for the cargo on the rocket.
+  public void moveMastToCargoBottomPosition() {
+    moveToSetPosition(27.5);
+  }
+  public void moveMastToCargoMiddlePosition() {
+    moveToSetPosition(55.5);
+  }
+  public void moveMastToCargoTopPosition() {
+    moveToSetPosition(83.5);
+  }
+  //Moves the mast to the three loading levels for the hatches on the rocket.
+  public void moveMastToHatchBottomPosition() {
+    moveToSetPosition(19);
+  }
+  public void moveMastToHatchMiddlePosition() {
+    moveToSetPosition(47);
+  }
+  public void moveMastToHatchTopPosition() {
+    moveToSetPosition(65);
+  }
+  //Moves mast to hatch level for the cargo ship.
+  public void moveMastToShipHatch() {
+    moveToSetPosition(16.25);
+  }
+  //Moves mast to the cargo level for the cargo ship.
+  public void moveMastToShipCargo() {
+    moveToSetPosition(39.75);
+  }
+
+
+
   }
 
 
