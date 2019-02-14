@@ -36,15 +36,19 @@ public class RobotMap {
     public static int lightSensorPort = 0; 
     //mast pot port
     public static int liftPotPort = 0;
+    //wrist pot port
+    public static int wristPotPort = 1;
 
     //port for suction cup piston
-    public static int cupsCylinder = 0;
-    //port for intake piston
-    public static int intakeCylinder = 1;
+    public static int cupsCylinderPort = 0;
+    //ports for wrist piston
+    public static int wristCylinderPort1 = 1;
+    public static int wristCylinderPort2 = 2;
     //port for brake cylinder
-    public static int brakeCylinder = 2;
-    //port for climb release cylinder
-    public static int climbReleaseCylinder = 3;
+    public static int brakeCylinderPort = 3;
+    //ports for fang cylinder
+    public static int fangCylinderPort1 = 4;
+    public static int fangCylinderPort2 = 5;
  
     //xbox controller ports
     public static int xboxControllerPort = 0;
@@ -68,6 +72,9 @@ public class RobotMap {
     public static int maxMastHeight = 8;
     public static int minMastHeight = 7;
 
+    //wrist up and down positions
+    public static int wristDownPosition = 0;
+    public static int wristUpPosition = 1;
 
     }
 

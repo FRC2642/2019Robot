@@ -10,6 +10,8 @@ package frc.subsystems;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
+import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.commands.intake.IntakeCommand;
@@ -23,7 +25,7 @@ public class IntakeSubsystem extends Subsystem {
   public VictorSPX intakeMaster = new VictorSPX(RobotMap.ID_INTAKE_MASTER);
   public VictorSPX intakeSlave = new VictorSPX(RobotMap.ID_INTAKE_SLAVE);
 
-  Solenoid intakeCylinder = new Solenoid(RobotMap.cupsCylinder);
+  public Solenoid cupsCylinder = new Solenoid(RobotMap.cupsCylinderPort);
 
   public IntakeSubsystem() {
   }
@@ -41,11 +43,11 @@ public class IntakeSubsystem extends Subsystem {
   }
 
   public void activateSucc() {
-    intakeCylinder.set(true);
+    cupsCylinder.set(true);
   }
 
   public void deactivateSucc() {
-    intakeCylinder.set(false);
+    cupsCylinder.set(false);
   }
 
   @Override

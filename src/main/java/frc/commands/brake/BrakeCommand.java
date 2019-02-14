@@ -5,18 +5,16 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.commands.thrust;
+package frc.commands.brake;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
-public class ThrustCommand extends Command {
-  
-
-  public ThrustCommand() {
-    requires(Robot.thrust);
+public class BrakeCommand extends Command {
+  public BrakeCommand() {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
+    requires(Robot.brake);
   }
 
   // Called just before this Command runs the first time
@@ -27,9 +25,8 @@ public class ThrustCommand extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-  Robot.thrust.stop();
+    Robot.brake.brakeOn();
   }
-
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
@@ -40,13 +37,13 @@ public class ThrustCommand extends Command {
   // Called once after isFinished returns true
   @Override
   protected void end() {
-    
+    Robot.brake.brakeOff();
   }
 
   // Called when another command which requires one or more of the same
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
-Robot.thrust.stop();
+    Robot.brake.brakeOff();
   }
 }

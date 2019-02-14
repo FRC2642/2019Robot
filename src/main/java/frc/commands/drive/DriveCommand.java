@@ -13,9 +13,9 @@ import frc.robot.Robot;
 
 public class DriveCommand extends Command {
   public DriveCommand() {
-    requires(Robot.drive);
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
+    requires(Robot.drive);
   }
 
   // Called just before this Command runs the first time
@@ -45,12 +45,13 @@ public class DriveCommand extends Command {
   @Override
   protected void end() {
     
+    
   }
 
   // Called when another command which requires one or more of the same
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
-    Robot.drive.stop();
+   
   }
 }

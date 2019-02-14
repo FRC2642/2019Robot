@@ -7,22 +7,28 @@
 
 package frc.subsystems;
 
-import edu.wpi.first.wpilibj.Solenoid;
+import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.RobotMap;
 
 /**
  * Add your docs here.
  */
-public class BrakeSubsystem extends Subsystem {
-  public Solenoid brakeCylinder = new Solenoid(RobotMap.brakeCylinderPort);
+public class FangSubsystem extends Subsystem {
+  // Put methods for controlling this subsystem
+  // here. Call these from Commands.
 
-  public void brakeOn(){
-    brakeCylinder.set(true);
-  }
+  
+  public DoubleSolenoid fangCylinder = new DoubleSolenoid(RobotMap.fangCylinderPort1, RobotMap.fangCylinderPort2);
 
-public void brakeOff(){
-  brakeCylinder.set(false);
+public void fangsOut() {
+fangCylinder.set(Value.kForward);
+}
+
+
+public void fangsIn() {
+  fangCylinder.set(Value.kReverse);
 }
 
   @Override
