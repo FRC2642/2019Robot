@@ -5,7 +5,7 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.commands.Thrust;
+package frc.commands.thrust;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;

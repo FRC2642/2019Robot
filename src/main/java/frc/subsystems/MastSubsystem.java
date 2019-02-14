@@ -31,11 +31,11 @@ public class MastSubsystem extends Subsystem {
   public MastSubsystem(){
     mastSlave.set(ControlMode.Follower, mastMaster.getDeviceID());
     
-    mastMaster.enableCurrentLimit(RobotMap.IS_CURRENT_LIMIT);
+   // mastMaster.enableCurrentLimit(RobotMap.IS_CURRENT_LIMIT);
     mastMaster.configContinuousCurrentLimit(RobotMap.CONTINUOUS_CURRENT, 0);
     mastMaster.configPeakCurrentLimit(RobotMap.PEAK_CURRENT, 10);
     mastMaster.configPeakCurrentDuration(RobotMap.PEAK_CURRENT_DURATION, 10);
-    }
+      }
     
     public void setMastSpeed(double speed){
       mastMaster.set(ControlMode.PercentOutput, speed * .6);
