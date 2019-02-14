@@ -8,6 +8,7 @@
 package frc.commands.intake;
 
 import edu.wpi.first.wpilibj.command.Command;
+import frc.robot.OI;
 import frc.robot.Robot;
 
 public class IntakeCommand extends Command {
@@ -28,9 +29,9 @@ public class IntakeCommand extends Command {
   protected void execute() {
    
     //if aux left stick is away from driver, outtake. if stick is toward driver, intake
-    if(Robot.oi.aux.getRawAxis(1) > 0.6) {
+    if(OI.aux.getRawAxis(1) > 0.6) {
       Robot.intake.outtake();
-    } else if(Robot.oi.aux.getRawAxis(1) < -0.6) {
+    } else if(OI.aux.getRawAxis(1) < -0.6) {
       Robot.intake.intake();
     } else {
       Robot.intake.stop();
