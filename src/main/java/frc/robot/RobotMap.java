@@ -32,7 +32,8 @@ public class RobotMap {
     public static final int ID_MAST_MASTER = 15;
     //ID for PCM 
     public static final int ID_PCM = 17;
-
+    //port for light sensors
+    public static final int lightSensor = 18; 
     //mast pot port
     public static int liftPotPort = 0;
 

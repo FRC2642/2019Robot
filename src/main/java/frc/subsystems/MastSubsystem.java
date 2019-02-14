@@ -8,7 +8,8 @@
 package frc.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import com.ctre.phoenix.motorcontrol.can.VictorSPX;
+
 import edu.wpi.first.wpilibj.AnalogPotentiometer;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -22,8 +23,8 @@ import frc.robot.RobotMap;
 public class MastSubsystem extends Subsystem {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
-  public TalonSRX mastMaster = new TalonSRX(RobotMap.ID_MAST_MASTER);
-  public TalonSRX mastSlave = new TalonSRX(RobotMap.ID_MAST_SLAVE);
+  public VictorSPX mastMaster = new VictorSPX(RobotMap.ID_MAST_MASTER);
+  public VictorSPX mastSlave = new VictorSPX(RobotMap.ID_MAST_SLAVE);
 
   public AnalogPotentiometer liftPot = new AnalogPotentiometer(RobotMap.liftPotPort); 
 
@@ -31,10 +32,7 @@ public class MastSubsystem extends Subsystem {
   public MastSubsystem(){
     mastSlave.set(ControlMode.Follower, mastMaster.getDeviceID());
     
-    mastMaster.enableCurrentLimit(RobotMap.IS_CURRENT_LIMIT);
-    mastMaster.configContinuousCurrentLimit(RobotMap.CONTINUOUS_CURRENT, 0);
-    mastMaster.configPeakCurrentLimit(RobotMap.PEAK_CURRENT, 10);
-    mastMaster.configPeakCurrentDuration(RobotMap.PEAK_CURRENT_DURATION, 10);
+    
     }
     
     public void setMastSpeed(double speed){
