@@ -5,18 +5,25 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.commands.intake;
+package frc.commands.wrist;
 
 import edu.wpi.first.wpilibj.command.Command;
+import frc.robot.OI;
 import frc.robot.Robot;
 
-public class IntakeCommand extends Command {
- 
+public class MoveWristCommand extends Command {
+  public MoveWristCommand() {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
-    public IntakeCommand() {
-      requires(Robot.intake);
-    }
+    requires(Robot.wrist);
+  }
+
+  //state of wrist piston
+  //false = in, true = out
+  static boolean inOutState = false;
+  //state of wrist motor
+  //false = up, true = down
+  static boolean upDownState = false;
 
   // Called just before this Command runs the first time
   @Override
@@ -26,18 +33,19 @@ public class IntakeCommand extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-   
-    //if aux left stick is away from driver, outtake. if stick is toward driver, intake
-    if(Robot.oi.aux.getRawAxis(1) > 0.6) {
-      Robot.intake.outtake();
-    } else if(Robot.oi.aux.getRawAxis(1) < -0.6) {
-      Robot.intake.intake();
-    } else {
-      Robot.intake.stop();
+    if(OI.aux.getRawAxis(3) > .6 && !inOutState){
+      Robot.wrist.wristOut();
+      inOutState = !inOutState;
+    } else if(OI.aux.getRawAxis(3) > .6 && inOutState){
+      Robot.wrist.wristIn();
+      inOutState = !inOutState;
     }
 
-    
-
+    if(OI.aux.getRawAxis(2) > .6 && !upDownState){
+      Robot.wrist.moveWristDown();
+    } else if(OI.aux.getRawAxis(2) > .6 && upDownState){
+      Robot.wrist.moveWristUp();
+    }
   }
 
   // Make this return true when this Command no longer needs to run execute()
@@ -49,13 +57,11 @@ public class IntakeCommand extends Command {
   // Called once after isFinished returns true
   @Override
   protected void end() {
-      Robot.intake.stop();
   }
 
   // Called when another command which requires one or more of the same
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
-      Robot.intake.stop();
   }
 }

@@ -13,13 +13,15 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.RobotMap;
 
 /**
- * Add your docs here.
+ * This is actually the Climbing system
+ * these kids don't know how to make good names that make sense
  */
 public class ThrustSubsystem extends Subsystem {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
 public TalonSRX jackMaster = new TalonSRX(RobotMap.ID_JACK);
 public TalonSRX rollerMaster = new TalonSRX(RobotMap.ID_ROLLER);
+
   public ThrustSubsystem() {
   }
     
