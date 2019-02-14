@@ -9,7 +9,6 @@ package frc.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
-
 import edu.wpi.first.wpilibj.AnalogPotentiometer;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.commands.mast.LiftCommand;
@@ -31,8 +30,8 @@ public class MastSubsystem extends Subsystem {
   public MastSubsystem(){
     mastSlave.set(ControlMode.Follower, mastMaster.getDeviceID());
     
-   
       }
+
     
     public void setMastSpeed(double speed){
       mastMaster.set(ControlMode.PercentOutput, speed * .6);
