@@ -22,11 +22,13 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.subsystems.BrakeSubsystem;
 import frc.subsystems.DriveSubsystem;
 import frc.subsystems.IntakeSubsystem;
 import frc.subsystems.MastSubsystem;
-import frc.subsystems.VacuumSubsystem;
 import frc.subsystems.ThrustSubsystem;
+import frc.subsystems.VacuumSubsystem;
+
 /**
  * The VM is configured to automatically run this class, and to call the
  * functions corresponding to each mode, as described in the TimedRobot
@@ -45,6 +47,7 @@ public class Robot extends TimedRobot {
   public static VacuumSubsystem vacuum = new VacuumSubsystem();
   public static IntakeSubsystem intake = new IntakeSubsystem();
   public static ThrustSubsystem thrust = new ThrustSubsystem();
+  public static BrakeSubsystem brake = new BrakeSubsystem();
   
   public PowerDistributionPanel pdp = new PowerDistributionPanel(0);
 

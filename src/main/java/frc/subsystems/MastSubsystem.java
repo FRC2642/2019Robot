@@ -6,13 +6,13 @@
 /*----------------------------------------------------------------------------*/
 
 package frc.subsystems;
-
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
-import edu.wpi.first.wpilibj.AnalogPotentiometer;
 
+import edu.wpi.first.wpilibj.AnalogPotentiometer;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.commands.mast.LiftCommand;
+import frc.robot.Robot;
 import frc.robot.RobotMap;
 
 
@@ -81,7 +81,15 @@ public class MastSubsystem extends Subsystem {
     if(liftPot.get() > pulses) {
     moveLift(-0.8);
     }
-  }
+    else if(liftPot.get() < pulses) { 
+    moveLift(0.8);      
+    } else {
+      Robot.brake.brakeOn();
+    }
+    }
+      
+    
+  
   //Moves the mast to the three loading levels for the cargo on the rocket.
   public void moveMastToCargoBottomPosition() {
     moveToSetPosition(27.5);
