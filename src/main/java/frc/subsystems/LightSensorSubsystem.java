@@ -16,7 +16,7 @@ import edu.wpi.first.wpilibj.DigitalInput;
 public class LightSensorSubsystem extends Subsystem {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
-DigitalInput lightSensor = new DigitalInput(RobotMap.lightSensor);
+DigitalInput lightSensor = new DigitalInput(RobotMap.lightSensorPort);
 //sensesLight and sensesDarkness are relative as there will not be pure light or darkness, rather varying levels of light.
 public void sensesLight() {
 
