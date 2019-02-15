@@ -30,8 +30,8 @@ public class MastSubsystem extends Subsystem {
   public MastSubsystem(){
     mastSlave.set(ControlMode.Follower, mastMaster.getDeviceID());
     
-      }
-
+    
+    }
     
     public void setMastSpeed(double speed){
       mastMaster.set(ControlMode.PercentOutput, speed * .6);
