@@ -17,6 +17,7 @@ git
 */
 package frc.robot;
 
+import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -54,6 +55,8 @@ public class Robot extends TimedRobot {
 
   
   public PowerDistributionPanel pdp = new PowerDistributionPanel(0);
+  public Compressor compressor = new Compressor(RobotMap.ID_PCM);
+  
 
   public static OI oi = new OI();
 
@@ -66,6 +69,7 @@ public class Robot extends TimedRobot {
     m_chooser.setDefaultOption("Default Auto", kDefaultAuto);
     m_chooser.addOption("My Auto", kCustomAuto);
     SmartDashboard.putData("Auto choices", m_chooser);
+    compressor.start();
   }
 
   /**
