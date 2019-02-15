@@ -5,18 +5,15 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.commands.intake;
+package frc.commands.lightSensor;
 
 import edu.wpi.first.wpilibj.command.Command;
-import frc.robot.Robot;
 
-public class IntakeCommand extends Command {
- 
+public class LightSensorCommand extends Command {
+  public LightSensorCommand() {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
-    public IntakeCommand() {
-      requires(Robot.intake);
-    }
+  }
 
   // Called just before this Command runs the first time
   @Override
@@ -26,18 +23,6 @@ public class IntakeCommand extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-   
-    //if aux left stick is away from driver, outtake. if stick is toward driver, intake
-    if(Robot.oi.aux.getRawAxis(1) > 0.6) {
-      Robot.intake.outtake();
-    } else if(Robot.oi.aux.getRawAxis(1) < -0.6) {
-      Robot.intake.intake();
-    } else {
-      Robot.intake.stop();
-    }
-
-    
-
   }
 
   // Make this return true when this Command no longer needs to run execute()
@@ -49,13 +34,12 @@ public class IntakeCommand extends Command {
   // Called once after isFinished returns true
   @Override
   protected void end() {
-      Robot.intake.stop();
   }
 
   // Called when another command which requires one or more of the same
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
-      Robot.intake.stop();
+  
   }
 }

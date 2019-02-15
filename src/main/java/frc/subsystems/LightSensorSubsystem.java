@@ -6,23 +6,24 @@
 /*----------------------------------------------------------------------------*/
 
 package frc.subsystems;
-
-import edu.wpi.first.wpilibj.Solenoid;
-import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.RobotMap;
+import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.DigitalInput;
 
 /**
  * Add your docs here.
  */
-public class BrakeSubsystem extends Subsystem {
-  public Solenoid brakeCylinder = new Solenoid(RobotMap.brakeCylinderPort);
+public class LightSensorSubsystem extends Subsystem {
+  // Put methods for controlling this subsystem
+  // here. Call these from Commands.
+DigitalInput lightSensor = new DigitalInput(RobotMap.lightSensor);
+//sensesLight and sensesDarkness are relative as there will not be pure light or darkness, rather varying levels of light.
+public void sensesLight() {
 
-  public void brakeOn(){
-    brakeCylinder.set(true);
-  }
+}
 
-public void brakeOff(){
-  brakeCylinder.set(false);
+public void sensesDarkness() {
+  
 }
 
   @Override
