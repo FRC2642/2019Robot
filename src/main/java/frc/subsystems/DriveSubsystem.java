@@ -49,7 +49,8 @@ public DriveSubsystem(){
   rightFrontMaster.configPeakCurrentLimit(RobotMap.PEAK_CURRENT, 10);
   rightFrontMaster.configPeakCurrentDuration(RobotMap.PEAK_CURRENT_DURATION, 10);
 
-  
+ // rightFrontMaster.setInverted(true);
+ // leftFrontMaster.setInverted(true);
 
 }
 
