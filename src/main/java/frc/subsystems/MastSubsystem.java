@@ -9,8 +9,11 @@ package frc.subsystems;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
+
 import edu.wpi.first.wpilibj.AnalogPotentiometer;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.Counter;
 import frc.commands.mast.LiftCommand;
 import frc.robot.Robot;
 import frc.robot.RobotMap;
@@ -26,6 +29,8 @@ public class MastSubsystem extends Subsystem {
   public TalonSRX mastSlave = new TalonSRX(RobotMap.ID_MAST_SLAVE);
 
   public AnalogPotentiometer liftPot = new AnalogPotentiometer(RobotMap.liftPotPort); 
+  public DigitalInput upperLimitSwitch = new DigitalInput(RobotMap.upperLimitSwitch);
+  public Counter counter = new Counter(upperLimitSwitch);
 
 
   public MastSubsystem(){
@@ -121,9 +126,19 @@ public class MastSubsystem extends Subsystem {
   public void moveMastToShipCargo() {
     moveToSetPosition(39.75);
   }
+  /*Limit Switch stuff
+  public boolean isUpperSwitchSet()  {
+    return counter.get() > 0;
+  }
+  
+  public void initializeCounter() {
+    counter.reset();
+  }
 
-
-
+  public boolean lowerSwitchSet() {
+    return counter.get() > 0;
+  }
+*/
   }
 
 
