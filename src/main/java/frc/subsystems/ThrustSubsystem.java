@@ -48,7 +48,6 @@ public VictorSPX rollerMaster = new VictorSPX(RobotMap.ID_ROLLER);
   }
 
   //Limit Switch stuff
-  public boolean isUpperSwitchSet()  {
     return counter.get() > 0;
   }
   
