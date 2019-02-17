@@ -21,6 +21,7 @@ public class PressCupsCommand extends Command {
   static boolean state = false;
   
   static boolean hasRun = false;
+  
 
   // Called just before this Command runs the first time
   @Override
