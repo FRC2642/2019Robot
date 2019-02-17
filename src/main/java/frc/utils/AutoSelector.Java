@@ -30,7 +30,7 @@ public class AutoSelector {
         }
     }
     
-    public boolean isLoadCargo() {
+    public boolean isLoadHatch() {
         if(OI.dial2.get()) {
             return true;
         } else {
@@ -109,28 +109,12 @@ public class AutoSelector {
     }
 
     public void selectAuto() {
-    //High left start L1
+    //Low left start L1
     //LEVEL 1!!
     //LEVEL 1!!
     //LEVEL 1!!
     //CARGO!!!!!!!!!!!!
-    if (ifLoadCargo && isAtHighLeft() && isRocketRocket()) {
-        autoCommand = new LStart_LRocket_LRocket();
-    }
-    
-    if (ifLoadCargo && isAtHighLeft() && isAtRocketShip()) {
-        autoCommand = new LStart_LRocket_LShip();
-    }
    
-    if (ifLoadCargo && isAtHighLeft() && isAtShipRocket()) {
-        autoCommand = new LStart_LShip_LRocket();
-    }
-    
-    if (ifLoadCargo && isAtHighLeft() && isAtShipShip()) {
-        autoCommand = new LStart_LShip_LShip();
-    }
-
-    //Low Left Start L1
     if (ifLoadCargo && isAtLowLeft() && isRocketRocket()) {
         autoCommand = new LStart_LRocket_LRocket();
     }
@@ -164,22 +148,7 @@ public class AutoSelector {
         autoCommand = new LStart_LShip_LShip();
     }
 
-    //High Right L1
-    if (ifLoadCargo && isAtHighRight() && isRocketRocket()) {
-        autoCommand = new LStart_LRocket_LRocket();
-    }
-
-    if (ifLoadCargo && isAtHighRight() && isAtRocketShip()) {
-        autoCommand = new LStart_LRocket_LShip();
-    }
-
-    if (ifLoadCargo && isAtHighRight() && isAtShipRocket()) {
-        autoCommand = new LStart_LShip_LRocket();
-    }
-
-    if (ifLoadCargo && isAtHighRight() && isAtShipShip()) {
-        autoCommand = new LStart_LShip_LShip();
-    }
+    
 
     //Low Right L1
     if (ifLoadCargo && isAtLowRight() && isRocketRocket()) {
@@ -218,22 +187,6 @@ public class AutoSelector {
         autoCommand = new LStart_LShip_LShip();
     }
 
-    //Low Left Start L2
-    if (ifLoadCargo && isAtLowLeft() && isRocketRocket()) {
-        autoCommand = new LStart_LRocket_LRocket();
-    }
-
-    if (ifLoadCargo && isAtLowLeft() && isAtRocketShip()) {
-        autoCommand = new LStart_LRocket_LShip();
-    }
-    
-    if (ifLoadCargo && isAtLowLeft() && isAtShipRocket()) {
-        autoCommand = new LStart_LShip_LRocket();
-    }
-
-    if (ifLoadCargo && isAtLowLeft() && isAtShipShip()) {
-        autoCommand = new LStart_LShip_LShip();
-    }
 
     //Center Start L2
     if (ifLoadCargo && isAtCenter() && isRocketRocket()) {
@@ -269,47 +222,12 @@ public class AutoSelector {
         autoCommand = new LStart_LShip_LShip();
     }
 
-    //Low Right L2
-    if (ifLoadCargo && isAtLowRight() && isRocketRocket()) {
-        autoCommand = new LStart_LRocket_LRocket();
-    }
 
-    if (ifLoadCargo && isAtLowRight() && isAtRocketShip()) {
-        autoCommand = new LStart_LRocket_LShip();
-    }
-
-    if (ifLoadCargo && isAtLowRight() && isAtShipRocket()) {
-        autoCommand = new LStart_LShip_LRocket();
-    }
-
-    if (ifLoadCargo && isAtLowRight() && isAtShipShip()) {
-        autoCommand = new LStart_LShip_LShip();
-    }
-
-
-
-
-
-    //High left start L1
+    //Low left start L1
     //LEVEL 1!!
     //LEVEL 1!!!!!!
     //HATCH!!!!!!!!
-    if (ifLoadHatch && isAtHighLeft() && isRocketRocket()) {
-        autoCommand = new LStart_LRocket_LRocket();
-    }
-    
-    if (ifLoadHatch && isAtHighLeft() && isAtRocketShip()) {
-        autoCommand = new LStart_LRocket_LShip();
-    }
    
-    if (ifLoadHatch && isAtHighLeft() && isAtShipRocket()) {
-        autoCommand = new LStart_LShip_LRocket();
-    }
-    
-    if (ifLoadHatch && isAtHighLeft() && isAtShipShip()) {
-        autoCommand = new LStart_LShip_LShip();
-    }
-
     //Low Left Start L1
     if (ifLoadHatch && isAtLowLeft() && isRocketRocket()) {
         autoCommand = new LStart_LRocket_LRocket();
@@ -344,24 +262,7 @@ public class AutoSelector {
         autoCommand = new LStart_LShip_LShip();
     }
 
-    //High Right L1
-    if (ifLoadHatch && isAtHighRight() && isRocketRocket()) {
-        autoCommand = new LStart_LRocket_LRocket();
-    }
-
-    if (ifLoadHatch && isAtHighRight() && isAtRocketShip()) {
-        autoCommand = new LStart_LRocket_LShip();
-    }
-
-    if (ifLoadHatch && isAtHighRight() && isAtShipRocket()) {
-        autoCommand = new LStart_LShip_LRocket();
-    }
-
-    if (ifLoadHatch && isAtHighRight() && isAtShipShip()) {
-        autoCommand = new LStart_LShip_LShip();
-    }
-
-    //Low Right L1
+     //Low Right L1
     if (ifLoadHatch && isAtLowRight() && isRocketRocket()) {
         autoCommand = new LStart_LRocket_LRocket();
     }
@@ -398,23 +299,7 @@ public class AutoSelector {
         autoCommand = new LStart_LShip_LShip();
     }
 
-    //Low Left Start L2
-    if (ifLoadHatch && isAtLowLeft() && isRocketRocket()) {
-        autoCommand = new LStart_LRocket_LRocket();
-    }
-
-    if (ifLoadHatch && isAtLowLeft() && isAtRocketShip()) {
-        autoCommand = new LStart_LRocket_LShip();
-    }
     
-    if (ifLoadHatch && isAtLowLeft() && isAtShipRocket()) {
-        autoCommand = new LStart_LShip_LRocket();
-    }
-
-    if (ifLoadHatch && isAtLowLeft() && isAtShipShip()) {
-        autoCommand = new LStart_LShip_LShip();
-    }
-
     //Center Start L2
     if (ifLoadHatch && isAtCenter() && isRocketRocket()) {
         autoCommand = new LStart_LRocket_LRocket();
@@ -449,22 +334,6 @@ public class AutoSelector {
         autoCommand = new LStart_LShip_LShip();
     }
 
-    //Low Right L2
-    if (ifLoadHatch && isAtLowRight() && isRocketRocket()) {
-        autoCommand = new LStart_LRocket_LRocket();
-    }
-
-    if (ifLoadHatch && isAtLowRight() && isAtRocketShip()) {
-        autoCommand = new LStart_LRocket_LShip();
-    }
-
-    if (ifLoadHatch && isAtLowRight() && isAtShipRocket()) {
-        autoCommand = new LStart_LShip_LRocket();
-    }
-
-    if (ifLoadHatch && isAtLowRight() && isAtShipShip()) {
-        autoCommand = new LStart_LShip_LShip();
-    }
 
 }
 }
