@@ -10,6 +10,7 @@ package frc.subsystems;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
+import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.commands.vacuum.SuccOffCommand;
 import frc.robot.RobotMap;
@@ -21,7 +22,7 @@ public class VacuumSubsystem extends Subsystem {
   // Put methods for controlling this subsystem
 // here. Call these from Commands.
 public VictorSPX vacuumMaster = new VictorSPX(RobotMap.ID_VACUUM);
-
+public Solenoid vacuumCylinder = new Solenoid(RobotMap.ID_PCM);
   public VacuumSubsystem() {
     
   }

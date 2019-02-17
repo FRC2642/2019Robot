@@ -15,7 +15,7 @@ import frc.robot.RobotMap;
  * Add your docs here.
  */
 public class BrakeSubsystem extends Subsystem {
-  public Solenoid brakeCylinder = new Solenoid(RobotMap.brakeCylinderPort);
+  public Solenoid brakeCylinder = new Solenoid(RobotMap.ID_PCM);
 
   public void brakeOn(){
     brakeCylinder.set(true);
