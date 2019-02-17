@@ -6,28 +6,31 @@
 /*----------------------------------------------------------------------------*/
  /*
 put name and message below and push to git
-
 anisha sadhale hello ppl
 sean jung hi everyone
 Joseph Sowers Bonkey Dong Kongos
-ethan
-something
 
 
-
+git 
 
 
 */
 package frc.robot;
 
+import edu.wpi.first.wpilibj.Compressor;
+import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj.PowerDistributionPanel;
-
-import frc.subsystems.Drive;
-
+import frc.subsystems.BrakeSubsystem;
+import frc.subsystems.DriveSubsystem;
+import frc.subsystems.FangSubsystem;
+import frc.subsystems.IntakeSubsystem;
+import frc.subsystems.MastSubsystem;
+import frc.subsystems.ThrustSubsystem;
+import frc.subsystems.VacuumSubsystem;
+import frc.subsystems.WristSubsystem;
 /**
  * The VM is configured to automatically run this class, and to call the
  * functions corresponding to each mode, as described in the TimedRobot
@@ -41,10 +44,21 @@ public class Robot extends TimedRobot {
   private String m_autoSelected;
   private final SendableChooser<String> m_chooser = new SendableChooser<>();
 
-  public static OI oi = new OI();
+  public static DriveSubsystem drive = new DriveSubsystem();
+  public static MastSubsystem mast = new MastSubsystem();
+  public static VacuumSubsystem vacuum = new VacuumSubsystem();
+  public static IntakeSubsystem intake = new IntakeSubsystem();
+  public static ThrustSubsystem thrust = new ThrustSubsystem();
+  public static BrakeSubsystem brake = new BrakeSubsystem();
+  public static FangSubsystem fang = new FangSubsystem();
+  public static WristSubsystem wrist = new WristSubsystem();
+
   
-  public static Drive drive = new Drive();
   public PowerDistributionPanel pdp = new PowerDistributionPanel(0);
+  public Compressor compressor = new Compressor(RobotMap.ID_PCM);
+  
+
+  public static OI oi = new OI();
 
   /**
    * This function is run when the robot is first started up and should be
@@ -55,6 +69,7 @@ public class Robot extends TimedRobot {
     m_chooser.setDefaultOption("Default Auto", kDefaultAuto);
     m_chooser.addOption("My Auto", kCustomAuto);
     SmartDashboard.putData("Auto choices", m_chooser);
+    compressor.start();
   }
 
   /**
@@ -72,6 +87,7 @@ public class Robot extends TimedRobot {
   @Override
   public void robotPeriodic() {
     Scheduler.getInstance().run();
+    
   }
 
   /**
@@ -114,7 +130,11 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
     Scheduler.getInstance().run();
-    System.out.println("we runnin bois");
+
+    SmartDashboard.putNumber("mastPot", mast.mastPot.get());
+    SmartDashboard.putNumber("wristPot", wrist.wristPot.get());
+    
+    //System.out.println("we runnin bois");
   }
 
   /**

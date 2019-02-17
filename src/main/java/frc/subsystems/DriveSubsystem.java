@@ -12,14 +12,14 @@ import com.ctre.phoenix.motorcontrol.DemandType;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
-import frc.commands.DriveCommand;
+import frc.commands.drive.DriveCommand;
 import frc.robot.RobotMap;
 
 
 /**
  * Add your docs here.
  */
-public class Drive extends Subsystem {
+public class DriveSubsystem extends Subsystem {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
 
@@ -28,11 +28,11 @@ public TalonSRX rightFrontMaster, rightRearSlave;
 
 public boolean isWorking = false;
 
-public Drive(){
-  leftFrontMaster = new TalonSRX(RobotMap.ID_LEFT_FRONT);
-  leftRearSlave = new TalonSRX(RobotMap.ID_LEFT_REAR);
-  rightFrontMaster = new TalonSRX(RobotMap.ID_RIGHT_FRONT);
-  rightRearSlave = new TalonSRX(RobotMap.ID_RIGHT_REAR);
+public DriveSubsystem(){
+  leftFrontMaster = new TalonSRX(RobotMap.ID_LEFT_FRONT_DRIVE);
+  leftRearSlave = new TalonSRX(RobotMap.ID_LEFT_REAR_DRIVE);
+  rightFrontMaster = new TalonSRX(RobotMap.ID_RIGHT_FRONT_DRIVE);
+  rightRearSlave = new TalonSRX(RobotMap.ID_RIGHT_REAR_DRIVE);
 
   //set master-slave motors
   leftRearSlave.set(ControlMode.Follower, leftFrontMaster.getDeviceID());
@@ -49,7 +49,8 @@ public Drive(){
   rightFrontMaster.configPeakCurrentLimit(RobotMap.PEAK_CURRENT, 10);
   rightFrontMaster.configPeakCurrentDuration(RobotMap.PEAK_CURRENT_DURATION, 10);
 
-  
+ // rightFrontMaster.setInverted(true);
+ // leftFrontMaster.setInverted(true);
 
 }
 

@@ -5,18 +5,23 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.commands;
+package frc.commands.intake;
 
 import edu.wpi.first.wpilibj.command.Command;
-import frc.robot.OI;
 import frc.robot.Robot;
 
-public class TurnCommand extends Command {
-  public TurnCommand() {
-    requires(Robot.drive);
+public class PressCupsCommand extends Command {
+  public PressCupsCommand() {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
+    requires(Robot.intake);
   }
+    //state of cups  
+  //false = up, true = down
+  static boolean state = false;
+  
+  static boolean hasRun = false;
+  
 
   // Called just before this Command runs the first time
   @Override
@@ -26,13 +31,25 @@ public class TurnCommand extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.drive.turn((OI.xbox.getRawAxis(0)) * 0.6);
+    if(!state){
+      Robot.intake.deactivateSucc();
+      state = !state;
+      hasRun = !hasRun;
+    } else {
+      Robot.intake.activateSucc();
+      state = !state;
+      hasRun = !hasRun;
+     }
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
+    if(hasRun){
+      return true;
+    } else {
     return false;
+    }
   }
 
   // Called once after isFinished returns true
@@ -44,6 +61,5 @@ public class TurnCommand extends Command {
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
-    Robot.drive.stop();
   }
 }
