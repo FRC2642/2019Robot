@@ -9,18 +9,24 @@ package frc.subsystems;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
+import edu.wpi.first.wpilibj.Counter;
+import edu.wpi.first.wpilibj.AnalogPotentiometer;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.RobotMap;
 
 /**
  * This is actually the Climbing system
- * these kids don't know how to make good names that make sense
+ * these kids (meaning joseph) don't know how to make good names that make sense
  */
 public class ThrustSubsystem extends Subsystem {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
 public VictorSPX jackMaster = new VictorSPX(RobotMap.ID_JACK);
 public VictorSPX rollerMaster = new VictorSPX(RobotMap.ID_ROLLER);
+
+  public DigitalInput lowerLimitSwitch = new DigitalInput(RobotMap.lowerLimitSwitch);
+  public Counter counter = new Counter(lowerLimitSwitch);
 
   public ThrustSubsystem() {
   }
@@ -39,6 +45,17 @@ public VictorSPX rollerMaster = new VictorSPX(RobotMap.ID_ROLLER);
   public void stop() {
     rollerMaster.set(ControlMode.PercentOutput, 0);
     jackMaster.set(ControlMode.PercentOutput, 0);
+  }
+
+  //Limit Switch stuff
+    return counter.get() > 0;
+  }
+  
+  public void initializeCounter() {
+    counter.reset();
+  }
+  public boolean lowerSwitchSet() {
+    return counter.get() > 0;
   }
 
 

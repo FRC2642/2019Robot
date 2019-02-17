@@ -24,7 +24,7 @@ public class IntakeSubsystem extends Subsystem {
   public VictorSPX intakeSlave = new VictorSPX(RobotMap.ID_INTAKE_SLAVE);
 
   public Solenoid cupsCylinder = new Solenoid(RobotMap.ID_PCM,RobotMap.cupsCylinderPort);
-
+  
   public IntakeSubsystem() {
     intakeSlave.set(ControlMode.Follower, intakeMaster.getDeviceID());
   }
