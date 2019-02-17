@@ -28,7 +28,7 @@ public class MastSubsystem extends Subsystem {
   public TalonSRX mastMaster = new TalonSRX(RobotMap.ID_MAST_MASTER);
   public TalonSRX mastSlave = new TalonSRX(RobotMap.ID_MAST_SLAVE);
 
-  public AnalogPotentiometer liftPot = new AnalogPotentiometer(RobotMap.liftPotPort); 
+  public AnalogPotentiometer mastPot = new AnalogPotentiometer(RobotMap.mastPotPort); 
   public DigitalInput upperLimitSwitch = new DigitalInput(RobotMap.upperLimitSwitch);
   public Counter counter = new Counter(upperLimitSwitch);
 
@@ -66,7 +66,7 @@ public class MastSubsystem extends Subsystem {
 
   
   protected double returnPIDInput() {
-    return liftPot.pidGet();
+    return mastPot.pidGet();
   }
 
   protected void usePIDOutput(double output) {
@@ -75,10 +75,10 @@ public class MastSubsystem extends Subsystem {
 
   //Raises or lowers lift
   public void moveLift(double speed) {
-    if ((speed > 0) && (liftPot.get() > RobotMap.minMastHeight)) {
+    if ((speed > 0) && (mastPot.get() > RobotMap.minMastHeight)) {
       mastMaster.set(ControlMode.PercentOutput, speed);
     }
-    else if ((speed < 0) && (liftPot.get() < RobotMap.maxMastHeight)) {
+    else if ((speed < 0) && (mastPot.get() < RobotMap.maxMastHeight)) {
       mastMaster.set(ControlMode.PercentOutput, speed);
     }
     else {
@@ -86,10 +86,10 @@ public class MastSubsystem extends Subsystem {
     }
   }
   public void moveToSetPosition(double pulses){
-    if(liftPot.get() > pulses) {
+    if(mastPot.get() > pulses) {
     moveLift(-0.8);
     }
-    else if(liftPot.get() < pulses) { 
+    else if(mastPot.get() < pulses) { 
     moveLift(0.8);      
     } else {
       Robot.brake.brakeOn();

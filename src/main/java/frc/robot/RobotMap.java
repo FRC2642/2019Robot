@@ -36,7 +36,7 @@ public class RobotMap {
     //port for light sensors
     public static int lightSensorPort = 0; 
     //mast pot port
-    public static int liftPotPort = 0;
+    public static int mastPotPort = 0;
     //wrist pot port
     public static int wristPotPort = 1;
 
