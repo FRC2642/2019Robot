@@ -33,6 +33,14 @@ public class RobotMap {
     //ID for PCM 
     public static final int ID_PCM = 17;
     
+    //ID for Camera
+    public static final int cameraBoiler = 19;
+    public static final int cameraGear = 20;
+
+    //Image resoulution constants
+	public static final int IMG_WIDTH = 320;
+    public static final int IMG_HEIGHT = 240;
+    
     //port for light sensors
     public static int lightSensorPort = 0; 
     //mast pot port

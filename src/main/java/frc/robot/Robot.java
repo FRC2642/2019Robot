@@ -4,7 +4,7 @@
 /* must be accompanied by the FIRST BSD license file in the root directory of */
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
- /*
+/*
 put name and message below and push to git
 anisha sadhale hello ppl
 sean jung hi everyone
@@ -17,6 +17,8 @@ git
 */
 package frc.robot;
 
+import edu.wpi.cscore.MjpegServer;
+import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.TimedRobot;
@@ -31,6 +33,7 @@ import frc.subsystems.MastSubsystem;
 import frc.subsystems.ThrustSubsystem;
 import frc.subsystems.VacuumSubsystem;
 import frc.subsystems.WristSubsystem;
+import edu.wpi.first.cameraserver.CameraServer;
 /**
  * The VM is configured to automatically run this class, and to call the
  * functions corresponding to each mode, as described in the TimedRobot
@@ -60,6 +63,10 @@ public class Robot extends TimedRobot {
 
   public static OI oi = new OI();
 
+  public static UsbCamera cameraBoiler;
+	public static UsbCamera cameraGear;
+	public static MjpegServer cameraFront;
+
   /**
    * This function is run when the robot is first started up and should be
    * used for any initialization code.
@@ -70,7 +77,51 @@ public class Robot extends TimedRobot {
     m_chooser.addOption("My Auto", kCustomAuto);
     SmartDashboard.putData("Auto choices", m_chooser);
     compressor.start();
+
+    //Camera instances
+		cameraBoiler = CameraServer.getInstance().startAutomaticCapture("Boiler", RobotMap.cameraBoiler);
+		cameraGear = CameraServer.getInstance().startAutomaticCapture("Gear", RobotMap.cameraGear);
+		cameraFront = new MjpegServer("Front", 0);
+			//Camera resolutions
+		cameraBoiler.setResolution(RobotMap.IMG_WIDTH, RobotMap.IMG_HEIGHT);
+		cameraGear.setResolution(RobotMap.IMG_WIDTH, RobotMap.IMG_HEIGHT);
+
+		//Camera FPS
+		cameraBoiler.setFPS(10);
+		cameraGear.setFPS(10);
+		
+//		cameraBoiler.setPixelFormat(VideoMode.PixelFormat.kMJPEG);
+//		cameraGear.setPixelFormat(VideoMode.PixelFormat.kMJPEG);
+		
+		
+		//Turns off vision by default
+		setCameraBoilerVision(false);
+    setCameraGearVision(true);
   }
+  
+	//Changes camera mode for the boiler camera
+	public static void setCameraBoilerVision(boolean enabled) {
+		if (enabled) {    //Vision Mode
+			cameraBoiler.setBrightness(0);
+			cameraBoiler.setExposureManual(0);
+		} else {        //Driving Mode
+			cameraBoiler.setBrightness(30);
+			cameraBoiler.setExposureManual(35);
+		}
+	}
+
+	//Changes camera mode for the gear camera
+	public static void setCameraGearVision(boolean enabled) {
+		if (enabled) {    //Vision Mode
+			cameraGear.setBrightness(30);
+			cameraGear.setExposureManual(0);
+		} else {        //Drive Mode
+			cameraGear.setBrightness(0);
+			cameraGear.setExposureManual(20);
+		}
+	}
+
+  
 
   /**
    * This function is called every robot packet, no matter the mode. Use
@@ -102,9 +153,11 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousInit() {
+    cameraGear.setFPS(10);
     m_autoSelected = m_chooser.getSelected();
     // m_autoSelected = SmartDashboard.getString("Auto Selector", kDefaultAuto);
     System.out.println("Auto selected: " + m_autoSelected);
+    setCameraGearVision(true);
   }
 
   /**
