@@ -7,7 +7,7 @@
 
 package frc.subsystems;
 import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.RobotMap;
@@ -19,8 +19,8 @@ import frc.robot.RobotMap;
 public class ThrustSubsystem extends Subsystem {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
-public TalonSRX jackMaster = new TalonSRX(RobotMap.ID_JACK);
-public TalonSRX rollerMaster = new TalonSRX(RobotMap.ID_ROLLER);
+public VictorSPX jackMaster = new VictorSPX(RobotMap.ID_JACK);
+public VictorSPX rollerMaster = new VictorSPX(RobotMap.ID_ROLLER);
 
   public ThrustSubsystem() {
   }

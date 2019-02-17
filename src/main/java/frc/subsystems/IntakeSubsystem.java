@@ -26,6 +26,7 @@ public class IntakeSubsystem extends Subsystem {
   public Solenoid cupsCylinder = new Solenoid(RobotMap.cupsCylinderPort);
 
   public IntakeSubsystem() {
+    intakeSlave.set(ControlMode.Follower, intakeMaster.getDeviceID());
   }
 
   public void intake() {
