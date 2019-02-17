@@ -31,7 +31,7 @@ public class FangsDeploy extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    if(state){
+  /*  if(state){
     Robot.fang.fangsIn();
     state = !state;
     hasRun = !hasRun;
@@ -39,7 +39,8 @@ public class FangsDeploy extends Command {
     Robot.fang.fangsOut();
     state = !state;
     hasRun = !hasRun;
-   }
+   }*/
+   Robot.fang.fangsOut();
 
   }
 
