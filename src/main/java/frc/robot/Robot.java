@@ -52,6 +52,7 @@ public class Robot extends TimedRobot {
   public static BrakeSubsystem brake = new BrakeSubsystem();
   public static FangSubsystem fang = new FangSubsystem();
   public static WristSubsystem wrist = new WristSubsystem();
+
   
   public PowerDistributionPanel pdp = new PowerDistributionPanel(0);
   public Compressor compressor = new Compressor(RobotMap.ID_PCM);

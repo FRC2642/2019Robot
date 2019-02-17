@@ -25,7 +25,7 @@ public class MoveMastToMiddleCommand extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.mast.moveMastToMiddlePosition();
+    Robot.mast.moveMastToCargoMiddlePosition();
   }
 
   // Make this return true when this Command no longer needs to run execute()
