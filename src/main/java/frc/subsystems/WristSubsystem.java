@@ -29,7 +29,10 @@ public class WristSubsystem extends Subsystem {
 
   public Solenoid wristCylinder = new Solenoid(RobotMap.ID_PCM, RobotMap.wristCylinderPort);
 
-  public void moveWrist(int position, double speed){
+  
+
+
+    public void moveWrist(int position, double speed){
     if(wristPot.get() > position){
     wristMotor.set(ControlMode.PercentOutput, speed);
     } else if(wristPot.get() < position){
