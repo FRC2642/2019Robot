@@ -34,8 +34,7 @@ public class RobotMap {
     public static final int ID_PCM = 17;
     
     //ID for Camera
-    public static final int cameraBoiler = 19;
-    public static final int cameraGear = 20;
+    public static final int sandstormCamera = 19;
 
     //Image resoulution constants
 	public static final int IMG_WIDTH = 320;
