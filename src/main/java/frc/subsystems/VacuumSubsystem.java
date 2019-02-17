@@ -22,18 +22,20 @@ public class VacuumSubsystem extends Subsystem {
   // Put methods for controlling this subsystem
 // here. Call these from Commands.
 public VictorSPX vacuumMaster = new VictorSPX(RobotMap.ID_VACUUM);
-public Solenoid vacuumCylinder = new Solenoid(RobotMap.ID_PCM);
+public Solenoid vacuumCylinder = new Solenoid(RobotMap.ID_PCM, RobotMap.vacuumCylinderPort);
   public VacuumSubsystem() {
     
   }
 
 public void succOn() {
   vacuumMaster.set(ControlMode.PercentOutput, 0.97);
+  vacuumCylinder.set(true);
 }
 
 public void succOff() {
   vacuumMaster.set(ControlMode.PercentOutput, 0);
-}
+  vacuumCylinder.set(false);
+} 
   @Override
   public void initDefaultCommand() {
     // Set the default command for a subsystem here.

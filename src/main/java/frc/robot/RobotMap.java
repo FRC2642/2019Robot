@@ -41,15 +41,15 @@ public class RobotMap {
     public static int wristPotPort = 1;
 
     //port for suction cup piston
-    public static int cupsCylinderPort = 0;
+    public static int cupsCylinderPort = 6;
     //ports for wrist piston
-    public static int wristCylinderPort1 = 1;
-    public static int wristCylinderPort2 = 2;
+    public static int wristCylinderPort = 7;
     //port for brake cylinder
-    public static int brakeCylinderPort = 3;
+    public static int brakeCylinderPort = 0;
     //ports for fang cylinder
-    public static int fangCylinderPort1 = 4;
-    public static int fangCylinderPort2 = 5;
+    public static int fangCylinderPort = 2;
+    //ports for vaccum cylinder
+    public static int vacuumCylinderPort = 1;
  
     //xbox controller ports
     public static int xboxControllerPort = 0;
