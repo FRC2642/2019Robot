@@ -27,7 +27,7 @@ public VictorSPX rollerMaster = new VictorSPX(RobotMap.ID_ROLLER);
 
 public AnalogPotentiometer mastPot = new AnalogPotentiometer(RobotMap.mastPotPort); 
   public DigitalInput lowerLimitSwitch = new DigitalInput(RobotMap.lowerLimitSwitch);
-  public Counter counter = new Counter(upperLimitSwitch);
+  public Counter counter = new Counter(lowerLimitSwitch);
 
   public ThrustSubsystem() {
   }
