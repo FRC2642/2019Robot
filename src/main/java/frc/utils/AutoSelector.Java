@@ -13,14 +13,7 @@ import frc.robot.OI;
  * Add your docs here.
  */
 public class AutoSelector {
-    boolean isLoadCargo = false;
-
-
-
-
     
-
-
     //all starting positions and what to do
     public boolean isLoadCargo() {
         if(OI.dial1.get()) {
