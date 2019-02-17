@@ -87,6 +87,7 @@ public class Robot extends TimedRobot {
   @Override
   public void robotPeriodic() {
     Scheduler.getInstance().run();
+    
   }
 
   /**
@@ -129,6 +130,9 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
     Scheduler.getInstance().run();
+
+    SmartDashboard.putNumber("mastPot", mast.mastPot.get());
+    SmartDashboard.putNumber("wristPot", wrist.wristPot.get());
     //System.out.println("we runnin bois");
   }
 
