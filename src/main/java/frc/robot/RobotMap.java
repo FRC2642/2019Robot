@@ -16,22 +16,23 @@ public class RobotMap {
     public static final int ID_RIGHT_REAR_DRIVE = 16;
     public static final int ID_LEFT_FRONT_DRIVE = 2;
     public static final int ID_LEFT_REAR_DRIVE = 3;
-     //ID for vacuum motor
-    public static final int ID_VACUUM = 4;
+    //ID for wrist motor
+    public static final int ID_WRIST = 4;
     //ID for intake motors
     public static final int ID_INTAKE_MASTER = 8;
     public static final int ID_INTAKE_SLAVE = 9;
     //ID for roller lifting motor 
     public static final int ID_ROLLER = 10;
+    //ID for vacuum motor
+    public static final int ID_VACUUM = 11;
     //ID for jack motor
     public static final int ID_JACK = 12;
-    //ID for wrist motor
-    public static final int ID_WRIST = 13;
     //IDs for mast motors 
     public static final int ID_MAST_SLAVE = 14;
     public static final int ID_MAST_MASTER = 15;
     //ID for PCM 
     public static final int ID_PCM = 17;
+    
     //port for light sensors
     public static int lightSensorPort = 0; 
     //mast pot port

@@ -26,8 +26,11 @@ public class DriveCommand extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    
-    Robot.drive.arcadeDrive((OI.xbox.getRawAxis(1)) * 0.6, OI.xbox.getRawAxis(0));
+    if(OI.xbox.getRawAxis(3) > .6){
+      Robot.drive.arcadeDrive(-OI.xbox.getRawAxis(1), -OI.xbox.getRawAxis(0));
+    } else {
+    Robot.drive.arcadeDrive((-OI.xbox.getRawAxis(1)) * 0.6, (-OI.xbox.getRawAxis(0)));
+    }
   }
 
   // Make this return true when this Command no longer needs to run execute()
