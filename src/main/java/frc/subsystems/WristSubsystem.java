@@ -11,7 +11,6 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
 import edu.wpi.first.wpilibj.AnalogPotentiometer;
-import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.commands.wrist.MoveWristCommand;
@@ -41,13 +40,16 @@ public class WristSubsystem extends Subsystem {
   }
 
   public void moveWristDown(){
-    moveWrist(RobotMap.wristDownPosition, .8);
+    wristMotor.set(ControlMode.PercentOutput, -.5);
   }
 
   public void moveWristUp(){
-    moveWrist(RobotMap.wristUpPosition, .8);
+    wristMotor.set(ControlMode.PercentOutput, .5);
   }
 
+  public void stopWrist(){
+    wristMotor.set(ControlMode.PercentOutput, 0);
+  }
   public void wristOut(){
     wristCylinder.set(true);
   }

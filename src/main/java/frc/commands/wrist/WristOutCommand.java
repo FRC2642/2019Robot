@@ -8,23 +8,14 @@
 package frc.commands.wrist;
 
 import edu.wpi.first.wpilibj.command.Command;
-import frc.robot.OI;
 import frc.robot.Robot;
 
-public class MoveWristCommand extends Command {
-  public MoveWristCommand() {
+public class WristOutCommand extends Command {
+  public WristOutCommand() {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
-    requires(Robot.wrist);
   }
-
-  //state of wrist piston
-  //false = in, true = out
-  static boolean inOutState = false;
-  //state of wrist motor
-  //false = up, true = down
-  static boolean upDownState = false;
-
+  Boolean hasRun = false;
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
@@ -33,32 +24,14 @@ public class MoveWristCommand extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    /*if(OI.aux.getRawAxis(3) > .6 && !inOutState){
-      Robot.wrist.wristOut();
-      inOutState = !inOutState;
-    } else if(OI.aux.getRawAxis(3) < .6 && inOutState){
-      Robot.wrist.wristIn();
-      inOutState = !inOutState;
-    }*/
-    if(OI.aux.getRawAxis(3) > .6){
-      Robot.wrist.moveWristUp();
-    }
-
-    if(OI.aux.getRawAxis(2) > .6 ){
-      Robot.wrist.moveWristDown();
-    } /*else if(OI.aux.getRawAxis(2) > .6 ){
-      Robot.wrist.moveWristUp();
-      */
-    if(OI.aux.getRawAxis(2) < .6 && OI.aux.getRawAxis(3) < .6){
-      Robot.wrist.stopWrist();
-    }
-
+    Robot.wrist.wristOut();
+    hasRun = true;
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return false;
+    return hasRun;
   }
 
   // Called once after isFinished returns true

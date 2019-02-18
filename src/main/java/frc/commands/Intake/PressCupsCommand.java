@@ -18,7 +18,7 @@ public class PressCupsCommand extends Command {
   }
     //state of cups  
   //false = up, true = down
-  static boolean state = false;
+  static boolean state = true;
   
   static boolean hasRun = false;
   
@@ -31,15 +31,18 @@ public class PressCupsCommand extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    if(!state){
+   /* if(!state){
       Robot.intake.deactivateSucc();
       state = !state;
       hasRun = !hasRun;
+
     } else {
       Robot.intake.activateSucc();
       state = !state;
-      hasRun = !hasRun;
-     }
+      hasRun = !hasRun; 
+     } */
+     Robot.intake.activateSucc();
+     hasRun = true;
   }
 
   // Make this return true when this Command no longer needs to run execute()

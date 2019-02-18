@@ -70,13 +70,13 @@ public class RobotMap {
     public static float mastChainLength = (float) 5.5;
 
     //mast height limits
-    public static int maxMastHeight = 8;
-    public static int minMastHeight = 7;
+    public static double maxMastHeight = .5;
+    public static double minMastHeight = .895;
     
     //DIO Ports for Limit Switches
     public static final int upperLimitSwitch = 2;
     public static final int lowerLimitSwitch = 4;
-
+    public static final int jackLowerLimitSwitch = 0;
 
     //wrist up and down positions
     public static int wristDownPosition = 0;
