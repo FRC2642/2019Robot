@@ -72,10 +72,10 @@ public class MastSubsystem extends Subsystem {
 
   //Raises or lowers lift
   public void moveLift(double speed) {
-    if ((-speed > 0) && (mastPot.get() < RobotMap.minMastHeight)) {
+    if ((-speed > 0) && (mastPot.get() > RobotMap.minMastHeight)) {
       mastMaster.set(ControlMode.PercentOutput, -speed);
     }
-    else if ((-speed < 0) && (mastPot.get() > RobotMap.maxMastHeight)) {
+    else if ((-speed < 0) && (mastPot.get() < RobotMap.maxMastHeight)) {
       mastMaster.set(ControlMode.PercentOutput, -speed);
     }
     else {

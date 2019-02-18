@@ -10,6 +10,7 @@ package frc.robot;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import frc.commands.brake.BrakeCommand;
 import frc.commands.fangs.FangsDeploy;
 import frc.commands.intake.PressCupsCommand;
 import frc.commands.intake.UnpressCupsCommand;
@@ -25,6 +26,7 @@ public class OI {
     public static XboxController aux = new XboxController(RobotMap.auxXboxControllerPort);
 
  Button xboxA = new JoystickButton(xbox, 1);
+ Button xboxB = new JoystickButton(xbox, 2);
  Button xboxX = new JoystickButton(xbox, 3);
  Button xboxY = new JoystickButton(xbox, 4);
  Button xboxLeftBumper = new JoystickButton(xbox, 5);
@@ -43,11 +45,13 @@ public class OI {
     xboxY.whenPressed(new SuccOffCommand());
     xboxA.whenPressed(new PressCupsCommand());
     xboxA.whenReleased(new UnpressCupsCommand());//Todd
+    xboxB.whenPressed(new BrakeCommand());
     xboxLeftBumper.whileHeld(new JackDownCommand());
     xboxLeftBumper.whenReleased(new JackOffCommand());//Todd
     xboxRightBumper.whileHeld(new JackUpCommand());
     xboxRightBumper.whenReleased(new JackOffCommand());//Todd
 
+    
 
     
     auxXboxRightBumper.whenPressed(new FangsDeploy());
