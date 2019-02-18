@@ -9,8 +9,7 @@ package frc.subsystems;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
-import edu.wpi.first.wpilibj.Counter;
-import edu.wpi.first.wpilibj.AnalogPotentiometer;
+
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.RobotMap;
@@ -24,39 +23,43 @@ public class ThrustSubsystem extends Subsystem {
   // here. Call these from Commands.
 public VictorSPX jackMaster = new VictorSPX(RobotMap.ID_JACK);
 public VictorSPX rollerMaster = new VictorSPX(RobotMap.ID_ROLLER);
+public DigitalInput jackLowerLimitSwitch = new DigitalInput(RobotMap.jackLowerLimitSwitch);
 
   public DigitalInput lowerLimitSwitch = new DigitalInput(RobotMap.lowerLimitSwitch);
   public Counter counter = new Counter(lowerLimitSwitch);
 
   public ThrustSubsystem() {
   }
-    
+  
+  
+
   public void jackUp() {
-      jackMaster.set(ControlMode.PercentOutput, 1);
+      jackMaster.set(ControlMode.PercentOutput, 0.5);
     }
     
     public void jackDown() {
-      jackMaster.set(ControlMode.PercentOutput, -1);
+      jackMaster.set(ControlMode.PercentOutput, -0.5);
     }
 
   public void rollerRolling() {
     rollerMaster.set(ControlMode.PercentOutput, 0.95);
   }
+
   public void stop() {
     rollerMaster.set(ControlMode.PercentOutput, 0);
     jackMaster.set(ControlMode.PercentOutput, 0);
   }
 
-  //Limit Switch stuff
-    return counter.get() > 0;
+
+  public boolean jackLowerLimit(){
+    return !jackLowerLimitSwitch.get();
   }
-  
-  public void initializeCounter() {
-    counter.reset();
-  }
-  public boolean lowerSwitchSet() {
-    return counter.get() > 0;
-  }
+
+
+  //Limit Switch
+  /*public boolean jackLowerLimitReached(){
+    return (jackLimit > 0 );
+  }*/
 
 
   public void initDefaultCommand() {

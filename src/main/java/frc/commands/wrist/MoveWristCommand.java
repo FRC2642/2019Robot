@@ -33,18 +33,25 @@ public class MoveWristCommand extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    if(OI.aux.getRawAxis(3) > .6 && !inOutState){
+    /*if(OI.aux.getRawAxis(3) > .6 && !inOutState){
       Robot.wrist.wristOut();
       inOutState = !inOutState;
-    } else if(OI.aux.getRawAxis(3) > .6 && inOutState){
+    } else if(OI.aux.getRawAxis(3) < .6 && inOutState){
       Robot.wrist.wristIn();
       inOutState = !inOutState;
+    }*/
+      
+    if(OI.aux.getRawAxis(2) > .6 ){
+      Robot.wrist.moveWristDown();
+    } /*else if(OI.aux.getRawAxis(2) > .6 ){
+      Robot.wrist.moveWristUp();
+      */
+    if(OI.aux.getRawAxis(3) > .6){
+      Robot.wrist.moveWristUp();
     }
 
-    if(OI.aux.getRawAxis(2) > .6 && !upDownState){
-      Robot.wrist.moveWristDown();
-    } else if(OI.aux.getRawAxis(2) > .6 && upDownState){
-      Robot.wrist.moveWristUp();
+    if(OI.aux.getRawAxis(2) < .6 && OI.aux.getRawAxis(3) < .6 ){
+      Robot.wrist.stopWrist();
     }
   }
 

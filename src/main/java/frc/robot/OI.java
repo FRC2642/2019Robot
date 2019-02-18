@@ -10,18 +10,23 @@ package frc.robot;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import frc.commands.brake.BrakeCommand;
 import frc.commands.fangs.FangsDeploy;
 import frc.commands.intake.PressCupsCommand;
+import frc.commands.intake.UnpressCupsCommand;
 import frc.commands.thrust.JackDownCommand;
+import frc.commands.thrust.JackOffCommand;
 import frc.commands.thrust.JackUpCommand;
 import frc.commands.vacuum.SuccOffCommand;
 import frc.commands.vacuum.SuccOnCommand;
+import frc.commands.wrist.WristOutCommand;
 
 public class OI {
     public static XboxController xbox = new XboxController(RobotMap.xboxControllerPort);
     public static XboxController aux = new XboxController(RobotMap.auxXboxControllerPort);
 
  Button xboxA = new JoystickButton(xbox, 1);
+ Button xboxB = new JoystickButton(xbox, 2);
  Button xboxX = new JoystickButton(xbox, 3);
  Button xboxY = new JoystickButton(xbox, 4);
  Button xboxLeftBumper = new JoystickButton(xbox, 5);
@@ -33,16 +38,25 @@ public class OI {
  Button auxXboxB = new JoystickButton(aux, 2);
  Button auxXboxY = new JoystickButton(aux, 4);
  Button auxXboxRightBumper = new JoystickButton(aux, 6);
+ Button AuxXboxLeftBumper = new JoystickButton(aux, 5);
 
  public OI() {
     xboxX.whenPressed(new SuccOnCommand());
     xboxY.whenPressed(new SuccOffCommand());
     xboxA.whenPressed(new PressCupsCommand());
-    xboxLeftBumper.whenPressed(new JackDownCommand());
-    xboxRightBumper.whenPressed(new JackUpCommand());
+    xboxA.whenReleased(new UnpressCupsCommand());//Todd
+    xboxB.whenPressed(new BrakeCommand());
+    xboxLeftBumper.whileHeld(new JackDownCommand());
+    xboxLeftBumper.whenReleased(new JackOffCommand());//Todd
+    xboxRightBumper.whileHeld(new JackUpCommand());
+    xboxRightBumper.whenReleased(new JackOffCommand());//Todd
+
+    
 
     
     auxXboxRightBumper.whenPressed(new FangsDeploy());
+    AuxXboxLeftBumper.whenPressed(new WristOutCommand());
+    AuxXboxLeftBumper.whenReleased(new WristOutCommand());
     /*auxXboxA.whenPressed(new MoveMastToBottomCommand());
     auxXboxB.whenPressed(new MoveMastToMiddleCommand());
     auxXboxY.whenPressed(new MoveMastToTopCommand());

@@ -10,6 +10,7 @@ package frc.commands.mast;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.OI;
 import frc.robot.Robot;
+import frc.subsystems.BrakeSubsystem;
 
 public class LiftCommand extends Command {
   public LiftCommand() {
@@ -26,8 +27,16 @@ public class LiftCommand extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.mast.lift((OI.aux.getRawAxis(5)) * 0.6);
+    if(Robot.brake.brakeCylinder.get() && (OI.aux.getRawAxis(5) >0.3 || OI.aux.getRawAxis(5) < -.3)){
+      Robot.brake.brakeOff();
+    }
+    Robot.mast.moveLift((OI.aux.getRawAxis(5)) * 0.6);
+
+    if(OI.aux.getRawAxis(5) < 0.3 || OI.aux.getRawAxis(5) > -0.3 ){
+      Robot.brake.brakeOn();
+    }
   }
+  
 
   // Make this return true when this Command no longer needs to run execute()
   @Override

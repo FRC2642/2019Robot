@@ -40,13 +40,16 @@ public class WristSubsystem extends Subsystem {
   }
 
   public void moveWristDown(){
-    moveWrist(RobotMap.wristDownPosition, .8);
+    wristMotor.set(ControlMode.PercentOutput, -.5);
   }
 
   public void moveWristUp(){
-    moveWrist(RobotMap.wristUpPosition, .8);
+    wristMotor.set(ControlMode.PercentOutput, .5);
   }
 
+  public void stopWrist(){
+    wristMotor.set(ControlMode.PercentOutput, 0);
+  }
   public void wristOut(){
     wristCylinder.set(true);
   }
