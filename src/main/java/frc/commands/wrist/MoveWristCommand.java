@@ -7,6 +7,7 @@
 
 package frc.commands.wrist;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.OI;
 import frc.robot.Robot;
@@ -20,26 +21,40 @@ public class MoveWristCommand extends Command {
 
   //state of wrist piston
   //false = in, true = out
-  static boolean inOutState = false;
+  static boolean pistonState = false;
   //state of wrist motor
   //false = up, true = down
-  static boolean upDownState = false;
+  static boolean motorState = false;
+
+  Timer timer = new Timer();
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
+    timer.start();
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    /*if(OI.aux.getRawAxis(3) > .6 && !inOutState){
+    
+    //prevent timer for running forever when intake not running
+    if(timer.get() > 1.5){
+      timer.stop();
+    }
+
+    if(OI.aux.getRawAxis(3) > .6 && timer.get() > 1) {
+      if(!pistonState){
       Robot.wrist.wristOut();
-      inOutState = !inOutState;
-    } else if(OI.aux.getRawAxis(3) < .6 && inOutState){
+      pistonState = !pistonState; 
+      timer.reset();
+      }
+      if(pistonState){
       Robot.wrist.wristIn();
-      inOutState = !inOutState;
-    }*/
+      pistonState = !pistonState;
+      timer.reset();
+      }
+    }
       
     if(OI.aux.getRawAxis(2) > .6 ){
       Robot.wrist.moveWristDown();

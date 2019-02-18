@@ -42,19 +42,7 @@ public class MastSubsystem extends Subsystem {
   mastMaster.configPeakCurrentLimit(RobotMap.PEAK_CURRENT, 10);
   mastMaster.configPeakCurrentDuration(RobotMap.PEAK_CURRENT_DURATION, 10);
       }
-
-
-    
-    public void setMastSpeed(double speed){
-      mastMaster.set(ControlMode.PercentOutput, speed * .4);
-      }
-      
-    
-      public void stop(){
-        setMastSpeed(0);
-      }
-
-      
+       
   @Override
   public void initDefaultCommand() {
     // Set the default command for a subsystem here.
@@ -72,17 +60,20 @@ public class MastSubsystem extends Subsystem {
 
   //Raises or lowers lift
   public void moveLift(double speed) {
-    if ((-speed > 0) && (mastPot.get() > RobotMap.minMastHeight)) {
-      mastMaster.set(ControlMode.PercentOutput, -speed);
+
+    speed = -speed;
+    if ((speed > 0) && (mastPot.get() > RobotMap.minMastHeight)) {
+      mastMaster.set(ControlMode.PercentOutput, speed);
     }
-    else if ((-speed < 0) && (mastPot.get() < RobotMap.maxMastHeight)) {
-      mastMaster.set(ControlMode.PercentOutput, -speed);
+    else if ((speed < 0) && (mastPot.get() < RobotMap.maxMastHeight)) {
+      mastMaster.set(ControlMode.PercentOutput, speed);
     }
     else {
       stop();
     }
   
   }
+
   public void moveToSetPosition(double pulses){
     if(mastPot.get() > pulses) {
     moveLift(-0.8);
@@ -92,6 +83,10 @@ public class MastSubsystem extends Subsystem {
     } else {
       Robot.brake.brakeOn();
     }
+    }
+
+    public void stop(){
+      mastMaster.set(ControlMode.PercentOutput, 0);
     }
       
     

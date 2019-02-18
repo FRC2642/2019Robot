@@ -13,8 +13,6 @@ import frc.robot.Robot;
 
 public class IntakeCommand extends Command {
  
-    // Use requires() here to declare subsystem dependencies
-    // eg. requires(chassis);
     public IntakeCommand() {
       requires(Robot.intake);
     }
@@ -36,9 +34,6 @@ public class IntakeCommand extends Command {
     } else {
       Robot.intake.stop();
     }
-
-    
-
   }
 
   // Make this return true when this Command no longer needs to run execute()
