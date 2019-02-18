@@ -5,20 +5,17 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.commands.thrust;
+package frc.commands.intake;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
-public class JackDownCommand extends Command {
-  public JackDownCommand() {
+public class UnpressCupsCommand extends Command {
+  public UnpressCupsCommand() {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
-    requires(Robot.thrust);
   }
-
-  boolean hasRun = false;
-
+  Boolean hasRun = false;
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
@@ -27,13 +24,14 @@ public class JackDownCommand extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-      Robot.thrust.jackDown();
+    Robot.intake.deactivateSucc();
+    hasRun = true;
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return Robot.thrust.jackLowerLimit();
+    return hasRun;
   }
 
   // Called once after isFinished returns true

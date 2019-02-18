@@ -7,7 +7,7 @@
 
 package frc.subsystems;
 
-import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
+
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.RobotMap;
@@ -30,8 +30,7 @@ fangCylinder.set(true);
 public void fangsIn() {
   fangCylinder.set(false);
 }
-
-  @Override
+@Override
   public void initDefaultCommand() {
     // Set the default command for a subsystem here.
     // setDefaultCommand(new MySpecialCommand());

@@ -10,6 +10,7 @@ package frc.commands.mast;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.OI;
 import frc.robot.Robot;
+import frc.subsystems.BrakeSubsystem;
 
 public class LiftCommand extends Command {
   public LiftCommand() {
@@ -52,6 +53,7 @@ public class LiftCommand extends Command {
       Robot.mast.stop();
     }
   }
+  
 
   // Make this return true when this Command no longer needs to run execute()
   @Override

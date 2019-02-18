@@ -37,7 +37,7 @@ public class MoveWristCommand extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-
+    
     //prevent timer for running forever when intake not running
     if(timer.get() > 1.5){
       timer.stop();
@@ -55,13 +55,19 @@ public class MoveWristCommand extends Command {
       timer.reset();
       }
     }
-
-    /*
-    if(OI.aux.getRawAxis(2) > .6 && !motorState) {
+      
+    if(OI.aux.getRawAxis(2) > .6 ){
       Robot.wrist.moveWristDown();
-    } else if (OI.aux.getRawAxis(2) > .6 && motorState) {
+    } /*else if(OI.aux.getRawAxis(2) > .6 ){
       Robot.wrist.moveWristUp();
-    }*/
+      */
+    if(OI.aux.getRawAxis(3) > .6){
+      Robot.wrist.moveWristUp();
+    }
+
+    if(OI.aux.getRawAxis(2) < .6 && OI.aux.getRawAxis(3) < .6 ){
+      Robot.wrist.stopWrist();
+    }
   }
 
   // Make this return true when this Command no longer needs to run execute()
