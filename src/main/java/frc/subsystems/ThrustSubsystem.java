@@ -9,6 +9,7 @@ package frc.subsystems;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
+import edu.wpi.first.wpilibj.Counter;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.RobotMap;
@@ -23,7 +24,7 @@ public class ThrustSubsystem extends Subsystem {
 public VictorSPX jackMaster = new VictorSPX(RobotMap.ID_JACK);
 public VictorSPX rollerMaster = new VictorSPX(RobotMap.ID_ROLLER);
 public DigitalInput jackLowerLimitSwitch = new DigitalInput(RobotMap.jackLowerLimitSwitch);
-
+public Counter jackLimit = new Counter(jackLowerLimitSwitch);
 
   public ThrustSubsystem() {
   }
@@ -50,6 +51,11 @@ public DigitalInput jackLowerLimitSwitch = new DigitalInput(RobotMap.jackLowerLi
     jackMaster.set(ControlMode.PercentOutput, 0);
   }
 
+
+  //Limit Switch
+  /*public boolean jackLowerLimitReached(){
+    return (jackLimit > 0 );
+  }*/
 
   public void initDefaultCommand() {
     // Set the default command for a subsystem here.

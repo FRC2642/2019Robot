@@ -136,7 +136,8 @@ public class MastSubsystem extends Subsystem {
   public boolean lowerSwitchSet() {
     return counter.get() > 0;
   }
-*/
+  */
+
   }
 
 
