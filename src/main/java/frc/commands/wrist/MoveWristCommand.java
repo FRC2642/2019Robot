@@ -40,19 +40,19 @@ public class MoveWristCommand extends Command {
       Robot.wrist.wristIn();
       inOutState = !inOutState;
     }*/
-    if(OI.aux.getRawAxis(3) > .6){
-      Robot.wrist.moveWristUp();
-    }
-
+      
     if(OI.aux.getRawAxis(2) > .6 ){
       Robot.wrist.moveWristDown();
     } /*else if(OI.aux.getRawAxis(2) > .6 ){
       Robot.wrist.moveWristUp();
       */
-    if(OI.aux.getRawAxis(2) < .6 && OI.aux.getRawAxis(3) < .6){
-      Robot.wrist.stopWrist();
+    if(OI.aux.getRawAxis(3) > .6){
+      Robot.wrist.moveWristUp();
     }
 
+    if(OI.aux.getRawAxis(2) < .6 && OI.aux.getRawAxis(3) < .6 ){
+      Robot.wrist.stopWrist();
+    }
   }
 
   // Make this return true when this Command no longer needs to run execute()

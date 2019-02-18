@@ -24,7 +24,6 @@ public class ThrustSubsystem extends Subsystem {
 public VictorSPX jackMaster = new VictorSPX(RobotMap.ID_JACK);
 public VictorSPX rollerMaster = new VictorSPX(RobotMap.ID_ROLLER);
 public DigitalInput jackLowerLimitSwitch = new DigitalInput(RobotMap.jackLowerLimitSwitch);
-public Counter jackLimit = new Counter(jackLowerLimitSwitch);
 
   public ThrustSubsystem() {
   }
@@ -42,13 +41,14 @@ public Counter jackLimit = new Counter(jackLowerLimitSwitch);
   public void rollerRolling() {
     rollerMaster.set(ControlMode.PercentOutput, 0.95);
   }
+
   public void stop() {
     rollerMaster.set(ControlMode.PercentOutput, 0);
     jackMaster.set(ControlMode.PercentOutput, 0);
   }
 
-  public void jackOff(){
-    jackMaster.set(ControlMode.PercentOutput, 0);
+  public boolean jackLowerLimit(){
+    return !jackLowerLimitSwitch.get();
   }
 
 
