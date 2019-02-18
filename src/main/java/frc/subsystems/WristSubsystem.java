@@ -57,8 +57,6 @@ public class WristSubsystem extends Subsystem {
   public void wristIn(){
     wristCylinder.set(false);
   }
-
-  
   @Override
   public void initDefaultCommand() {
     // Set the default command for a subsystem here.

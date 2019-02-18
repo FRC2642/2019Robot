@@ -26,7 +26,7 @@ public class IntakeSubsystem extends Subsystem {
 
   public Solenoid cupsCylinder = new Solenoid(RobotMap.ID_PCM,RobotMap.cupsCylinderPort);
   public DigitalInput intakeSwitch = new DigitalInput(RobotMap.intakeLimitSwitch);
-
+  
   public IntakeSubsystem() {
     intakeSlave.set(ControlMode.Follower, intakeMaster.getDeviceID());
   }
