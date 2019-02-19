@@ -71,7 +71,7 @@ public class RobotMap {
 
     //mast height limits
     public static double maxMastHeight = 1.0;
-    public static double minMastHeight = -.1;
+    public static double minMastHeight = .101;
     
     //DIO Ports for Limit Switches
     public static final int upperLimitSwitch = 2;

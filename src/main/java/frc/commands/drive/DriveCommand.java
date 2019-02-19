@@ -28,15 +28,15 @@ public class DriveCommand extends Command {
   protected void execute() {
     //Fast Turn, fast straight 
     if(isLeftTriggerPulled()){
-      Robot.drive.arcadeDrive(OI.xbox.getY() * .96,(OI.xbox.getX() * .80));
+      Robot.drive.arcadeDrive(OI.xbox.getRawAxis(1) * .96,(OI.xbox.getRawAxis(0) * .80));
     }
     //slower turn, fast straight
     else if(isRightTriggerPulled()){
-      Robot.drive.arcadeDrive(OI.xbox.getY() * .96,(OI.xbox.getX() * .58));
+      Robot.drive.arcadeDrive(OI.xbox.getRawAxis(1) * .96,(OI.xbox.getRawAxis(0) * .58));
     }
     //normal drive
     else{
-      Robot.drive.arcadeDrive(OI.xbox.getY() * .8,(OI.xbox.getX() * .48));
+      Robot.drive.arcadeDrive(OI.xbox.getRawAxis(1) * .7,(OI.xbox.getRawAxis(0) * .48));
     }
 
   }
