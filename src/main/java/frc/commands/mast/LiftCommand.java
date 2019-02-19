@@ -10,13 +10,13 @@ package frc.commands.mast;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.OI;
 import frc.robot.Robot;
-import frc.subsystems.BrakeSubsystem;
 
 public class LiftCommand extends Command {
   public LiftCommand() {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
    requires(Robot.mast);
+   requires(Robot.brake);
   }
 
   //state of brake
@@ -26,18 +26,22 @@ public class LiftCommand extends Command {
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
+   state = Robot.brake.getBrakeCylinderState();
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    
+    /*
     //if joystick is pressed down, run this
-    if(OI.aux.getRawAxis(5) > -.25 && OI.aux.getRawAxis(5) < .25){
+    if(OI.aux.getRawAxis(5) < -.25 || OI.aux.getRawAxis(5) > .25){
       //if brake is engaged, disengage brake and switch state
       if(state){
         Robot.brake.brakeOff();
+
+        if(Robot.brake.getBrakeCylinderState()){
         state = !state;
+        }
       }
       //move mast using joystick input
       Robot.mast.moveLift((OI.aux.getRawAxis(5)) * 0.6);
@@ -48,10 +52,22 @@ public class LiftCommand extends Command {
       //if brake isn't engaged, engage brake and switch state
       if(!state){
         Robot.brake.brakeOn();
+
+        if(Robot.brake.getBrakeCylinderState()){
+          state = !state;
       }
+    }
       //don't move mast
       Robot.mast.stop();
-    }
+   }*/
+   Robot.mast.moveLift(OI.aux.getRawAxis(5) * .6);
+   if(state){
+     Robot.brake.brakeOff();
+   }
+   if(!state){
+     Robot.brake.brakeOn();
+   }
+
   }
   
 

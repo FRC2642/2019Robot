@@ -11,15 +11,14 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import frc.commands.brake.BrakeCommand;
+import frc.commands.brake.UnbrakeCommand;
 import frc.commands.fangs.FangsDeploy;
 import frc.commands.intake.PressCupsCommand;
-import frc.commands.intake.UnpressCupsCommand;
 import frc.commands.thrust.JackDownCommand;
 import frc.commands.thrust.JackOffCommand;
 import frc.commands.thrust.JackUpCommand;
 import frc.commands.vacuum.SuccOffCommand;
 import frc.commands.vacuum.SuccOnCommand;
-import frc.commands.wrist.WristOutCommand;
 
 public class OI {
     public static XboxController xbox = new XboxController(RobotMap.xboxControllerPort);
@@ -38,14 +37,12 @@ public class OI {
  Button auxXboxB = new JoystickButton(aux, 2);
  Button auxXboxY = new JoystickButton(aux, 4);
  Button auxXboxRightBumper = new JoystickButton(aux, 6);
- Button AuxXboxLeftBumper = new JoystickButton(aux, 5);
+ Button auxXboxLeftBumper = new JoystickButton(aux, 5);
 
  public OI() {
     xboxX.whenPressed(new SuccOnCommand());
     xboxY.whenPressed(new SuccOffCommand());
     xboxA.whenPressed(new PressCupsCommand());
-    xboxA.whenReleased(new UnpressCupsCommand());//Todd
-    xboxB.whenPressed(new BrakeCommand());
     xboxLeftBumper.whileHeld(new JackDownCommand());
     xboxLeftBumper.whenReleased(new JackOffCommand());//Todd
     xboxRightBumper.whileHeld(new JackUpCommand());
@@ -55,8 +52,8 @@ public class OI {
 
     
     auxXboxRightBumper.whenPressed(new FangsDeploy());
-    AuxXboxLeftBumper.whenPressed(new WristOutCommand());
-    AuxXboxLeftBumper.whenReleased(new WristOutCommand());
+    auxXboxB.whenPressed(new BrakeCommand());
+    auxXboxB.whenReleased(new UnbrakeCommand());
     /*auxXboxA.whenPressed(new MoveMastToBottomCommand());
     auxXboxB.whenPressed(new MoveMastToMiddleCommand());
     auxXboxY.whenPressed(new MoveMastToTopCommand());

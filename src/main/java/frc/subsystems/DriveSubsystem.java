@@ -48,7 +48,9 @@ public DriveSubsystem(){
   rightFrontMaster.configContinuousCurrentLimit(RobotMap.CONTINUOUS_CURRENT, 0);
   rightFrontMaster.configPeakCurrentLimit(RobotMap.PEAK_CURRENT, 10);
   rightFrontMaster.configPeakCurrentDuration(RobotMap.PEAK_CURRENT_DURATION, 10);
-
+  //set neutral deadband
+  rightFrontMaster.configNeutralDeadband(.1);
+  leftFrontMaster.configNeutralDeadband(.1);
  // rightFrontMaster.setInverted(true);
  // leftFrontMaster.setInverted(true);
 

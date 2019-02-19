@@ -18,55 +18,49 @@ public class MoveWristCommand extends Command {
     // eg. requires(chassis);
     requires(Robot.wrist);
   }
-
+/*
   //state of wrist piston
   //false = in, true = out
   static boolean pistonState = false;
-  //state of wrist motor
-  //false = up, true = down
-  static boolean motorState = false;
+  boolean hasRun;
 
   Timer timer = new Timer();
-
+*/
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    timer.start();
+  //  timer.start();
+   
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    
+    /*
     //prevent timer for running forever when intake not running
-    if(timer.get() > 1.5){
+    if(timer.get() > 1){
       timer.stop();
     }
 
-    if(OI.aux.getRawAxis(3) > .6 && timer.get() > 1) {
+    if(OI.aux.getRawAxis(3) > .6 && timer.get() > .5) {
       if(!pistonState){
       Robot.wrist.wristOut();
       pistonState = !pistonState; 
       timer.reset();
+      hasRun = true;
       }
       if(pistonState){
       Robot.wrist.wristIn();
       pistonState = !pistonState;
       timer.reset();
+      hasRun = true;
       }
-    }
+    }*/
       
-    if(OI.aux.getRawAxis(2) > .6 ){
-      Robot.wrist.moveWristDown();
-    } /*else if(OI.aux.getRawAxis(2) > .6 ){
-      Robot.wrist.moveWristUp();
-      */
-    if(OI.aux.getRawAxis(3) > .6){
-      Robot.wrist.moveWristUp();
-    }
-
-    if(OI.aux.getRawAxis(2) < .6 && OI.aux.getRawAxis(3) < .6 ){
-      Robot.wrist.stopWrist();
+    if(OI.aux.getRawAxis(1) > .25 || OI.aux.getRawAxis(1) < -.25){
+        Robot.wrist.moveWrist(OI.aux.getRawAxis(1) * .9);
+    } else {
+      Robot.wrist.stop();
     }
   }
 

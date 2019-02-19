@@ -29,7 +29,9 @@ public class RollerCommand extends Command {
   @Override
   protected void execute() {
     if(OI.xbox.getRawAxis(5) > .6 || OI.xbox.getRawAxis(5) < -.6){
-     Robot.thrust.rollerRolling();
+     Robot.thrust.rollerRolling(OI.xbox.getRawAxis(5));
+    } else {
+      Robot.thrust.stopRoller();
     }
   }
 
@@ -50,6 +52,6 @@ public class RollerCommand extends Command {
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
-Robot.thrust.stop();
+Robot.thrust.stopRoller();
   }
 }

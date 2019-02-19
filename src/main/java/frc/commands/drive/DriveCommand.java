@@ -26,11 +26,19 @@ public class DriveCommand extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    if(OI.xbox.getRawAxis(3) > .6){
-      Robot.drive.arcadeDrive(-OI.xbox.getRawAxis(1), -OI.xbox.getRawAxis(0));
-    } else {
-    Robot.drive.arcadeDrive((-OI.xbox.getRawAxis(1)) * 0.6, (-OI.xbox.getRawAxis(0)));
+    //Fast Turn, fast straight 
+    if(isLeftTriggerPulled()){
+      Robot.drive.arcadeDrive(OI.xbox.getRawAxis(1) * .96,(OI.xbox.getRawAxis(0) * .80));
     }
+    //slower turn, fast straight
+    else if(isRightTriggerPulled()){
+      Robot.drive.arcadeDrive(OI.xbox.getRawAxis(1) * .96,(OI.xbox.getRawAxis(0) * .58));
+    }
+    //normal drive
+    else{
+      Robot.drive.arcadeDrive(OI.xbox.getRawAxis(1) * .7,(OI.xbox.getRawAxis(0) * .48));
+    }
+
   }
 
   // Make this return true when this Command no longer needs to run execute()
@@ -57,4 +65,25 @@ public class DriveCommand extends Command {
   protected void interrupted() {
    
   }
+
+  public boolean isLeftTriggerPulled() {
+    if(OI.xbox.getRawAxis(2) > .5){
+      return true;
+    }
+    else{
+      return false;
+    }
+  
+  }
+
+  public boolean isRightTriggerPulled(){
+    if(OI.xbox.getRawAxis(3) > .5) {
+      return true;
+    }
+    else{
+      return false;
+    }
+  }
+
+
 }
