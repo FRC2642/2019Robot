@@ -12,6 +12,7 @@ import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import frc.commands.thrust.RollerCommand;
 import frc.robot.RobotMap;
 
 /**
@@ -41,12 +42,15 @@ public DigitalInput jackLowerLimitSwitch = new DigitalInput(RobotMap.jackLowerLi
       jackMaster.set(ControlMode.PercentOutput, -0.5);
     }
 
-  public void rollerRolling() {
-    rollerMaster.set(ControlMode.PercentOutput, 0.95);
+  public void rollerRolling(double speed) {
+    rollerMaster.set(ControlMode.PercentOutput, speed);
   }
 
-  public void stop() {
+  public void stopRoller(){
     rollerMaster.set(ControlMode.PercentOutput, 0);
+  }
+
+  public void stopJack() {
     jackMaster.set(ControlMode.PercentOutput, 0);
   }
 
@@ -64,6 +68,6 @@ public DigitalInput jackLowerLimitSwitch = new DigitalInput(RobotMap.jackLowerLi
 
   public void initDefaultCommand() {
     // Set the default command for a subsystem here.
-    // setDefaultCommand(new MySpecialCommand());
+    setDefaultCommand(new RollerCommand());
   }
 }

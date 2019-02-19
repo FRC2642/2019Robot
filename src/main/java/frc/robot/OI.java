@@ -19,8 +19,6 @@ import frc.commands.thrust.JackOffCommand;
 import frc.commands.thrust.JackUpCommand;
 import frc.commands.vacuum.SuccOffCommand;
 import frc.commands.vacuum.SuccOnCommand;
-import frc.commands.wrist.WristInCommand;
-import frc.commands.wrist.WristOutCommand;
 
 public class OI {
     public static XboxController xbox = new XboxController(RobotMap.xboxControllerPort);
@@ -54,8 +52,6 @@ public class OI {
 
     
     auxXboxRightBumper.whenPressed(new FangsDeploy());
-    auxXboxLeftBumper.whenPressed(new WristInCommand());
-    auxXboxLeftBumper.whenReleased(new WristOutCommand());
     auxXboxB.whenPressed(new BrakeCommand());
     auxXboxB.whenReleased(new UnbrakeCommand());
     /*auxXboxA.whenPressed(new MoveMastToBottomCommand());

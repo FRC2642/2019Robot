@@ -18,25 +18,25 @@ public class MoveWristCommand extends Command {
     // eg. requires(chassis);
     requires(Robot.wrist);
   }
-
+/*
   //state of wrist piston
   //false = in, true = out
   static boolean pistonState = false;
   boolean hasRun;
 
   Timer timer = new Timer();
-
+*/
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    timer.start();
-    hasRun = false;
+  //  timer.start();
+   
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    
+    /*
     //prevent timer for running forever when intake not running
     if(timer.get() > 1){
       timer.stop();
@@ -55,17 +55,19 @@ public class MoveWristCommand extends Command {
       timer.reset();
       hasRun = true;
       }
-    }
+    }*/
       
-    {
-   Robot.wrist.moveWrist(OI.aux.getRawAxis(1));
+    if(OI.aux.getRawAxis(1) > .25 || OI.aux.getRawAxis(1) < -.25){
+        Robot.wrist.moveWrist(OI.aux.getRawAxis(1) * .9);
+    } else {
+      Robot.wrist.stop();
     }
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return hasRun;
+    return false;
   }
 
   // Called once after isFinished returns true
