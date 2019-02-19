@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.commands.wrist.MoveWristCommand;
 import frc.robot.RobotMap;
+import frc.robot.Robot;
 
 /**
  * Add your docs here.
@@ -28,34 +29,38 @@ public class WristSubsystem extends Subsystem {
 
   public Solenoid wristCylinder = new Solenoid(RobotMap.ID_PCM, RobotMap.wristCylinderPort);
 
-  
-
-
+  /*
     public void moveWrist(int position, double speed){
     if(wristPot.get() > position){
     wristMotor.set(ControlMode.PercentOutput, speed);
     } else if(wristPot.get() < position){
       wristMotor.set(ControlMode.PercentOutput, -speed);
     }
+  }*/
+
+  public double getWristPot(){
+     return wristPot.get();
+  }
+  
+  public void moveWrist(double speed){
+    if(speed > 0 && Robot.wrist.getWristPot() < RobotMap.wristUpperLimit){
+       wristMotor.set(ControlMode.PercentOutput, speed);
+    } else if(speed < 0 && Robot.wrist.getWristPot() > RobotMap.wristLowerLimit){
+      wristMotor.set(ControlMode.PercentOutput, speed);
+    } else {
+      stop();
+    }
   }
 
-  public void moveWristDown(){
-    wristMotor.set(ControlMode.PercentOutput, -.5);
-  }
-
-  public void moveWristUp(){
-    wristMotor.set(ControlMode.PercentOutput, .5);
-  }
-
-  public void stopWrist(){
+  public void stop(){
     wristMotor.set(ControlMode.PercentOutput, 0);
   }
   public void wristOut(){
-    wristCylinder.set(true);
+    wristCylinder.set(false);
   }
 
   public void wristIn(){
-    wristCylinder.set(false);
+    wristCylinder.set(true);
   }
   @Override
   public void initDefaultCommand() {

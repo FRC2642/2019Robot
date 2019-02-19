@@ -18,11 +18,15 @@ public class BrakeSubsystem extends Subsystem {
   public Solenoid brakeCylinder = new Solenoid(RobotMap.ID_PCM,RobotMap.brakeCylinderPort);
 
   public void brakeOn(){
-    brakeCylinder.set(true);
+    brakeCylinder.set(false);
   }
 
 public void brakeOff(){
-  brakeCylinder.set(false);
+  brakeCylinder.set(true);
+}
+
+public boolean getBrakeCylinderState() {
+  return brakeCylinder.get();
 }
 
   @Override

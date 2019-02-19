@@ -5,17 +5,17 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.commands.intake;
+package frc.commands.brake;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
-public class UnpressCupsCommand extends Command {
-  public UnpressCupsCommand() {
+public class UnbrakeCommand extends Command {
+  public UnbrakeCommand() {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
   }
-  Boolean hasRun = false;
+
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
@@ -24,14 +24,13 @@ public class UnpressCupsCommand extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.intake.deactivateSucc();
-    hasRun = true;
+    Robot.brake.brakeOff();
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return hasRun;
+    return false;
   }
 
   // Called once after isFinished returns true

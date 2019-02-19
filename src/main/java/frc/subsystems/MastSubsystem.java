@@ -71,6 +71,7 @@ public class MastSubsystem extends Subsystem {
     else {
       stop();
     }
+   // mastMaster.set(ControlMode.PercentOutput, speed);
   
   }
 
