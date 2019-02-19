@@ -4,7 +4,7 @@
 /* must be accompanied by the FIRST BSD license file in the root directory of */
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
- /*
+/*
 put name and message below and push to git
 anisha sadhale hello ppl
 sean jung hi everyone
@@ -17,6 +17,8 @@ git
 */
 package frc.robot;
 
+import edu.wpi.cscore.MjpegServer;
+import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.TimedRobot;
@@ -31,6 +33,7 @@ import frc.subsystems.MastSubsystem;
 import frc.subsystems.ThrustSubsystem;
 import frc.subsystems.VacuumSubsystem;
 import frc.subsystems.WristSubsystem;
+import edu.wpi.first.cameraserver.CameraServer;
 /**
  * The VM is configured to automatically run this class, and to call the
  * functions corresponding to each mode, as described in the TimedRobot
@@ -60,6 +63,10 @@ public class Robot extends TimedRobot {
 
   public static OI oi = new OI();
 
+  
+	public static UsbCamera sandstormCamera;
+	public static MjpegServer cameraFront;
+
   /**
    * This function is run when the robot is first started up and should be
    * used for any initialization code.
@@ -71,7 +78,36 @@ public class Robot extends TimedRobot {
     m_chooser.addOption("My Auto", kCustomAuto);
     SmartDashboard.putData("Auto choices", m_chooser);
     compressor.start();
+
+    //Camera instances
+		sandstormCamera = CameraServer.getInstance().startAutomaticCapture("Gear", RobotMap.sandstormCamera);
+		cameraFront = new MjpegServer("Front", 0);
+			//Camera resolutions
+		sandstormCamera.setResolution(RobotMap.IMG_WIDTH, RobotMap.IMG_HEIGHT);
+
+		//Camera FPS
+		sandstormCamera.setFPS(10);
+	
+//	sandstormcamera.setPixelFormat(VideoMode.PixelFormat.kMJPEG);
+		
+		
+		//Turns off vision by default
+    setsandstormCameraVision(false);
   }
+
+
+	//Changes camera mode for the sandstorm camera
+	public static void setsandstormCameraVision(boolean enabled) {
+		if (enabled) {    //Vision Mode
+			sandstormCamera.setBrightness(30);
+			sandstormCamera.setExposureManual(0);
+		} else {        //Drive Mode
+			sandstormCamera.setBrightness(0);
+			sandstormCamera.setExposureManual(20);
+		}
+	}
+
+  
 
   /**
    * This function is called every robot packet, no matter the mode. Use
@@ -104,9 +140,11 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousInit() {
+    sandstormCamera.setFPS(10);
     m_autoSelected = m_chooser.getSelected();
     // m_autoSelected = SmartDashboard.getString("Auto Selector", kDefaultAuto);
     System.out.println("Auto selected: " + m_autoSelected);
+    setsandstormCameraVision(true);
   }
 
   /**
