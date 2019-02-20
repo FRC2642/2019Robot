@@ -9,6 +9,7 @@ package frc.subsystems;
 
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import frc.commands.mast.LiftCommand;
 import frc.robot.RobotMap;
 
 /**
@@ -32,7 +33,7 @@ public boolean getBrakeCylinderState() {
   @Override
   public void initDefaultCommand() {
     // Set the default command for a subsystem here.
-    // setDefaultCommand(new MySpecialCommand());
+    setDefaultCommand(new LiftCommand());
   }
 
 

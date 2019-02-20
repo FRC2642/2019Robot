@@ -13,10 +13,8 @@ import frc.robot.Robot;
 
 public class LiftCommand extends Command {
   public LiftCommand() {
-    // Use requires() here to declare subsystem dependencies
-    // eg. requires(chassis);
-   requires(Robot.mast);
    requires(Robot.brake);
+   requires(Robot.mast);
   }
 
   //state of brake
@@ -32,7 +30,7 @@ public class LiftCommand extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    /*
+    
     //if joystick is pressed down, run this
     if(OI.aux.getRawAxis(5) < -.25 || OI.aux.getRawAxis(5) > .25){
       //if brake is engaged, disengage brake and switch state
@@ -59,15 +57,7 @@ public class LiftCommand extends Command {
     }
       //don't move mast
       Robot.mast.stop();
-   }*/
-   Robot.mast.moveLift(OI.aux.getRawAxis(5) * .6);
-   if(state){
-     Robot.brake.brakeOff();
    }
-   if(!state){
-     Robot.brake.brakeOn();
-   }
-
   }
   
 

@@ -41,14 +41,9 @@ public class MastSubsystem extends Subsystem {
   mastMaster.configContinuousCurrentLimit(RobotMap.CONTINUOUS_CURRENT, 0);
   mastMaster.configPeakCurrentLimit(RobotMap.PEAK_CURRENT, 10);
   mastMaster.configPeakCurrentDuration(RobotMap.PEAK_CURRENT_DURATION, 10);
+  //set deadband
+  mastMaster.configNeutralDeadband(.1);
       }
-       
-  @Override
-  public void initDefaultCommand() {
-    // Set the default command for a subsystem here.
-    setDefaultCommand(new LiftCommand());
-  }
-
   
   protected double returnPIDInput() {
     return mastPot.pidGet();
@@ -60,19 +55,20 @@ public class MastSubsystem extends Subsystem {
 
   //Raises or lowers lift
   public void moveLift(double speed) {
-
-    speed = -speed;
-    if ((speed > 0) && (mastPot.get() > RobotMap.minMastHeight)) {
+    if(RobotMap.isMastLimitEnabled){
+      speed = -speed;
+      if ((speed > 0) && (mastPot.get() > RobotMap.minMastHeight)) {
+        mastMaster.set(ControlMode.PercentOutput, speed);
+      }
+      else if ((speed < 0) && (mastPot.get() < RobotMap.maxMastHeight)) {
+        mastMaster.set(ControlMode.PercentOutput, speed);
+      }
+      else {
+        stop();
+      }
+    } else {
       mastMaster.set(ControlMode.PercentOutput, speed);
-    }
-    else if ((speed < 0) && (mastPot.get() < RobotMap.maxMastHeight)) {
-      mastMaster.set(ControlMode.PercentOutput, speed);
-    }
-    else {
-      stop();
-    }
-   // mastMaster.set(ControlMode.PercentOutput, speed);
-  
+    } 
   }
 
   public void moveToSetPosition(double pulses){
@@ -89,8 +85,6 @@ public class MastSubsystem extends Subsystem {
     public void stop(){
       mastMaster.set(ControlMode.PercentOutput, 0);
     }
-      
-    
   
   //Moves the mast to the three loading levels for the cargo on the rocket.
   public void moveMastToCargoBottomPosition() {
@@ -133,6 +127,12 @@ public class MastSubsystem extends Subsystem {
     return counter.get() > 0;
   }
   */
+
+  @Override
+  public void initDefaultCommand() {
+    // Set the default command for a subsystem here.
+    setDefaultCommand(new LiftCommand());
+  }
 
   }
 
