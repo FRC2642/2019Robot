@@ -25,7 +25,7 @@ public class LiftCommand extends Command {
   @Override
   protected void execute() {
     
-    Robot.mast.moveLift(OI.aux.getRawAxis(5));
+    Robot.mast.moveLift(-OI.aux.getRawAxis(5) * .9);
   }
     
     

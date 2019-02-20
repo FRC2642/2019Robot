@@ -8,6 +8,7 @@
 package frc.commands.brake;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
 import edu.wpi.first.wpilibj.Timer;
 
@@ -18,8 +19,8 @@ public class BrakeCommand extends Command {
     requires(Robot.brake);
   }
 
-  Timer onTimer = new Timer();
-  Timer offTimer = new Timer();
+  public Timer onTimer = new Timer();
+  public Timer offTimer = new Timer();
 
   // Called just before this Command runs the first time
   @Override
@@ -31,14 +32,17 @@ public class BrakeCommand extends Command {
   protected void execute() {
     //check if mast is not moving
     if(!Robot.brake.isMastMoving()){
-      //if ^ met, start delay timer
-      onTimer.start();
-      //check if mast moves before delay is met 
+      //check if timer hasn't started yet
+      if(onTimer.get() == 0){
+         // if ^ met, start delay timer
+         onTimer.start();
+      }
+      //check if mast is moving before delay is reached
       if(Robot.brake.isMastMoving()){
         //if ^ met, reset delay timer
         onTimer.reset();
       }
-      //check if delay is met and if brake is not engaged
+      //check if delay is reached and if brake is not engaged
       if(onTimer.get() > .4 && !Robot.brake.getBrakeCylinderState()) {
         //if ^ met, engage brake
         Robot.brake.brakeOn();
@@ -46,8 +50,11 @@ public class BrakeCommand extends Command {
     }
     //separately check if mast is moving 
     if(Robot.brake.isMastMoving()){
-      //if ^ met, start delay timer
+      //check if timer hasn't started yet
+      if(offTimer.get() == 0){
+        //if ^ met, start delay timer 
       offTimer.start();
+      }
       //check if mast stops moving before delay is met 
       if(!Robot.brake.isMastMoving()){
         //if ^ met, reset delay timer
