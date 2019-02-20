@@ -10,8 +10,6 @@ package frc.robot;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
-import frc.commands.brake.BrakeCommand;
-import frc.commands.brake.UnbrakeCommand;
 import frc.commands.fangs.FangsDeploy;
 import frc.commands.intake.PressCupsCommand;
 import frc.commands.thrust.JackDownCommand;
@@ -52,9 +50,9 @@ public class OI {
     xboxSelect.whenPressed(new DisableLimitsCommand());
     
     auxXboxRightBumper.whenPressed(new FangsDeploy());
-    auxXboxB.whenPressed(new BrakeCommand());
+   /* auxXboxB.whenPressed(new BrakeCommand());
     auxXboxB.whenReleased(new UnbrakeCommand());
-    /*auxXboxA.whenPressed(new MoveMastToBottomCommand());
+    auxXboxA.whenPressed(new MoveMastToBottomCommand());
     auxXboxB.whenPressed(new MoveMastToMiddleCommand());
     auxXboxY.whenPressed(new MoveMastToTopCommand());
     */

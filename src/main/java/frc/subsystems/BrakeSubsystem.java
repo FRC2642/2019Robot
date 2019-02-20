@@ -9,7 +9,8 @@ package frc.subsystems;
 
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
-import frc.commands.mast.LiftCommand;
+import frc.commands.brake.BrakeCommand;
+import frc.robot.OI;
 import frc.robot.RobotMap;
 
 /**
@@ -22,18 +23,28 @@ public class BrakeSubsystem extends Subsystem {
     brakeCylinder.set(false);
   }
 
-public void brakeOff(){
-  brakeCylinder.set(true);
-}
+  public void brakeOff(){
+    brakeCylinder.set(true);
+  }
 
-public boolean getBrakeCylinderState() {
-  return brakeCylinder.get();
-}
+  public boolean getBrakeCylinderState() {
+    return brakeCylinder.get();
+  }
+
+  public boolean isMastMoving(){
+    if(OI.aux.getRawAxis(5) > .2 || OI.aux.getRawAxis(5) < -.2){
+      return true;
+    } else{
+      return false;
+    }
+  }
+
+
 
   @Override
   public void initDefaultCommand() {
     // Set the default command for a subsystem here.
-    setDefaultCommand(new LiftCommand());
+    setDefaultCommand(new BrakeCommand());
   }
 
 
