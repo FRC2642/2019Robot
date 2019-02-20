@@ -47,6 +47,8 @@ public class Robot extends TimedRobot {
   private String m_autoSelected;
   private final SendableChooser<String> m_chooser = new SendableChooser<>();
 
+  public PowerDistributionPanel pdp = new PowerDistributionPanel(0);
+
   public static DriveSubsystem drive = new DriveSubsystem();
   public static MastSubsystem mast = new MastSubsystem();
   public static VacuumSubsystem vacuum = new VacuumSubsystem();
@@ -55,9 +57,7 @@ public class Robot extends TimedRobot {
   public static BrakeSubsystem brake = new BrakeSubsystem();
   public static FangSubsystem fang = new FangSubsystem();
   public static WristSubsystem wrist = new WristSubsystem();
-
-  
-  public PowerDistributionPanel pdp = new PowerDistributionPanel(0);
+ 
   public Compressor compressor = new Compressor(RobotMap.ID_PCM);
   
 
