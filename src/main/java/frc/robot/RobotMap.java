@@ -93,5 +93,9 @@ public class RobotMap {
     //wrist upper and lower limits 
     public static double wristUpperLimit = 1.0;
     public static double wristLowerLimit = 0.0;
+
+    //panic button values
+    public static boolean isMastLimitEnabled = true;
+    public static boolean isWristLimitEnabled = true;
     }
 

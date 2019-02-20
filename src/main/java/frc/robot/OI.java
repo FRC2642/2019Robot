@@ -17,6 +17,7 @@ import frc.commands.intake.PressCupsCommand;
 import frc.commands.thrust.JackDownCommand;
 import frc.commands.thrust.JackOffCommand;
 import frc.commands.thrust.JackUpCommand;
+import frc.commands.util.DisableLimitsCommand;
 import frc.commands.vacuum.SuccOffCommand;
 import frc.commands.vacuum.SuccOnCommand;
 
@@ -31,6 +32,7 @@ public class OI {
  Button xboxLeftBumper = new JoystickButton(xbox, 5);
  Button xboxRightBumper = new JoystickButton(xbox, 6);
  Button xboxSelect = new JoystickButton(xbox, 7);
+ Button xboxStart = new JoystickButton(xbox, 8);
  //Button xboxLeftStick = new JoystickButton(xbox, 9);
 
  Button auxXboxA = new JoystickButton(aux, 1);
@@ -47,9 +49,7 @@ public class OI {
     xboxLeftBumper.whenReleased(new JackOffCommand());//Todd
     xboxRightBumper.whileHeld(new JackUpCommand());
     xboxRightBumper.whenReleased(new JackOffCommand());//Todd
-
-    
-
+    xboxSelect.whenPressed(new DisableLimitsCommand());
     
     auxXboxRightBumper.whenPressed(new FangsDeploy());
     auxXboxB.whenPressed(new BrakeCommand());
