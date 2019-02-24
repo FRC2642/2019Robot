@@ -41,23 +41,30 @@ public class RobotMap {
 	public static final int IMG_WIDTH = 320;
 	public static final int IMG_HEIGHT = 240;
     
+    //ID for Camera
+    public static final int sandstormCamera = 19;
+
+    //Image resoulution constants
+	public static final int IMG_WIDTH = 320;
+    public static final int IMG_HEIGHT = 240;
+    
     //port for light sensors
     public static int lightSensorPort = 0; 
     //mast pot port
-    public static int liftPotPort = 0;
+    public static int mastPotPort = 0;
     //wrist pot port
     public static int wristPotPort = 1;
 
     //port for suction cup piston
-    public static int cupsCylinderPort = 0;
+    public static int cupsCylinderPort = 6;
     //ports for wrist piston
-    public static int wristCylinderPort1 = 1;
-    public static int wristCylinderPort2 = 2;
+    public static int wristCylinderPort = 7;
     //port for brake cylinder
-    public static int brakeCylinderPort = 3;
+    public static int brakeCylinderPort = 0;
     //ports for fang cylinder
-    public static int fangCylinderPort1 = 4;
-    public static int fangCylinderPort2 = 5;
+    public static int fangCylinderPort = 2;
+    //ports for vaccum cylinder
+    public static int vacuumCylinderPort = 1;
  
     //xbox controller ports
     public static int xboxControllerPort = 0;
@@ -78,12 +85,25 @@ public class RobotMap {
     public static float mastChainLength = (float) 5.5;
 
     //mast height limits
-    public static int maxMastHeight = 8;
-    public static int minMastHeight = 7;
+    public static double maxMastHeight = .644;
+    public static double minMastHeight = .101;
+    
+    //DIO Ports for Limit Switches
+    public static final int upperLimitSwitch = 2;
+    public static final int lowerLimitSwitch = 4;
+    public static final int jackLowerLimitSwitch = 0;
+    public static final int intakeLimitSwitch = 6;
 
     //wrist up and down positions
-    public static int wristDownPosition = 0;
-    public static int wristUpPosition = 1;
+    public static double wristDownPosition = 0.0;
+    public static double wristUpPosition = 1.0;
 
+    //wrist upper and lower limits 
+    public static double wristUpperLimit = 1.0;
+    public static double wristLowerLimit = 0.0;
+
+    //panic button values
+    public static boolean isMastLimitEnabled = true;
+    public static boolean isWristLimitEnabled = true;
     }
 

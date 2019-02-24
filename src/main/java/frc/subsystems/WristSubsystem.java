@@ -11,11 +11,11 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
 import edu.wpi.first.wpilibj.AnalogPotentiometer;
-import edu.wpi.first.wpilibj.DoubleSolenoid;
-import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
+import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.commands.wrist.MoveWristCommand;
 import frc.robot.RobotMap;
+import frc.robot.Robot;
 
 /**
  * Add your docs here.
@@ -27,33 +27,42 @@ public class WristSubsystem extends Subsystem {
 
   public AnalogPotentiometer wristPot = new AnalogPotentiometer(RobotMap.wristPotPort);
 
-  public DoubleSolenoid wristCylinder = new DoubleSolenoid(RobotMap.wristCylinderPort1, RobotMap.wristCylinderPort2);
+  public Solenoid wristCylinder = new Solenoid(RobotMap.ID_PCM, RobotMap.wristCylinderPort);
 
-  public void moveWrist(int position, double speed){
+  
+  /*
+    public void moveWrist(int position, double speed){
     if(wristPot.get() > position){
     wristMotor.set(ControlMode.PercentOutput, speed);
     } else if(wristPot.get() < position){
       wristMotor.set(ControlMode.PercentOutput, -speed);
     }
+  }*/
+
+  public double getWristPot(){
+     return wristPot.get();
+  }
+  
+  public void moveWrist(double speed){
+    if(speed > 0 && Robot.wrist.getWristPot() < RobotMap.wristUpperLimit){
+       wristMotor.set(ControlMode.PercentOutput, speed);
+    } else if(speed < 0 && Robot.wrist.getWristPot() > RobotMap.wristLowerLimit){
+      wristMotor.set(ControlMode.PercentOutput, speed);
+    } else {
+      stop();
+    }
   }
 
-  public void moveWristDown(){
-    moveWrist(RobotMap.wristDownPosition, .8);
+  public void stop(){
+    wristMotor.set(ControlMode.PercentOutput, 0);
   }
-
-  public void moveWristUp(){
-    moveWrist(RobotMap.wristUpPosition, .8);
-  }
-
   public void wristOut(){
-    wristCylinder.set(Value.kForward);
+    wristCylinder.set(false);
   }
 
   public void wristIn(){
-    wristCylinder.set(Value.kReverse);
+    wristCylinder.set(true);
   }
-
-  
   @Override
   public void initDefaultCommand() {
     // Set the default command for a subsystem here.

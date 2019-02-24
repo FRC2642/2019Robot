@@ -7,9 +7,13 @@
 
 package frc.subsystems;
 import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.can.VictorSPX;
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+
+
 import edu.wpi.first.wpilibj.AnalogPotentiometer;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.Counter;
 import frc.commands.mast.LiftCommand;
 import frc.robot.Robot;
 import frc.robot.RobotMap;
@@ -21,40 +25,28 @@ import frc.robot.RobotMap;
 public class MastSubsystem extends Subsystem {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
-  public VictorSPX mastMaster = new VictorSPX(RobotMap.ID_MAST_MASTER);
-  public VictorSPX mastSlave = new VictorSPX(RobotMap.ID_MAST_SLAVE);
+  public TalonSRX mastMaster = new TalonSRX(RobotMap.ID_MAST_MASTER);
+  public TalonSRX mastSlave = new TalonSRX(RobotMap.ID_MAST_SLAVE);
 
-  public AnalogPotentiometer liftPot = new AnalogPotentiometer(RobotMap.liftPotPort); 
+  public AnalogPotentiometer mastPot = new AnalogPotentiometer(RobotMap.mastPotPort); 
+  public DigitalInput upperLimitSwitch = new DigitalInput(RobotMap.upperLimitSwitch);
+  public Counter counter = new Counter(upperLimitSwitch);
 
 
   public MastSubsystem(){
     mastSlave.set(ControlMode.Follower, mastMaster.getDeviceID());
-    
-      }
 
-    
-    public void setMastSpeed(double speed){
-      mastMaster.set(ControlMode.PercentOutput, speed * .6);
+  //set limit stuff
+  mastMaster.enableCurrentLimit(RobotMap.IS_CURRENT_LIMIT);
+  mastMaster.configContinuousCurrentLimit(RobotMap.CONTINUOUS_CURRENT, 0);
+  mastMaster.configPeakCurrentLimit(RobotMap.PEAK_CURRENT, 10);
+  mastMaster.configPeakCurrentDuration(RobotMap.PEAK_CURRENT_DURATION, 10);
+  //set deadband
+  mastMaster.configNeutralDeadband(.1);
       }
-      
-    
-      public void stop(){
-        setMastSpeed(0);
-      }
-    
-      public void lift(double lift){
-      }
-
-      
-  @Override
-  public void initDefaultCommand() {
-    // Set the default command for a subsystem here.
-    setDefaultCommand(new LiftCommand());
-  }
-
   
   protected double returnPIDInput() {
-    return liftPot.pidGet();
+    return mastPot.pidGet();
   }
 
   protected void usePIDOutput(double output) {
@@ -63,28 +55,36 @@ public class MastSubsystem extends Subsystem {
 
   //Raises or lowers lift
   public void moveLift(double speed) {
-    if ((speed > 0) && (liftPot.get() > RobotMap.minMastHeight)) {
+    if(RobotMap.isMastLimitEnabled){
+     // speed = -speed;
+      if ((speed > 0) && (mastPot.get() < RobotMap.maxMastHeight)) {
+        mastMaster.set(ControlMode.PercentOutput, speed);
+      }
+      else if ((speed < 0) && (mastPot.get() > RobotMap.minMastHeight)) {
+        mastMaster.set(ControlMode.PercentOutput, speed);
+      }
+      else {
+        stop();
+      }
+    } else {
       mastMaster.set(ControlMode.PercentOutput, speed);
-    }
-    else if ((speed < 0) && (liftPot.get() < RobotMap.maxMastHeight)) {
-      mastMaster.set(ControlMode.PercentOutput, speed);
-    }
-    else {
-      stop();
-    }
+    } 
   }
+
   public void moveToSetPosition(double pulses){
-    if(liftPot.get() > pulses) {
+    if(mastPot.get() > pulses) {
     moveLift(-0.8);
     }
-    else if(liftPot.get() < pulses) { 
+    else if(mastPot.get() < pulses) { 
     moveLift(0.8);      
     } else {
       Robot.brake.brakeOn();
     }
     }
-      
-    
+
+    public void stop(){
+      mastMaster.set(ControlMode.PercentOutput, 0);
+    }
   
   //Moves the mast to the three loading levels for the cargo on the rocket.
   public void moveMastToCargoBottomPosition() {
@@ -114,8 +114,25 @@ public class MastSubsystem extends Subsystem {
   public void moveMastToShipCargo() {
     moveToSetPosition(39.75);
   }
+  /*Limit Switch stuff
+  public boolean isUpperSwitchSet()  {
+    return counter.get() > 0;
+  }
+  
+  public void initializeCounter() {
+    counter.reset();
+  }
 
+  public boolean lowerSwitchSet() {
+    return counter.get() > 0;
+  }
+  */
 
+  @Override
+  public void initDefaultCommand() {
+    // Set the default command for a subsystem here.
+    setDefaultCommand(new LiftCommand());
+  }
 
   }
 

@@ -4,7 +4,7 @@
 /* must be accompanied by the FIRST BSD license file in the root directory of */
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
- /*
+/*
 put name and message below and push to git
 anisha sadhale hello ppl
 sean jung hi everyone
@@ -46,6 +46,8 @@ public class Robot extends TimedRobot {
   private String m_autoSelected;
   private final SendableChooser<String> m_chooser = new SendableChooser<>();
 
+  public PowerDistributionPanel pdp = new PowerDistributionPanel(0);
+
   public static DriveSubsystem drive = new DriveSubsystem();
   public static MastSubsystem mast = new MastSubsystem();
   public static VacuumSubsystem vacuum = new VacuumSubsystem();
@@ -54,9 +56,7 @@ public class Robot extends TimedRobot {
   public static BrakeSubsystem brake = new BrakeSubsystem();
   public static FangSubsystem fang = new FangSubsystem();
   public static WristSubsystem wrist = new WristSubsystem();
-
-  
-  public PowerDistributionPanel pdp = new PowerDistributionPanel(0);
+ 
   public Compressor compressor = new Compressor(RobotMap.ID_PCM);
   
 
@@ -71,7 +71,8 @@ public class Robot extends TimedRobot {
    * used for any initialization code.
    */
   @Override
-  public void robotInit() {
+  public void robotInit() 
+  {
     m_chooser.setDefaultOption("Default Auto", kDefaultAuto);
     m_chooser.addOption("My Auto", kCustomAuto);
     SmartDashboard.putData("Auto choices", m_chooser);
@@ -138,6 +139,7 @@ public class Robot extends TimedRobot {
   @Override
   public void robotPeriodic() {
     Scheduler.getInstance().run();
+    
   }
 
   /**
@@ -182,6 +184,9 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
     Scheduler.getInstance().run();
+
+    SmartDashboard.putNumber("mastPot", mast.mastPot.get());
+    SmartDashboard.putNumber("wristPot", wrist.wristPot.get());
     //System.out.println("we runnin bois");
   }
 

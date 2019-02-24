@@ -13,8 +13,6 @@ import frc.robot.Robot;
 
 public class IntakeCommand extends Command {
  
-    // Use requires() here to declare subsystem dependencies
-    // eg. requires(chassis);
     public IntakeCommand() {
       requires(Robot.intake);
     }
@@ -28,23 +26,20 @@ public class IntakeCommand extends Command {
   @Override
   protected void execute() {
    
-    //if aux left stick is away from driver, outtake. if stick is toward driver, intake
-    if(OI.aux.getRawAxis(1) > 0.6) {
-      Robot.intake.outtake();
-    } else if(OI.aux.getRawAxis(1) < -0.6) {
+    if(OI.aux.getRawAxis(2) > .6){
       Robot.intake.intake();
+    } else if(OI.aux.getRawAxis(3) > .6){
+      Robot.intake.outtake();
     } else {
       Robot.intake.stop();
     }
-
     
-
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return false;
+    return Robot.intake.limitSwitchState();
   }
 
   // Called once after isFinished returns true

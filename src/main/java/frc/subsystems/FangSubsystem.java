@@ -7,8 +7,8 @@
 
 package frc.subsystems;
 
-import edu.wpi.first.wpilibj.DoubleSolenoid;
-import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
+
+import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.RobotMap;
 
@@ -20,18 +20,17 @@ public class FangSubsystem extends Subsystem {
   // here. Call these from Commands.
 
   
-  public DoubleSolenoid fangCylinder = new DoubleSolenoid(RobotMap.fangCylinderPort1, RobotMap.fangCylinderPort2);
+  public Solenoid fangCylinder = new Solenoid(RobotMap.ID_PCM, RobotMap.fangCylinderPort);
 
 public void fangsOut() {
-fangCylinder.set(Value.kForward);
+fangCylinder.set(true);
 }
 
 
 public void fangsIn() {
-  fangCylinder.set(Value.kReverse);
+  fangCylinder.set(false);
 }
-
-  @Override
+@Override
   public void initDefaultCommand() {
     // Set the default command for a subsystem here.
     // setDefaultCommand(new MySpecialCommand());

@@ -7,6 +7,7 @@
 
 package frc.commands.wrist;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.OI;
 import frc.robot.Robot;
@@ -17,34 +18,49 @@ public class MoveWristCommand extends Command {
     // eg. requires(chassis);
     requires(Robot.wrist);
   }
-
+/*
   //state of wrist piston
   //false = in, true = out
-  static boolean inOutState = false;
-  //state of wrist motor
-  //false = up, true = down
-  static boolean upDownState = false;
+  static boolean pistonState = false;
+  boolean hasRun;
 
+  Timer timer = new Timer();
+*/
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
+  //  timer.start();
+   
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    if(OI.aux.getRawAxis(3) > .6 && !inOutState){
-      Robot.wrist.wristOut();
-      inOutState = !inOutState;
-    } else if(OI.aux.getRawAxis(3) > .6 && inOutState){
-      Robot.wrist.wristIn();
-      inOutState = !inOutState;
+    /*
+    //prevent timer for running forever when intake not running
+    if(timer.get() > 1){
+      timer.stop();
     }
 
-    if(OI.aux.getRawAxis(2) > .6 && !upDownState){
-      Robot.wrist.moveWristDown();
-    } else if(OI.aux.getRawAxis(2) > .6 && upDownState){
-      Robot.wrist.moveWristUp();
+    if(OI.aux.getRawAxis(3) > .6 && timer.get() > .5) {
+      if(!pistonState){
+      Robot.wrist.wristOut();
+      pistonState = !pistonState; 
+      timer.reset();
+      hasRun = true;
+      }
+      if(pistonState){
+      Robot.wrist.wristIn();
+      pistonState = !pistonState;
+      timer.reset();
+      hasRun = true;
+      }
+    }*/
+      
+    if(OI.aux.getRawAxis(1) > .25 || OI.aux.getRawAxis(1) < -.25){
+        Robot.wrist.moveWrist(OI.aux.getRawAxis(1) * .9);
+    } else {
+      Robot.wrist.stop();
     }
   }
 

@@ -10,6 +10,7 @@ package frc.subsystems;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.commands.intake.IntakeCommand;
@@ -23,9 +24,11 @@ public class IntakeSubsystem extends Subsystem {
   public VictorSPX intakeMaster = new VictorSPX(RobotMap.ID_INTAKE_MASTER);
   public VictorSPX intakeSlave = new VictorSPX(RobotMap.ID_INTAKE_SLAVE);
 
-  public Solenoid cupsCylinder = new Solenoid(RobotMap.cupsCylinderPort);
-
+  public Solenoid cupsCylinder = new Solenoid(RobotMap.ID_PCM,RobotMap.cupsCylinderPort);
+  public DigitalInput intakeSwitch = new DigitalInput(RobotMap.intakeLimitSwitch);
+  
   public IntakeSubsystem() {
+    intakeSlave.set(ControlMode.Follower, intakeMaster.getDeviceID());
   }
 
   public void intake() {
@@ -47,6 +50,10 @@ public class IntakeSubsystem extends Subsystem {
   public void deactivateSucc() {
     cupsCylinder.set(false);
   }
+  
+public boolean limitSwitchState(){
+  return !intakeSwitch.get();
+}
 
   @Override
   public void initDefaultCommand() {

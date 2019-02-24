@@ -9,25 +9,44 @@ package frc.subsystems;
 
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import frc.commands.brake.BrakeCommand;
+import frc.robot.OI;
 import frc.robot.RobotMap;
 
 /**
  * Add your docs here.
  */
 public class BrakeSubsystem extends Subsystem {
-  public Solenoid brakeCylinder = new Solenoid(RobotMap.brakeCylinderPort);
+  public Solenoid brakeCylinder = new Solenoid(RobotMap.ID_PCM,RobotMap.brakeCylinderPort);
 
   public void brakeOn(){
     brakeCylinder.set(true);
   }
 
-public void brakeOff(){
-  brakeCylinder.set(false);
-}
+  public void brakeOff(){
+    brakeCylinder.set(false);
+  }
+
+  public boolean getBrakeCylinderState() {
+    return brakeCylinder.get();
+  }
+
+  public boolean isMastMoving(){
+    if(OI.aux.getRawAxis(5) > .2 || OI.aux.getRawAxis(5) < -.2){
+      return true;
+    } else{
+      return false;
+    }
+  }
+
+
 
   @Override
   public void initDefaultCommand() {
     // Set the default command for a subsystem here.
-    // setDefaultCommand(new MySpecialCommand());
+    setDefaultCommand(new BrakeCommand());
   }
+
+
+
 }

@@ -9,6 +9,7 @@ package frc.commands.intake;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
+import edu.wpi.first.wpilibj.Timer;
 
 public class PressCupsCommand extends Command {
   public PressCupsCommand() {
@@ -19,36 +20,45 @@ public class PressCupsCommand extends Command {
     //state of cups  
   //false = up, true = down
   static boolean state = false;
-  
-  static boolean hasRun = false;
+  boolean hasRun;
+
+  Timer timer = new Timer();
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
+    timer.start();
+    hasRun = false;
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    if(!state){
+
+    if(timer.get() > 1){
+      timer.stop();
+    }
+
+    if(!state && timer.get() > .5){
       Robot.intake.deactivateSucc();
       state = !state;
-      hasRun = !hasRun;
-    } else {
+      timer.reset();
+      hasRun = true;
+
+    } 
+    if(state && timer.get() > .5){
       Robot.intake.activateSucc();
       state = !state;
-      hasRun = !hasRun;
-     }
+      timer.reset();
+      hasRun = true;
+     } 
+     
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    if(hasRun){
-      return true;
-    } else {
-    return false;
-    }
+    return hasRun;
   }
 
   // Called once after isFinished returns true

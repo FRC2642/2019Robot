@@ -9,6 +9,7 @@ package frc.commands.fangs;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
+import edu.wpi.first.wpilibj.Timer;
 
 public class FangsDeploy extends Command {
   public FangsDeploy() {
@@ -20,37 +21,47 @@ public class FangsDeploy extends Command {
   //state of fangs 
   //false = in, true = out
   static boolean state = false;
+  boolean hasRun;
 
-  static boolean hasRun = false;
+  Timer timer = new Timer();
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
+    timer.start();
+    hasRun = false;
 }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    if(state){
+
+    if(timer.get() > 1.5){
+      timer.stop();
+    }
+
+   if(state && timer.get() > 1){
     Robot.fang.fangsIn();
     state = !state;
-    hasRun = !hasRun;
-  } else {
+    timer.reset();
+    hasRun = true;
+   }
+
+  if(!state && timer.get() > 1){
     Robot.fang.fangsOut();
     state = !state;
-    hasRun = !hasRun;
+    timer.reset();
+    hasRun = true;
    }
+
+  // Robot.fang.fangsOut();
 
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-      if(hasRun){
-        return true;
-      }else{
-        return false;
-      }
+        return hasRun;
   }
 
   // Called once after isFinished returns true
