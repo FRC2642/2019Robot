@@ -81,9 +81,9 @@ public class RobotMap {
     public static double minMastHeight = .101;
     
     //DIO Ports for Limit Switches
-    public static final int upperLimitSwitch = 2;
-    public static final int lowerLimitSwitch = 4;
-    public static final int jackLowerLimitSwitch = 0;
+    public static final int mastUpperLimitSwitch = 2;
+    public static final int mastLowerLimitSwitch = 4;
+    public static final int jackLimitSwitch = 0;
     public static final int intakeLimitSwitch = 6;
 
     //wrist up and down positions
