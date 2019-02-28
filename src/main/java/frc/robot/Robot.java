@@ -19,6 +19,7 @@ package frc.robot;
 
 import edu.wpi.cscore.MjpegServer;
 import edu.wpi.cscore.UsbCamera;
+import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.TimedRobot;
@@ -29,11 +30,12 @@ import frc.subsystems.BrakeSubsystem;
 import frc.subsystems.DriveSubsystem;
 import frc.subsystems.FangSubsystem;
 import frc.subsystems.IntakeSubsystem;
+import frc.subsystems.LightSensorSubsystem;
 import frc.subsystems.MastSubsystem;
 import frc.subsystems.ThrustSubsystem;
 import frc.subsystems.VacuumSubsystem;
 import frc.subsystems.WristSubsystem;
-import edu.wpi.first.cameraserver.CameraServer;
+
 /**
  * The VM is configured to automatically run this class, and to call the
  * functions corresponding to each mode, as described in the TimedRobot
@@ -57,6 +59,7 @@ public class Robot extends TimedRobot {
   public static BrakeSubsystem brake = new BrakeSubsystem();
   public static FangSubsystem fang = new FangSubsystem();
   public static WristSubsystem wrist = new WristSubsystem();
+  public static LightSensorSubsystem lightSensor = new LightSensorSubsystem();
  
   public Compressor compressor = new Compressor(RobotMap.ID_PCM);
   
@@ -172,6 +175,7 @@ public class Robot extends TimedRobot {
 
     SmartDashboard.putNumber("mastPot", mast.mastPot.get());
     SmartDashboard.putNumber("wristPot", wrist.wristPot.get());
+    SmartDashboard.putBoolean("lightSensorOn", lightSensor.getLightSensor());
     //System.out.println("we runnin bois");
   }
 

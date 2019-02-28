@@ -41,11 +41,11 @@ public class RobotMap {
     public static final int IMG_HEIGHT = 240;
     
     //port for light sensors
-    public static int lightSensorPort = 0; 
+    public static int lightSensorPort = 1; 
     //mast pot port
-    public static int mastPotPort = 0;
+    public static int mastPotPort = 3;
     //wrist pot port
-    public static int wristPotPort = 1;
+    public static int wristPotPort = 5;
 
     //port for suction cup piston
     public static int cupsCylinderPort = 6;

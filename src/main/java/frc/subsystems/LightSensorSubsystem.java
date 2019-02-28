@@ -6,9 +6,11 @@
 /*----------------------------------------------------------------------------*/
 
 package frc.subsystems;
-import frc.robot.RobotMap;
-import edu.wpi.first.wpilibj.command.Subsystem;
+
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.DigitalOutput;
+import edu.wpi.first.wpilibj.command.Subsystem;
+import frc.robot.RobotMap;
 
 /**
  * Add your docs here.
@@ -18,12 +20,13 @@ public class LightSensorSubsystem extends Subsystem {
   // here. Call these from Commands.
 DigitalInput lightSensor = new DigitalInput(RobotMap.lightSensorPort);
 //sensesLight and sensesDarkness are relative as there will not be pure light or darkness, rather varying levels of light.
-public void sensesLight() {
 
-}
+  public LightSensorSubsystem(){
 
-public void sensesDarkness() {
-  
+  }
+
+public boolean getLightSensor(){
+  return lightSensor.get();
 }
 
   @Override
