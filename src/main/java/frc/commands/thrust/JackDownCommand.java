@@ -33,7 +33,7 @@ public class JackDownCommand extends Command {
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return Robot.thrust.jackLowerLimit();
+    return hasRun;
   }
 
   // Called once after isFinished returns true
@@ -45,5 +45,6 @@ public class JackDownCommand extends Command {
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
+    
   }
 }

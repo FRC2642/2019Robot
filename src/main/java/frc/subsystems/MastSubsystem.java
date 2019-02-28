@@ -29,9 +29,8 @@ public class MastSubsystem extends Subsystem {
   public TalonSRX mastSlave = new TalonSRX(RobotMap.ID_MAST_SLAVE);
 
   public AnalogPotentiometer mastPot = new AnalogPotentiometer(RobotMap.mastPotPort); 
-  public DigitalInput upperLimitSwitch = new DigitalInput(RobotMap.upperLimitSwitch);
-  public Counter counter = new Counter(upperLimitSwitch);
-
+  public DigitalInput mastUpperLimitSwitch = new DigitalInput(RobotMap.mastUpperLimitSwitch);
+  public DigitalInput mastLowerLimitSwitch = new DigitalInput(RobotMap.mastLowerLimitSwitch);
 
   public MastSubsystem(){
     mastSlave.set(ControlMode.Follower, mastMaster.getDeviceID());
@@ -57,17 +56,22 @@ public class MastSubsystem extends Subsystem {
   public void moveLift(double speed) {
     if(RobotMap.isMastLimitEnabled){
      // speed = -speed;
-      if ((speed > 0) && (mastPot.get() < RobotMap.maxMastHeight)) {
-        mastMaster.set(ControlMode.PercentOutput, speed);
-      }
-      else if ((speed < 0) && (mastPot.get() > RobotMap.minMastHeight)) {
-        mastMaster.set(ControlMode.PercentOutput, speed);
-      }
-      else {
+       if( (speed > 0) && (mastPot.get() >= RobotMap.maxMastHeight || getUpperLimitSwitch()) ){
         stop();
+      } else if( (speed < 0) && (mastPot.get() <= RobotMap.minMastHeight || getLowerLimitSwitch()) ){
+        stop();
+      } else {
+        mastMaster.set(ControlMode.PercentOutput, speed);
       }
     } else {
-      mastMaster.set(ControlMode.PercentOutput, speed);
+      if( (speed > 0) && getUpperLimitSwitch() ){
+        stop();
+      }
+      else if( (speed < 0) && getLowerLimitSwitch() ){
+        stop();
+      } else {
+        mastMaster.set(ControlMode.PercentOutput, speed);
+      }
     } 
   }
 
@@ -84,6 +88,14 @@ public class MastSubsystem extends Subsystem {
 
     public void stop(){
       mastMaster.set(ControlMode.PercentOutput, 0);
+    }
+
+    public boolean getUpperLimitSwitch(){
+      return mastUpperLimitSwitch.get();
+    }
+
+    public boolean getLowerLimitSwitch(){
+      return mastLowerLimitSwitch.get();
     }
   
   //Moves the mast to the three loading levels for the cargo on the rocket.
@@ -114,19 +126,6 @@ public class MastSubsystem extends Subsystem {
   public void moveMastToShipCargo() {
     moveToSetPosition(39.75);
   }
-  /*Limit Switch stuff
-  public boolean isUpperSwitchSet()  {
-    return counter.get() > 0;
-  }
-  
-  public void initializeCounter() {
-    counter.reset();
-  }
-
-  public boolean lowerSwitchSet() {
-    return counter.get() > 0;
-  }
-  */
 
   @Override
   public void initDefaultCommand() {

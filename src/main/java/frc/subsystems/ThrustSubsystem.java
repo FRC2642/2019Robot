@@ -24,22 +24,22 @@ public class ThrustSubsystem extends Subsystem {
   // here. Call these from Commands.
 public VictorSPX jackMaster = new VictorSPX(RobotMap.ID_JACK);
 public VictorSPX rollerMaster = new VictorSPX(RobotMap.ID_ROLLER);
-public DigitalInput jackLowerLimitSwitch = new DigitalInput(RobotMap.jackLowerLimitSwitch);
 
-  public DigitalInput lowerLimitSwitch = new DigitalInput(RobotMap.lowerLimitSwitch);
- // public Counter counter = new Counter(lowerLimitSwitch);
+public DigitalInput jackLimitSwitch = new DigitalInput(RobotMap.jackLimitSwitch);
 
   public ThrustSubsystem() {
   }
-  
-  
 
   public void jackUp() {
       jackMaster.set(ControlMode.PercentOutput, 0.5);
     }
     
     public void jackDown() {
+      if(getJackLimitSwitch()){
+        stopJack();
+      } else {
       jackMaster.set(ControlMode.PercentOutput, -0.5);
+      }
     }
 
   public void rollerRolling(double speed) {
@@ -55,16 +55,11 @@ public DigitalInput jackLowerLimitSwitch = new DigitalInput(RobotMap.jackLowerLi
   }
 
 
-  public boolean jackLowerLimit(){
-    return !jackLowerLimitSwitch.get();
+  public boolean getJackLimitSwitch(){
+    return jackLimitSwitch.get();
   }
 
 
-  //Limit Switch
-  /*public boolean jackLowerLimitReached(){
-    return (jackLimit > 0 );
-  }*/
-  
   public void initDefaultCommand() {
     // Set the default command for a subsystem here.
     setDefaultCommand(new RollerCommand());
