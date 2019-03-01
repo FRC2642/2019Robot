@@ -16,7 +16,6 @@ git
 
 */
 package frc.robot;
-
 import edu.wpi.cscore.MjpegServer;
 import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.cameraserver.CameraServer;
@@ -66,8 +65,8 @@ public class Robot extends TimedRobot {
 
   public static OI oi = new OI();
 
-  
-	public static UsbCamera sandstormCamera;
+  public static UsbCamera cameraBoiler;
+	public static UsbCamera cameraGear;
 	public static MjpegServer cameraFront;
 
   /**
@@ -83,30 +82,46 @@ public class Robot extends TimedRobot {
     compressor.start();
 
     //Camera instances
-		sandstormCamera = CameraServer.getInstance().startAutomaticCapture("Gear", RobotMap.sandstormCamera);
+		cameraBoiler = CameraServer.getInstance().startAutomaticCapture("Boiler", RobotMap.cameraBoiler);
+		cameraGear = CameraServer.getInstance().startAutomaticCapture("Gear", RobotMap.cameraGear);
 		cameraFront = new MjpegServer("Front", 0);
 			//Camera resolutions
-		sandstormCamera.setResolution(RobotMap.IMG_WIDTH, RobotMap.IMG_HEIGHT);
+		cameraBoiler.setResolution(RobotMap.IMG_WIDTH, RobotMap.IMG_HEIGHT);
+		cameraGear.setResolution(RobotMap.IMG_WIDTH, RobotMap.IMG_HEIGHT);
 
 		//Camera FPS
-		sandstormCamera.setFPS(10);
-	
-//	sandstormcamera.setPixelFormat(VideoMode.PixelFormat.kMJPEG);
+		cameraBoiler.setFPS(10);
+		cameraGear.setFPS(10);
+		
+//		cameraBoiler.setPixelFormat(VideoMode.PixelFormat.kMJPEG);
+//		cameraGear.setPixelFormat(VideoMode.PixelFormat.kMJPEG);
 		
 		
 		//Turns off vision by default
-    setsandstormCameraVision(false);
+		setCameraBoilerVision(false);
+		setCameraGearVision(true);
+
   }
 
-
-	//Changes camera mode for the sandstorm camera
-	public static void setsandstormCameraVision(boolean enabled) {
+	//Changes camera mode for the boiler camera
+	public static void setCameraBoilerVision(boolean enabled) {
 		if (enabled) {    //Vision Mode
-			sandstormCamera.setBrightness(30);
-			sandstormCamera.setExposureManual(0);
+			cameraBoiler.setBrightness(0);
+			cameraBoiler.setExposureManual(0);
+		} else {        //Driving Mode
+			cameraBoiler.setBrightness(30);
+			cameraBoiler.setExposureManual(35);
+		}
+	}
+
+	//Changes camera mode for the gear camera
+	public static void setCameraGearVision(boolean enabled) {
+		if (enabled) {    //Vision Mode
+			cameraGear.setBrightness(30);
+			cameraGear.setExposureManual(0);
 		} else {        //Drive Mode
-			sandstormCamera.setBrightness(0);
-			sandstormCamera.setExposureManual(20);
+			cameraGear.setBrightness(0);
+			cameraGear.setExposureManual(20);
 		}
 	}
 
@@ -143,11 +158,11 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousInit() {
-    sandstormCamera.setFPS(10);
+    cameraGear.setFPS(10);
     m_autoSelected = m_chooser.getSelected();
     // m_autoSelected = SmartDashboard.getString("Auto Selector", kDefaultAuto);
     System.out.println("Auto selected: " + m_autoSelected);
-    setsandstormCameraVision(true);
+    setCameraGearVision(true);
   }
 
   /**

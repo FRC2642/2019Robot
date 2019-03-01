@@ -32,13 +32,17 @@ public class RobotMap {
     public static final int ID_MAST_MASTER = 15;
     //ID for PCM 
     public static final int ID_PCM = 17;
+
+    //ID for USB camera
+    public static final int cameraBoiler = 18;
+    public static final int cameraGear = 19;
+    
+    //Image resoulution constants
+	public static final int IMG_WIDTH = 320;
+	public static final int IMG_HEIGHT = 240;
     
     //ID for Camera
     public static final int sandstormCamera = 19;
-
-    //Image resoulution constants
-	public static final int IMG_WIDTH = 320;
-    public static final int IMG_HEIGHT = 240;
     
     //port for light sensors
     public static int lightSensorPort = 1; 
@@ -46,7 +50,7 @@ public class RobotMap {
     public static int mastPotPort = 3;
     //wrist pot port
     public static int wristPotPort = 5;
-
+  
     //port for suction cup piston
     public static int cupsCylinderPort = 6;
     //ports for wrist piston
@@ -58,6 +62,9 @@ public class RobotMap {
     //ports for vaccum cylinder
     public static int vacuumCylinderPort = 1;
  
+    //PigeonIMU ID
+    public static int pigeonIMU =20;
+
     //xbox controller ports
     public static int xboxControllerPort = 0;
     public static int auxXboxControllerPort = 1;
@@ -81,9 +88,9 @@ public class RobotMap {
     public static double minMastHeight = .101;
     
     //DIO Ports for Limit Switches
-    public static final int upperLimitSwitch = 2;
-    public static final int lowerLimitSwitch = 4;
-    public static final int jackLowerLimitSwitch = 0;
+    public static final int mastUpperLimitSwitch = 2;
+    public static final int mastLowerLimitSwitch = 4;
+    public static final int jackLimitSwitch = 0;
     public static final int intakeLimitSwitch = 6;
 
     //wrist up and down positions
