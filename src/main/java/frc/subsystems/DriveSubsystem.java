@@ -10,12 +10,11 @@ package frc.subsystems;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.DemandType;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
-
+import com.ctre.phoenix.sensors.PigeonIMU;
+import com.ctre.phoenix.sensors.PigeonIMU.CalibrationMode;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.commands.drive.DriveCommand;
 import frc.robot.RobotMap;
-
-
 /**
  * Add your docs here.
  */
@@ -33,6 +32,10 @@ public DriveSubsystem(){
   leftRearSlave = new TalonSRX(RobotMap.ID_LEFT_REAR_DRIVE);
   rightFrontMaster = new TalonSRX(RobotMap.ID_RIGHT_FRONT_DRIVE);
   rightRearSlave = new TalonSRX(RobotMap.ID_RIGHT_REAR_DRIVE);
+  PigeonIMU _pigeon = new PigeonIMU(RobotMap.pigeonIMU);
+  //gyro calibration
+  _pigeon.enterCalibrationMode(CalibrationMode.BootTareGyroAccel);
+  _pigeon.enterCalibrationMode(CalibrationMode.Temperature);
 
   //set master-slave motors
   leftRearSlave.set(ControlMode.Follower, leftFrontMaster.getDeviceID());
@@ -56,7 +59,7 @@ public DriveSubsystem(){
 
 }
 
-public void setLeftSpeed(double speed){
+  public void setLeftSpeed(double speed) {
   leftFrontMaster.set(ControlMode.PercentOutput, speed);
 }
 

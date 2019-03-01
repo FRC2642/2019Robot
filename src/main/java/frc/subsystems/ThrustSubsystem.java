@@ -59,6 +59,7 @@ public DigitalInput jackLimitSwitch = new DigitalInput(RobotMap.jackLimitSwitch)
     return jackLimitSwitch.get();
   }
 
+
   public void initDefaultCommand() {
     // Set the default command for a subsystem here.
     setDefaultCommand(new RollerCommand());

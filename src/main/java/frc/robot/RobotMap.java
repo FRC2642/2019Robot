@@ -43,10 +43,6 @@ public class RobotMap {
     
     //ID for Camera
     public static final int sandstormCamera = 19;
-
-    //Image resoulution constants
-	public static final int IMG_WIDTH = 320;
-    public static final int IMG_HEIGHT = 240;
     
     //port for light sensors
     public static int lightSensorPort = 0; 
@@ -54,7 +50,6 @@ public class RobotMap {
     public static int mastPotPort = 0;
     //wrist pot port
     public static int wristPotPort = 1;
-
     //port for suction cup piston
     public static int cupsCylinderPort = 6;
     //ports for wrist piston
@@ -66,6 +61,9 @@ public class RobotMap {
     //ports for vaccum cylinder
     public static int vacuumCylinderPort = 1;
  
+    //PigeonIMU ID
+    public static int pigeonIMU =20;
+
     //xbox controller ports
     public static int xboxControllerPort = 0;
     public static int auxXboxControllerPort = 1;
