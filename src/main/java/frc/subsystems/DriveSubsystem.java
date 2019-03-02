@@ -32,10 +32,10 @@ public DriveSubsystem(){
   leftRearSlave = new TalonSRX(RobotMap.ID_LEFT_REAR_DRIVE);
   rightFrontMaster = new TalonSRX(RobotMap.ID_RIGHT_FRONT_DRIVE);
   rightRearSlave = new TalonSRX(RobotMap.ID_RIGHT_REAR_DRIVE);
-  PigeonIMU _pigeon = new PigeonIMU(RobotMap.pigeonIMU);
+  PigeonIMU pigeon = new PigeonIMU(RobotMap.ID_PIGEON);
   //gyro calibration
-  _pigeon.enterCalibrationMode(CalibrationMode.BootTareGyroAccel);
-  _pigeon.enterCalibrationMode(CalibrationMode.Temperature);
+  pigeon.enterCalibrationMode(CalibrationMode.BootTareGyroAccel);
+  pigeon.enterCalibrationMode(CalibrationMode.Temperature);
 
   //set master-slave motors
   leftRearSlave.set(ControlMode.Follower, leftFrontMaster.getDeviceID());
