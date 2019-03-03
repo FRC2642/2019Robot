@@ -12,13 +12,11 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import frc.commands.fangs.FangsDeploy;
-import frc.commands.intake.PressCupsCommand;
 import frc.commands.thrust.JackDownCommand;
 import frc.commands.thrust.JackOffCommand;
 import frc.commands.thrust.JackUpCommand;
 import frc.commands.util.DisableLimitsCommand;
-import frc.commands.vacuum.SuccOffCommand;
-import frc.commands.vacuum.SuccOnCommand;
+
 
 public class OI {
     public static XboxController xbox = new XboxController(RobotMap.xboxControllerPort);
@@ -57,13 +55,10 @@ public class OI {
 
 
  public OI() {
-    xboxX.whenPressed(new SuccOnCommand());
-    xboxY.whenPressed(new SuccOffCommand());
-    xboxA.whenPressed(new PressCupsCommand());
     xboxLeftBumper.whileHeld(new JackDownCommand());
-    xboxLeftBumper.whenReleased(new JackOffCommand());//Todd
+    xboxLeftBumper.whenReleased(new JackOffCommand()); //Todd
     xboxRightBumper.whileHeld(new JackUpCommand());
-    xboxRightBumper.whenReleased(new JackOffCommand());//Todd
+    xboxRightBumper.whenReleased(new JackOffCommand()); //Todd
     xboxSelect.whenPressed(new DisableLimitsCommand());
     
     auxXboxRightBumper.whenPressed(new FangsDeploy());

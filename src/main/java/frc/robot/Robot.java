@@ -32,8 +32,7 @@ import frc.subsystems.IntakeSubsystem;
 import frc.subsystems.LightSensorSubsystem;
 import frc.subsystems.MastSubsystem;
 import frc.subsystems.ThrustSubsystem;
-import frc.subsystems.VacuumSubsystem;
-import frc.subsystems.WristSubsystem;
+
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -52,12 +51,10 @@ public class Robot extends TimedRobot {
 
   public static DriveSubsystem drive = new DriveSubsystem();
   public static MastSubsystem mast = new MastSubsystem();
-  public static VacuumSubsystem vacuum = new VacuumSubsystem();
   public static IntakeSubsystem intake = new IntakeSubsystem();
   public static ThrustSubsystem thrust = new ThrustSubsystem();
   public static BrakeSubsystem brake = new BrakeSubsystem();
   public static FangSubsystem fang = new FangSubsystem();
-  public static WristSubsystem wrist = new WristSubsystem();
   public static LightSensorSubsystem lightSensor = new LightSensorSubsystem();
  
   public Compressor compressor = new Compressor(RobotMap.ID_PCM);
@@ -172,7 +169,6 @@ public class Robot extends TimedRobot {
     Scheduler.getInstance().run();
 
     SmartDashboard.putNumber("mastPot", mast.mastPot.get());
-    SmartDashboard.putNumber("wristPot", wrist.wristPot.get());
     SmartDashboard.putBoolean("lightSensorOn", lightSensor.getLightSensor());
     //System.out.println("we runnin bois");
   }
