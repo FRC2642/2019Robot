@@ -25,10 +25,19 @@ public class LiftCommand extends Command {
   @Override
   protected void execute() {
     
+      
+    if(OI.aux.getRawAxis(1) > 0.5) {
+      Robot.mast.mastPistonUp();
+    } else if (OI.aux.getRawAxis(1) < -0.5) {
+      Robot.mast.mastPistonDown();
+    } else {
+      Robot.mast.stop();
+    }
+  
     Robot.mast.moveLift(-OI.aux.getRawAxis(5) * .9);
   }
     
-    
+  
   
 
   // Make this return true when this Command no longer needs to run execute()

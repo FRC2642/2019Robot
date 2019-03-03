@@ -59,7 +59,8 @@ public class RobotMap {
     public static int fangCylinderPort = 2;
     //ports for vaccum cylinder
     public static int vacuumCylinderPort = 1;
- 
+    //ports for mast cylinder
+    public static int mastCylinderPort = 8;
     
 
     //xbox controller ports
