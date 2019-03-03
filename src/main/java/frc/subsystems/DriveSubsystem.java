@@ -12,6 +12,8 @@ import com.ctre.phoenix.motorcontrol.DemandType;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.sensors.PigeonIMU;
 import com.ctre.phoenix.sensors.PigeonIMU.CalibrationMode;
+
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.commands.drive.DriveCommand;
 import frc.robot.RobotMap;
@@ -25,6 +27,10 @@ public class DriveSubsystem extends Subsystem {
 public TalonSRX leftFrontMaster, leftRearSlave;
 public TalonSRX rightFrontMaster, rightRearSlave;
 
+DigitalInput lightSensor = new DigitalInput(RobotMap.lightSensorPort);
+
+PigeonIMU pigeon = new PigeonIMU(RobotMap.pigeonIMU);
+
 public boolean isWorking = false;
 
 public DriveSubsystem(){
@@ -32,10 +38,10 @@ public DriveSubsystem(){
   leftRearSlave = new TalonSRX(RobotMap.ID_LEFT_REAR_DRIVE);
   rightFrontMaster = new TalonSRX(RobotMap.ID_RIGHT_FRONT_DRIVE);
   rightRearSlave = new TalonSRX(RobotMap.ID_RIGHT_REAR_DRIVE);
-  PigeonIMU _pigeon = new PigeonIMU(RobotMap.pigeonIMU);
+
   //gyro calibration
-  _pigeon.enterCalibrationMode(CalibrationMode.BootTareGyroAccel);
-  _pigeon.enterCalibrationMode(CalibrationMode.Temperature);
+  pigeon.enterCalibrationMode(CalibrationMode.BootTareGyroAccel);
+  pigeon.enterCalibrationMode(CalibrationMode.Temperature);
 
   //set master-slave motors
   leftRearSlave.set(ControlMode.Follower, leftFrontMaster.getDeviceID());
@@ -82,6 +88,15 @@ public void turn(double turn){
   setLeftSpeed(turn);
   setRightSpeed(turn);
 }
+
+public boolean getLightSensor(){
+  return lightSensor.get();
+}
+
+public double getPigeonHeading(){
+  return pigeon.getAbsoluteCompassHeading();
+}
+
 public boolean work(boolean isWorking){
   if(!this.isWorking){
     this.isWorking = isWorking;

@@ -5,24 +5,30 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.commands.lightSensor;
+package frc.commands.drive;
 
 import edu.wpi.first.wpilibj.command.Command;
+import frc.robot.Robot;
 
-public class LightSensorCommand extends Command {
-  public LightSensorCommand() {
+public class DriveOnTapeCommand extends Command {
+  public DriveOnTapeCommand() {
     // Use requires() here to declare subsystem dependencies
-    // eg. requires(chassis);
+    requires(Robot.drive);
   }
+
+  double targetDirection;
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
+    this.targetDirection = Robot.drive.getPigeonHeading();
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
+
+   
   }
 
   // Make this return true when this Command no longer needs to run execute()
@@ -40,6 +46,5 @@ public class LightSensorCommand extends Command {
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
-  
   }
 }

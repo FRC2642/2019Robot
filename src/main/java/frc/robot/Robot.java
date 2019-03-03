@@ -29,7 +29,6 @@ import frc.subsystems.BrakeSubsystem;
 import frc.subsystems.DriveSubsystem;
 import frc.subsystems.FangSubsystem;
 import frc.subsystems.IntakeSubsystem;
-import frc.subsystems.LightSensorSubsystem;
 import frc.subsystems.MastSubsystem;
 import frc.subsystems.ThrustSubsystem;
 import frc.subsystems.VacuumSubsystem;
@@ -58,7 +57,6 @@ public class Robot extends TimedRobot {
   public static BrakeSubsystem brake = new BrakeSubsystem();
   public static FangSubsystem fang = new FangSubsystem();
   public static WristSubsystem wrist = new WristSubsystem();
-  public static LightSensorSubsystem lightSensor = new LightSensorSubsystem();
  
   public Compressor compressor = new Compressor(RobotMap.ID_PCM);
   
@@ -81,6 +79,7 @@ public class Robot extends TimedRobot {
     SmartDashboard.putData("Auto choices", m_chooser);
     compressor.start();
 
+    
     //Camera instances
 		cameraBoiler = CameraServer.getInstance().startAutomaticCapture("Boiler", RobotMap.cameraBoiler);
 		cameraGear = CameraServer.getInstance().startAutomaticCapture("Gear", RobotMap.cameraGear);
@@ -190,7 +189,7 @@ public class Robot extends TimedRobot {
 
     SmartDashboard.putNumber("mastPot", mast.mastPot.get());
     SmartDashboard.putNumber("wristPot", wrist.wristPot.get());
-    SmartDashboard.putBoolean("lightSensorOn", lightSensor.getLightSensor());
+    SmartDashboard.putBoolean("lightSensor", drive.getLightSensor());
     //System.out.println("we runnin bois");
   }
 
