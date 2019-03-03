@@ -32,17 +32,15 @@ public class RobotMap {
     public static final int ID_MAST_MASTER = 15;
     //ID for PCM 
     public static final int ID_PCM = 17;
-
-    //ID for USB camera
-    public static final int cameraBoiler = 18;
-    public static final int cameraGear = 19;
+    //PigeonIMU ID
+    public static int ID_PIGEON = 20;
     
     //Image resoulution constants
 	public static final int IMG_WIDTH = 320;
 	public static final int IMG_HEIGHT = 240;
     
-    //ID for Camera
-    public static final int sandstormCamera = 19;
+    //ID for USB Camera
+    public static final int sandstormCameraPort = 1;
     
     //port for light sensors
     public static int lightSensorPort = 1; 
@@ -62,13 +60,14 @@ public class RobotMap {
     //ports for vaccum cylinder
     public static int vacuumCylinderPort = 1;
  
-    //PigeonIMU ID
-    public static int pigeonIMU =20;
+    
 
     //xbox controller ports
     public static int xboxControllerPort = 0;
     public static int auxXboxControllerPort = 1;
-
+    //Auto Selector Joystick port
+    public static int autoSelectorJoystickPort = 2;
+    
     //drive motor limit settings
     public static final boolean IS_CURRENT_LIMIT = false;
     public static final int PEAK_CURRENT = 45;
