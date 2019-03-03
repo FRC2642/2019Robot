@@ -169,7 +169,7 @@ public class Robot extends TimedRobot {
 
     SmartDashboard.putNumber("mastPot", mast.mastPot.get());
 
-    SmartDashboard.putNumber("wristPot", wrist.wristPot.get());
+    
     SmartDashboard.putBoolean("lightSensor", drive.getLightSensor());
 
     //System.out.println("we runnin bois");
