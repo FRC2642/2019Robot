@@ -11,7 +11,6 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
 import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.commands.intake.IntakeCommand;
 import frc.robot.RobotMap;
@@ -24,7 +23,6 @@ public class IntakeSubsystem extends Subsystem {
   public VictorSPX intakeMaster = new VictorSPX(RobotMap.ID_INTAKE_MASTER);
   public VictorSPX intakeSlave = new VictorSPX(RobotMap.ID_INTAKE_SLAVE);
 
-  public Solenoid cupsCylinder = new Solenoid(RobotMap.ID_PCM,RobotMap.cupsCylinderPort);
   public DigitalInput intakeSwitch = new DigitalInput(RobotMap.intakeLimitSwitch);
   
   public IntakeSubsystem() {
@@ -43,13 +41,6 @@ public class IntakeSubsystem extends Subsystem {
     intakeMaster.set(ControlMode.PercentOutput, 0);
   }
 
-  public void activateSucc() {
-    cupsCylinder.set(true);
-  }
-
-  public void deactivateSucc() {
-    cupsCylinder.set(false);
-  }
   
 public boolean limitSwitchState(){
   return !intakeSwitch.get();
