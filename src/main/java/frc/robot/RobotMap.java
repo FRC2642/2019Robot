@@ -19,8 +19,8 @@ public class RobotMap {
     //ID for wrist motor
     public static final int ID_WRIST = 4;
     //ID for intake motors
-    public static final int ID_INTAKE_MASTER = 8;
-    public static final int ID_INTAKE_SLAVE = 9;
+    public static final int ID_FRONT_MASTER = 8;
+    public static final int ID_SHOOTER_MASTER = 9;
     //ID for roller lifting motor 
     public static final int ID_ROLLER = 10;
     //ID for vacuum motor
@@ -59,7 +59,8 @@ public class RobotMap {
     public static int fangCylinderPort = 2;
     //ports for vaccum cylinder
     public static int vacuumCylinderPort = 1;
- 
+    //ports for mast cylinder
+    public static int mastCylinderPort = 8;
     
 
     //xbox controller ports

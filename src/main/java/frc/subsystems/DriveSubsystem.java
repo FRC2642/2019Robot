@@ -12,6 +12,8 @@ import com.ctre.phoenix.motorcontrol.DemandType;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.sensors.PigeonIMU;
 import com.ctre.phoenix.sensors.PigeonIMU.CalibrationMode;
+
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.commands.drive.DriveCommand;
 import frc.robot.RobotMap;
@@ -25,6 +27,10 @@ public class DriveSubsystem extends Subsystem {
 public TalonSRX leftFrontMaster, leftRearSlave;
 public TalonSRX rightFrontMaster, rightRearSlave;
 
+DigitalInput lightSensor = new DigitalInput(RobotMap.lightSensorPort);
+
+PigeonIMU pigeon = new PigeonIMU(RobotMap.ID_PIGEON);
+
 public boolean isWorking = false;
 
 public DriveSubsystem(){
@@ -33,6 +39,7 @@ public DriveSubsystem(){
   rightFrontMaster = new TalonSRX(RobotMap.ID_RIGHT_FRONT_DRIVE);
   rightRearSlave = new TalonSRX(RobotMap.ID_RIGHT_REAR_DRIVE);
   PigeonIMU pigeon = new PigeonIMU(RobotMap.ID_PIGEON);
+
   //gyro calibration
   pigeon.enterCalibrationMode(CalibrationMode.BootTareGyroAccel);
   pigeon.enterCalibrationMode(CalibrationMode.Temperature);
@@ -82,6 +89,15 @@ public void turn(double turn){
   setLeftSpeed(turn);
   setRightSpeed(turn);
 }
+
+public boolean getLightSensor(){
+  return lightSensor.get();
+}
+
+public double getPigeonHeading(){
+  return pigeon.getAbsoluteCompassHeading();
+}
+
 public boolean work(boolean isWorking){
   if(!this.isWorking){
     this.isWorking = isWorking;

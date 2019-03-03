@@ -11,7 +11,6 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
 import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.commands.intake.IntakeCommand;
 import frc.robot.RobotMap;
@@ -21,35 +20,28 @@ import frc.robot.RobotMap;
  */
 public class IntakeSubsystem extends Subsystem {
 
-  public VictorSPX intakeMaster = new VictorSPX(RobotMap.ID_INTAKE_MASTER);
-  public VictorSPX intakeSlave = new VictorSPX(RobotMap.ID_INTAKE_SLAVE);
+  public VictorSPX frontMaster = new VictorSPX(RobotMap.ID_FRONT_MASTER);
+  public VictorSPX shooterMaster = new VictorSPX(RobotMap.ID_SHOOTER_MASTER);
 
-  public Solenoid cupsCylinder = new Solenoid(RobotMap.ID_PCM,RobotMap.cupsCylinderPort);
   public DigitalInput intakeSwitch = new DigitalInput(RobotMap.intakeLimitSwitch);
   
   public IntakeSubsystem() {
-    intakeSlave.set(ControlMode.Follower, intakeMaster.getDeviceID());
   }
 
   public void intake() {
-    intakeMaster.set(ControlMode.PercentOutput, 0.6);
+    frontMaster.set(ControlMode.PercentOutput, 0.6);
+    shooterMaster.set(ControlMode.PercentOutput, 0.6);
   }
 
   public void outtake() {
-    intakeMaster.set(ControlMode.PercentOutput, -0.6);
+    shooterMaster.set(ControlMode.PercentOutput, -0.6);
   }
 
   public void stop() {
-    intakeMaster.set(ControlMode.PercentOutput, 0);
+    frontMaster.set(ControlMode.PercentOutput, 0);
+    shooterMaster.set(ControlMode.PercentOutput, 0);
   }
 
-  public void activateSucc() {
-    cupsCylinder.set(true);
-  }
-
-  public void deactivateSucc() {
-    cupsCylinder.set(false);
-  }
   
 public boolean limitSwitchState(){
   return !intakeSwitch.get();
