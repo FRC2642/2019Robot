@@ -1,6 +1,6 @@
-package library.lib.motionProfile;
+package frc.library.lib.motionProfile;
 
-import library.lib.ticktock.Tickable;
+import frc.library.lib.ticktock.Tickable;
 
 /**
  * 

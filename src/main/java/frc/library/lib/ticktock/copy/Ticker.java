@@ -1,4 +1,4 @@
-package library.lib.ticktock.copy;
+package frc.library.lib.ticktock.copy;
 
 import java.util.Timer;
 import java.util.TimerTask;

@@ -1,4 +1,4 @@
-package library.lib.ticktock;
+package frc.library.lib.ticktock;
 
 import java.util.Vector;
 

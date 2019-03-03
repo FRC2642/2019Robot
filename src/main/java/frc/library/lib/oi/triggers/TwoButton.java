@@ -1,4 +1,4 @@
-package library.lib.oi.triggers;
+package frc.library.lib.oi.triggers;
 
 import edu.wpi.first.wpilibj.buttons.Button;
 

@@ -1,4 +1,4 @@
-package library.lib.motionProfile;
+package frc.library.lib.motionProfile;
 /*
  * given lib, not entirely sure how it works
  */

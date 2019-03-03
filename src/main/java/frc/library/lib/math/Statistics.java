@@ -1,4 +1,4 @@
-package library.lib.math;
+package frc.library.lib.math;
 
 import java.util.List;
 /* static class to organize all the math we need 

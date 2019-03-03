@@ -1,7 +1,7 @@
-package library.lib.pid;
+package frc.library.lib.pid;
 
-import library.lib.ticktock.Tickable;
-import library.lib.ticktock.Ticker;
+import frc.library.lib.ticktock.Tickable;
+import frc.library.lib.ticktock.Ticker;
 
 public class PID implements Tickable {
 	private volatile PIDParameters gains;

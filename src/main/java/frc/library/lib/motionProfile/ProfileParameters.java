@@ -1,4 +1,4 @@
-package library.lib.motionProfile;
+package frc.library.lib.motionProfile;
 
 /**
  * A ProfileParameters object contains all of the parameters necessary to build

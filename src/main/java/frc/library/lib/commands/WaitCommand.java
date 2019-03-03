@@ -1,4 +1,4 @@
-package library.lib.commands;
+package frc.library.lib.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.CommandGroup;

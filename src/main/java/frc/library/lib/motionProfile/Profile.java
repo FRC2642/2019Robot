@@ -1,4 +1,4 @@
-package library.lib.motionProfile;
+package frc.library.lib.motionProfile;
 
 import java.io.File;
 import java.io.FileWriter;

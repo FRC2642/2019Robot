@@ -1,4 +1,4 @@
-package library.lib.pid;
+package frc.library.lib.pid;
 
 import com.ctre.phoenix.ErrorCode;
 

@@ -1,4 +1,4 @@
-package library.lib.pid;
+package frc.library.lib.pid;
 
 public class PIDParameters {
 	public double kP, kI, kD;

@@ -1,4 +1,4 @@
-package library.lib;
+package frc.library.lib;
 
 import java.util.ArrayList;
 

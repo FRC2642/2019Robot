@@ -1,4 +1,4 @@
-package library.lib.motionProfile;
+package frc.library.lib.motionProfile;
 
 /**
  * Any class that is used as a source for the profile follower must have a
