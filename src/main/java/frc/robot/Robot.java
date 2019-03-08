@@ -117,6 +117,7 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopInit() {
     super.teleopInit();
+
   }
   @Override
   public void robotPeriodic() {
@@ -168,11 +169,13 @@ public class Robot extends TimedRobot {
     Scheduler.getInstance().run();
 
     SmartDashboard.putNumber("mastPot", mast.mastPot.get());
-
-    SmartDashboard.putNumber("wristPot", wrist.wristPot.get());
     SmartDashboard.putBoolean("lightSensor", drive.getLightSensor());
-
-    //System.out.println("we runnin bois");
+    /*
+    SmartDashboard.putBoolean("mastLimitSwitchDown", mast.getLowerLimitSwitch());
+    SmartDashboard.putBoolean("mastLimitSwitchUp", mast.getUpperLimitSwitch());
+    SmartDashboard.putBoolean("intakeLimitSwitch", intake.getIntakeLimitSwitch());
+    SmartDashboard.putBoolean("jackLimitSwitch", thrust.getJackLimitSwitch());
+    */
   }
 
   /**

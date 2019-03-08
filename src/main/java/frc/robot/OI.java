@@ -11,7 +11,13 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import frc.commands.drive.DriveOnTapeCommand;
 import frc.commands.fangs.FangsDeploy;
+//import frc.commands.mast.MastPistonDown;
+//import frc.commands.mast.MastPistonUp;
+import frc.commands.mast.MoveMastToBottomCommand;
+import frc.commands.mast.MoveMastToMiddleCommand;
+import frc.commands.mast.MoveMastToTopCommand;
 import frc.commands.thrust.JackDownCommand;
 import frc.commands.thrust.JackOffCommand;
 import frc.commands.thrust.JackUpCommand;
@@ -38,6 +44,8 @@ public class OI {
  Button auxXboxY = new JoystickButton(aux, 4);
  Button auxXboxRightBumper = new JoystickButton(aux, 6);
  Button auxXboxLeftBumper = new JoystickButton(aux, 5);
+ Button auxXboxSelect = new JoystickButton(xbox, 7);
+ Button auxXboxStart = new JoystickButton(xbox, 8);
 
  Button dial1 = new JoystickButton(autoDial, 1);
  Button dial2 = new JoystickButton(autoDial, 2);
@@ -59,15 +67,14 @@ public class OI {
     xboxLeftBumper.whenReleased(new JackOffCommand()); //Todd
     xboxRightBumper.whileHeld(new JackUpCommand());
     xboxRightBumper.whenReleased(new JackOffCommand()); //Todd
-    xboxSelect.whenPressed(new DisableLimitsCommand());
-    
-    auxXboxRightBumper.whenPressed(new FangsDeploy());
-   /* auxXboxB.whenPressed(new BrakeCommand());
-    auxXboxB.whenReleased(new UnbrakeCommand());
+    xboxSelect.whenPressed(new DriveOnTapeCommand());
+
+    auxXboxSelect.whenPressed(new DisableLimitsCommand());
+    auxXboxStart.whenPressed(new FangsDeploy());
     auxXboxA.whenPressed(new MoveMastToBottomCommand());
     auxXboxB.whenPressed(new MoveMastToMiddleCommand());
     auxXboxY.whenPressed(new MoveMastToTopCommand());
-    */
+    
 
     
 }

@@ -12,6 +12,7 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import edu.wpi.first.wpilibj.AnalogPotentiometer;
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.commands.mast.LiftCommand;
 import frc.robot.Robot;
@@ -26,6 +27,8 @@ public class MastSubsystem extends Subsystem {
   // here. Call these from Commands.
   public TalonSRX mastMaster = new TalonSRX(RobotMap.ID_MAST_MASTER);
   public TalonSRX mastSlave = new TalonSRX(RobotMap.ID_MAST_SLAVE);
+
+ public Solenoid mastCylinder = new Solenoid(RobotMap.ID_PCM, RobotMap.mastCylinderPort);
 
   public AnalogPotentiometer mastPot = new AnalogPotentiometer(RobotMap.mastPotPort); 
   public DigitalInput mastUpperLimitSwitch = new DigitalInput(RobotMap.mastUpperLimitSwitch);
@@ -55,9 +58,9 @@ public class MastSubsystem extends Subsystem {
   public void moveLift(double speed) {
     if(RobotMap.isMastLimitEnabled){
      // speed = -speed;
-       if( (speed > 0) && (mastPot.get() >= RobotMap.maxMastHeight || getUpperLimitSwitch()) ){
+       if( (speed < 0) && ((mastPot.get() >= RobotMap.maxMastHeight || !getUpperLimitSwitch())) ){
         stop();
-      } else if( (speed < 0) && (mastPot.get() <= RobotMap.minMastHeight || getLowerLimitSwitch()) ){
+      } else if( (speed > 0) && ((mastPot.get() <= RobotMap.minMastHeight || !getLowerLimitSwitch())) ){
         stop();
       } else {
         mastMaster.set(ControlMode.PercentOutput, speed);
@@ -75,10 +78,14 @@ public class MastSubsystem extends Subsystem {
   }
 
   public void moveToSetPosition(double pulses){
-    if(mastPot.get() > pulses) {
+    //tolerance
+    double rangeHigh = pulses + 10;
+    double rangeLow = pulses - 10;
+
+    if(mastPot.get() > rangeHigh) {
     moveLift(-0.8);
     }
-    else if(mastPot.get() < pulses) { 
+    else if(mastPot.get() < rangeLow) { 
     moveLift(0.8);      
     } else {
       Robot.brake.brakeOn();
@@ -96,7 +103,22 @@ public class MastSubsystem extends Subsystem {
     public boolean getLowerLimitSwitch(){
       return mastLowerLimitSwitch.get();
     }
+
+    public void mastCylinderUp(){
+      mastCylinder.set(true);
+      
+    }
+
+    public void mastCylinderDown(){
+      mastCylinder.set(false);
+   
+    }
+
+    public boolean getMast(){
+      return mastCylinder.get();
+    }
   
+    //put these in robot map
   //Moves the mast to the three loading levels for the cargo on the rocket.
   public void moveMastToCargoBottomPosition() {
     moveToSetPosition(27.5);
