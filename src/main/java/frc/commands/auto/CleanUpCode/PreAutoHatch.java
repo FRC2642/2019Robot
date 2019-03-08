@@ -5,60 +5,49 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.commands.intake;
+package frc.commands.auto.CleanUpCode;
 
 import edu.wpi.first.wpilibj.command.Command;
-import frc.robot.OI;
 import frc.robot.Robot;
 
-public class IntakeCommand extends Command {
- 
-    public IntakeCommand() {
-      requires(Robot.intake);
-    }
+public class PreAutoHatch extends Command {
+  public PreAutoHatch() {
+    // Use requires() here to declare subsystem dependencies
+   requires(Robot.drive);
+   requires(Robot.intake);
+   requires(Robot.mast);
+  }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
+    Robot.drive.resetEncoders();
+    Robot.drive.resetGyro();
+    Robot.mast.moveMastToCargoBottomPosition();
+    Robot.drive.resetMP();
+    Robot.drive.setFollowerMode();
+
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-   
-    if(OI.aux.getRawAxis(2) > .6){
-
-      if(!Robot.intake.limitSwitchState()){
-      Robot.intake.intake();
-      } else {
-        Robot.intake.stop();
-      }
-      
-    } else if(OI.aux.getRawAxis(3) > .6){
-      Robot.intake.outtake();
-    } else {
-      Robot.intake.stop();
-    }
-  
   }
-  
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return Robot.intake.limitSwitchState();
+    return false;
   }
 
   // Called once after isFinished returns true
   @Override
   protected void end() {
-      Robot.intake.stop();
   }
 
   // Called when another command which requires one or more of the same
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
-      Robot.intake.stop();
   }
 }

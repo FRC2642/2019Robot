@@ -5,30 +5,29 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.commands.drive;
+package frc.commands.auto.CleanUpCode;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
-public class DriveOnTapeCommand extends Command {
-  public DriveOnTapeCommand() {
+public class PostAuto extends Command {
+  public PostAuto() {
     // Use requires() here to declare subsystem dependencies
+    requires(Robot.mast);
     requires(Robot.drive);
   }
-
-  double targetDirection;
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    this.targetDirection = Robot.drive.getPigeonHeading();
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-
-   
+    Robot.mast.moveMastToCargoBottomPosition();
+    Robot.drive.resetEncoders();
+    Robot.drive.resetGyro();
   }
 
   // Make this return true when this Command no longer needs to run execute()
@@ -40,6 +39,7 @@ public class DriveOnTapeCommand extends Command {
   // Called once after isFinished returns true
   @Override
   protected void end() {
+    Robot.drive.yeetFollowerMode();
   }
 
   // Called when another command which requires one or more of the same
