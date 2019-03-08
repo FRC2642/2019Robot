@@ -8,8 +8,6 @@
 package frc.subsystems;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
-
-
 import edu.wpi.first.wpilibj.AnalogPotentiometer;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Solenoid;
@@ -33,7 +31,16 @@ public class MastSubsystem extends Subsystem {
   public AnalogPotentiometer mastPot = new AnalogPotentiometer(RobotMap.mastPotPort); 
   public DigitalInput mastUpperLimitSwitch = new DigitalInput(RobotMap.mastUpperLimitSwitch);
   public DigitalInput mastLowerLimitSwitch = new DigitalInput(RobotMap.mastLowerLimitSwitch);
+  
+  //mast piston
+  public Solenoid mastCylinder = new Solenoid(RobotMap.ID_PCM, RobotMap.mastCylinderPort);
 
+  public void mastPistonUp() {
+        mastCylinder.set(true);
+  }
+public void mastPistonDown() {
+      mastCylinder.set(false);
+}
   public MastSubsystem(){
     mastSlave.set(ControlMode.Follower, mastMaster.getDeviceID());
 

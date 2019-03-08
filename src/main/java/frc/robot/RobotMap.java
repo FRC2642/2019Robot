@@ -7,6 +7,9 @@
 
 package frc.robot;
 
+import frc.library.lib.motionProfile.DriveParameters;
+import frc.library.lib.pid.PIDParameters;
+
 /**
  * Add your docs here.
  */
@@ -59,7 +62,6 @@ public class RobotMap {
     public static int fangCylinderPort = 2;
     //ports for mast cylinder
     public static int mastCylinderPort = 1;
- 
     
 
     //xbox controller ports
@@ -92,16 +94,13 @@ public class RobotMap {
     public static final int jackLimitSwitch = 0;
     public static final int intakeLimitSwitch = 6;
 
-    //wrist up and down positions
-    public static double wristDownPosition = 0.0;
-    public static double wristUpPosition = 1.0;
-
-    //wrist upper and lower limits 
-    public static double wristUpperLimit = 1.0;
-    public static double wristLowerLimit = 0.0;
-
     //panic button values
     public static boolean isMastLimitEnabled = true;
-    public static boolean isWristLimitEnabled = true;
+
+    //PID/drive params
+    public static final DriveParameters DRIVE_PARAMS = new DriveParameters(.0058, .0064, .003, -.8);
+    public static final PIDParameters TURN_PARAMS_45 = new PIDParameters(.06, .0, -.003, 1 / 100.0);
+    public static final PIDParameters TURN_PARAMS_90 = new PIDParameters(.005, .002, -.002, 1 / 100.0);
+    public static final PIDParameters TURN_PARAMS_180 = new PIDParameters(.06, .003, -.001, 1 / 100.0);
     }
 

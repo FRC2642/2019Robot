@@ -24,11 +24,9 @@ public class DisableLimitsCommand extends Command {
   protected void initialize() {
     if(state){
     RobotMap.isMastLimitEnabled = false;
-    RobotMap.isWristLimitEnabled = false;
     }
     if(!state){ 
     RobotMap.isMastLimitEnabled = true;
-    RobotMap.isWristLimitEnabled = true;
     }
   }
 

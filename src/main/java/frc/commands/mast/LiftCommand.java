@@ -26,15 +26,13 @@ public class LiftCommand extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    
     Robot.mast.moveLift(OI.aux.getRawAxis(5) * .9);
 
     if(OI.aux.getBumperPressed(Hand.kLeft)){
       Robot.mast.mastCylinderDown();
     } else if(OI.aux.getBumperPressed(Hand.kRight)){
       Robot.mast.mastCylinderUp();
-    }
-  
+    }  
   }
 
   // Make this return true when this Command no longer needs to run execute()
