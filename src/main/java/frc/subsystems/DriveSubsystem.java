@@ -17,6 +17,7 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.commands.drive.DriveCommand;
 import frc.robot.RobotMap;
+import frc.library.lib.pid.*;
 /**
  * Add your docs here.
  */
@@ -85,20 +86,44 @@ public void arcadeDrive(double speed, double turn) {
   rightFrontMaster.set(ControlMode.PercentOutput, turn, DemandType.ArbitraryFeedForward, -speed);
 }
 
-public void turn(double turn){
-  setLeftSpeed(turn);
-  setRightSpeed(turn);
+public void tankDrive(double left, double right){
+  setLeftSpeed(left);
+  setRightSpeed(right);
 }
 
 public boolean getLightSensor(){
   return lightSensor.get();
 }
 
-public double getPigeonHeading(){
-  return pigeon.getAbsoluteCompassHeading();
-}
+  //classes for inbuilt PID
+    public class TapePID implements PIDSource{
 
-public boolean work(boolean isWorking){
+    @Override
+    public double pidGet() {
+      return pigeon.getAbsoluteCompassHeading();
+    }
+  }
+  public class TapeOutput implements PIDOutput{
+
+    double output;
+    @Override
+    public void pidSet(double speed) {
+      output = speed;
+    }
+    
+    public double getOutput(){
+      return output;
+    }
+  }
+
+
+  @Override
+  public void initDefaultCommand() {
+    // Set the default command for a subsystem here.
+    setDefaultCommand(new DriveCommand());
+  }
+
+  /*public boolean work(boolean isWorking){
   if(!this.isWorking){
     this.isWorking = isWorking;
   } else{
@@ -106,11 +131,5 @@ public boolean work(boolean isWorking){
   }
   System.out.println("Working? " + this.isWorking);
   return this.isWorking;
-}
-
-  @Override
-  public void initDefaultCommand() {
-    // Set the default command for a subsystem here.
-    setDefaultCommand(new DriveCommand());
-  }
+}*/
 }

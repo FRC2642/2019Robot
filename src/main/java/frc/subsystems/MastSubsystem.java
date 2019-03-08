@@ -31,16 +31,8 @@ public class MastSubsystem extends Subsystem {
   public AnalogPotentiometer mastPot = new AnalogPotentiometer(RobotMap.mastPotPort); 
   public DigitalInput mastUpperLimitSwitch = new DigitalInput(RobotMap.mastUpperLimitSwitch);
   public DigitalInput mastLowerLimitSwitch = new DigitalInput(RobotMap.mastLowerLimitSwitch);
-  
-  //mast piston
-  public Solenoid mastCylinder = new Solenoid(RobotMap.ID_PCM, RobotMap.mastCylinderPort);
 
-  public void mastPistonUp() {
-        mastCylinder.set(true);
-  }
-public void mastPistonDown() {
-      mastCylinder.set(false);
-}
+
   public MastSubsystem(){
     mastSlave.set(ControlMode.Follower, mastMaster.getDeviceID());
 

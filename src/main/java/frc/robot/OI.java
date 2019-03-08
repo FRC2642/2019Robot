@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import frc.commands.drive.DriveCommand;
 import frc.commands.drive.DriveOnTapeCommand;
 import frc.commands.fangs.FangsDeploy;
 //import frc.commands.mast.MastPistonDown;
@@ -47,27 +48,28 @@ public class OI {
  Button auxXboxSelect = new JoystickButton(xbox, 7);
  Button auxXboxStart = new JoystickButton(xbox, 8);
 
- Button dial1 = new JoystickButton(autoDial, 1);
- Button dial2 = new JoystickButton(autoDial, 2);
- Button dial3 = new JoystickButton(autoDial, 3);
- Button dial4 = new JoystickButton(autoDial, 4);
- Button dial5 = new JoystickButton(autoDial, 5);
- Button dial6 = new JoystickButton(autoDial, 6);
- Button dial7 = new JoystickButton(autoDial, 7);
- Button dial8 = new JoystickButton(autoDial, 8);
- Button dial9 = new JoystickButton(autoDial, 9);
- Button dial10 = new JoystickButton(autoDial, 10);
- Button dial11 = new JoystickButton(autoDial, 11);
- Button dial12 = new JoystickButton(autoDial, 12);
- Button dial13 = new JoystickButton(autoDial, 13);
+ public static Button dial1 = new JoystickButton(autoDial, 1);
+ public static Button dial2 = new JoystickButton(autoDial, 2);
+ public static Button dial3 = new JoystickButton(autoDial, 3);
+ public static Button dial4 = new JoystickButton(autoDial, 4);
+ public static Button dial5 = new JoystickButton(autoDial, 5);
+ public static Button dial6 = new JoystickButton(autoDial, 6);
+ public static Button dial7 = new JoystickButton(autoDial, 7);
+ public static Button dial8 = new JoystickButton(autoDial, 8);
+ public static Button dial9 = new JoystickButton(autoDial, 9);
+ public static Button dial10 = new JoystickButton(autoDial, 10);
+ public static Button dial11 = new JoystickButton(autoDial, 11);
+ public static Button dial12 = new JoystickButton(autoDial, 12);
+ public static Button dial13 = new JoystickButton(autoDial, 13);
 
 
  public OI() {
     xboxLeftBumper.whileHeld(new JackDownCommand());
-    xboxLeftBumper.whenReleased(new JackOffCommand()); //Todd
+    xboxLeftBumper.whenReleased(new JackOffCommand()); 
     xboxRightBumper.whileHeld(new JackUpCommand());
-    xboxRightBumper.whenReleased(new JackOffCommand()); //Todd
-    xboxSelect.whenPressed(new DriveOnTapeCommand());
+    xboxRightBumper.whenReleased(new JackOffCommand()); 
+    xboxSelect.whileHeld(new DriveOnTapeCommand());
+    xboxSelect.whenReleased(new DriveCommand());
 
     auxXboxSelect.whenPressed(new DisableLimitsCommand());
     auxXboxStart.whenPressed(new FangsDeploy());
