@@ -17,8 +17,6 @@ public class JackDownCommand extends Command {
     requires(Robot.thrust);
   }
 
-  boolean hasRun = false;
-
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
@@ -27,13 +25,17 @@ public class JackDownCommand extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
+    if(!Robot.thrust.getJackLimitSwitch()){
       Robot.thrust.jackDown();
+    } else {
+      Robot.thrust.stopJack();
+    }
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return hasRun;
+    return false;
   }
 
   // Called once after isFinished returns true
@@ -45,6 +47,6 @@ public class JackDownCommand extends Command {
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
-    
+    Robot.thrust.stopJack();
   }
 }

@@ -31,14 +31,14 @@ public DigitalInput jackLimitSwitch = new DigitalInput(RobotMap.jackLimitSwitch)
   }
 
   public void jackUp() {
-      jackMaster.set(ControlMode.PercentOutput, 0.5);
+      jackMaster.set(ControlMode.PercentOutput, -0.5);
     }
     
     public void jackDown() {
       if(getJackLimitSwitch()){
         stopJack();
       } else {
-      jackMaster.set(ControlMode.PercentOutput, -0.5);
+      jackMaster.set(ControlMode.PercentOutput, 0.5);
       }
     }
 
@@ -56,7 +56,7 @@ public DigitalInput jackLimitSwitch = new DigitalInput(RobotMap.jackLimitSwitch)
 
 
   public boolean getJackLimitSwitch(){
-    return jackLimitSwitch.get();
+    return !jackLimitSwitch.get();
   }
 
 

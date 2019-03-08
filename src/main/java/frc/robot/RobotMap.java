@@ -48,7 +48,7 @@ public class RobotMap {
     //port for light sensors
     public static int lightSensorPort = 1; 
     //mast pot port
-    public static int mastPotPort = 3;
+    public static int mastPotPort = 0;
     //wrist pot port
     public static int wristPotPort = 5;
   
@@ -60,10 +60,8 @@ public class RobotMap {
     public static int brakeCylinderPort = 0;
     //ports for fang cylinder
     public static int fangCylinderPort = 2;
-    //ports for vaccum cylinder
-    public static int vacuumCylinderPort = 1;
     //ports for mast cylinder
-    public static int mastCylinderPort = 8;
+    public static int mastCylinderPort = 1;
     
 
     //xbox controller ports
@@ -88,7 +86,7 @@ public class RobotMap {
 
     //mast height limits
     public static double maxMastHeight = .644;
-    public static double minMastHeight = .101;
+    public static double minMastHeight = .19;
     
     //DIO Ports for Limit Switches
     public static final int mastUpperLimitSwitch = 2;

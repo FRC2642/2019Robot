@@ -7,14 +7,16 @@
 
 package frc.commands.mast;
 
+import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.OI;
 import frc.robot.Robot;
 
 public class LiftCommand extends Command {
   public LiftCommand() {
-   requires(Robot.mast);
+    requires(Robot.mast);
   }
+  
 
   // Called just before this Command runs the first time
   @Override
@@ -24,21 +26,14 @@ public class LiftCommand extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    
-      
-    if(OI.aux.getRawAxis(1) > 0.5) {
-      Robot.mast.mastPistonUp();
-    } else if (OI.aux.getRawAxis(1) < -0.5) {
-      Robot.mast.mastPistonDown();
-    } else {
-      Robot.mast.stop();
-    }
-  
-    Robot.mast.moveLift(-OI.aux.getRawAxis(5) * .9);
+    Robot.mast.moveLift(OI.aux.getRawAxis(5) * .9);
+
+    if(OI.aux.getBumperPressed(Hand.kLeft)){
+      Robot.mast.mastCylinderDown();
+    } else if(OI.aux.getBumperPressed(Hand.kRight)){
+      Robot.mast.mastCylinderUp();
+    }  
   }
-    
-  
-  
 
   // Make this return true when this Command no longer needs to run execute()
   @Override

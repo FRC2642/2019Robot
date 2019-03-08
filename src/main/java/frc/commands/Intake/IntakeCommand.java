@@ -27,7 +27,12 @@ public class IntakeCommand extends Command {
   protected void execute() {
    
     if(OI.aux.getRawAxis(2) > .6){
+      if(!Robot.intake.getIntakeLimitSwitch()){
       Robot.intake.intake();
+      } else{
+        Robot.intake.stop();
+      }
+
     } else if(OI.aux.getRawAxis(3) > .6){
       Robot.intake.outtake();
     } else {
@@ -39,7 +44,7 @@ public class IntakeCommand extends Command {
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return Robot.intake.limitSwitchState();
+    return false;
   }
 
   // Called once after isFinished returns true

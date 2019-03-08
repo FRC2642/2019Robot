@@ -43,7 +43,7 @@ public class IntakeSubsystem extends Subsystem {
   }
 
   
-public boolean limitSwitchState(){
+public boolean getIntakeLimitSwitch(){
   return !intakeSwitch.get();
 }
 
