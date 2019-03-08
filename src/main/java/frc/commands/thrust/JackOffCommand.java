@@ -5,19 +5,17 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.commands;
+package frc.commands.thrust;
 
 import edu.wpi.first.wpilibj.command.Command;
-import frc.robot.OI;
 import frc.robot.Robot;
 
-public class TurnCommand extends Command {
-  public TurnCommand() {
-    requires(Robot.drive);
+public class JackOffCommand extends Command {
+  public JackOffCommand() {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
   }
-
+  Boolean hasRun = false;
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
@@ -26,13 +24,14 @@ public class TurnCommand extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.drive.turn((OI.xbox.getRawAxis(0)) * 0.6);
+    Robot.thrust.stopJack();
+    hasRun = true;
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return false;
+    return hasRun;
   }
 
   // Called once after isFinished returns true
@@ -44,6 +43,5 @@ public class TurnCommand extends Command {
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
-    Robot.drive.stop();
   }
 }
