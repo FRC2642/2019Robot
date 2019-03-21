@@ -5,17 +5,16 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.commands;
+package frc.commands.mast;
 
 import edu.wpi.first.wpilibj.command.Command;
-import frc.robot.OI;
 import frc.robot.Robot;
 
-public class DriveCommand extends Command {
-  public DriveCommand() {
-    requires(Robot.drive);
+public class MoveMastToBottomCommand extends Command {
+  public MoveMastToBottomCommand() {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
+    requires(Robot.mast);
   }
 
   // Called just before this Command runs the first time
@@ -26,31 +25,23 @@ public class DriveCommand extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    
-    Robot.drive.arcadeDrive((OI.xbox.getRawAxis(1)) * 0.6, OI.xbox.getRawAxis(0));
+    Robot.mast.moveMastToCargoBottomPosition();
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    //if x axis is being held down, end drive command
-   /* if(OI.xbox.getRawAxis(0) > 0.1 || OI.xbox.getRawAxis(0) < -0.1){
-      return true;
-    } else {*/
-      return false;
-    //}
+    return false;
   }
 
   // Called once after isFinished returns true
   @Override
   protected void end() {
-    
   }
 
   // Called when another command which requires one or more of the same
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
-    Robot.drive.stop();
   }
 }

@@ -4,29 +4,40 @@
 /* must be accompanied by the FIRST BSD license file in the root directory of */
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
- /*
+/*
 put name and message below and push to git
-
 anisha sadhale hello ppl
 sean jung hi everyone
 Joseph Sowers Bonkey Dong Kongos
-ethan
-something
 
 
-
+git 
 
 
 */
 package frc.robot;
 
+import java.nio.channels.spi.AbstractSelector;
+
+import edu.wpi.cscore.MjpegServer;
+import edu.wpi.cscore.UsbCamera;
+import edu.wpi.first.cameraserver.CameraServer;
+import edu.wpi.first.wpilibj.Compressor;
+import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj.PowerDistributionPanel;
+import frc.commands.auto.Cross;
+import frc.commands.drive.DriveCommand;
+import frc.subsystems.BrakeSubsystem;
+import frc.subsystems.DriveSubsystem;
+import frc.subsystems.FangSubsystem;
+import frc.subsystems.IntakeSubsystem;
+import frc.subsystems.MastSubsystem;
+import frc.subsystems.ThrustSubsystem;
 
-import frc.subsystems.Drive;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -41,21 +52,52 @@ public class Robot extends TimedRobot {
   private String m_autoSelected;
   private final SendableChooser<String> m_chooser = new SendableChooser<>();
 
-  public static OI oi = new OI();
-  
-  public static Drive drive = new Drive();
   public PowerDistributionPanel pdp = new PowerDistributionPanel(0);
+
+  public static DriveSubsystem drive = new DriveSubsystem();
+  public static MastSubsystem mast = new MastSubsystem();
+  public static IntakeSubsystem intake = new IntakeSubsystem();
+  public static ThrustSubsystem thrust = new ThrustSubsystem();
+  public static BrakeSubsystem brake = new BrakeSubsystem();
+  public static FangSubsystem fang = new FangSubsystem();
+ 
+  public Compressor compressor = new Compressor(RobotMap.ID_PCM);
+  
+
+  public static OI oi = new OI();
+
+  Command m_autonomousCommand;
+
+//	SendableChooser<Command> m_chooser = new SendableChooser<>();
+  
+
+ 
 
   /**
    * This function is run when the robot is first started up and should be
    * used for any initialization code.
    */
   @Override
-  public void robotInit() {
-    m_chooser.setDefaultOption("Default Auto", kDefaultAuto);
-    m_chooser.addOption("My Auto", kCustomAuto);
+  public void robotInit() 
+  {
+    UsbCamera cam = CameraServer.getInstance().startAutomaticCapture();
+    cam.setExposureManual(50);
+    cam.setResolution(320, 240);
+    cam.setFPS(20);
+   // m_chooser.setDefaultOption("Default Auto", Cross);
+   // m_chooser.addOption("My Auto", DriveCommand);
     SmartDashboard.putData("Auto choices", m_chooser);
+    
+    compressor.start();
+
+    
+  
+	
+
   }
+
+
+  
 
   /**
    * This function is called every robot packet, no matter the mode. Use
@@ -68,10 +110,12 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopInit() {
     super.teleopInit();
+
   }
   @Override
   public void robotPeriodic() {
     Scheduler.getInstance().run();
+    
   }
 
   /**
@@ -87,9 +131,9 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousInit() {
-    m_autoSelected = m_chooser.getSelected();
-    // m_autoSelected = SmartDashboard.getString("Auto Selector", kDefaultAuto);
-    System.out.println("Auto selected: " + m_autoSelected);
+    
+    teleopInit();
+ 
   }
 
   /**
@@ -97,15 +141,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousPeriodic() {
-    switch (m_autoSelected) {
-      case kCustomAuto:
-        // Put custom auto code here
-        break;
-      case kDefaultAuto:
-      default:
-        // Put default auto code here
-        break;
-    }
+   teleopPeriodic();
   }
 
   /**
@@ -114,7 +150,17 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
     Scheduler.getInstance().run();
-    System.out.println("we runnin bois");
+
+    SmartDashboard.putNumber("mastPot", mast.mastPot.get());
+    SmartDashboard.putBoolean("lightSensor", drive.getLightSensor());
+    /*
+    SmartDashboard.putBoolean("mastLimitSwitchDown", mast.getLowerLimitSwitch());
+    SmartDashboard.putBoolean("mastLimitSwitchUp", mast.getUpperLimitSwitch());
+    SmartDashboard.putBoolean("intakeLimitSwitch", intake.getIntakeLimitSwitch());
+    SmartDashboard.putBoolean("jackLimitSwitch", thrust.getJackLimitSwitch());
+    */
+ 
+
   }
 
   /**

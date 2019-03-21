@@ -10,29 +10,40 @@ package frc.subsystems;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.DemandType;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import com.ctre.phoenix.sensors.PigeonIMU;
+import com.ctre.phoenix.sensors.PigeonIMU.CalibrationMode;
 
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.command.Subsystem;
-import frc.commands.DriveCommand;
+import frc.commands.drive.DriveCommand;
 import frc.robot.RobotMap;
-
-
+import frc.library.lib.pid.*;
 /**
  * Add your docs here.
  */
-public class Drive extends Subsystem {
+public class DriveSubsystem extends Subsystem {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
 
 public TalonSRX leftFrontMaster, leftRearSlave;
 public TalonSRX rightFrontMaster, rightRearSlave;
 
+DigitalInput lightSensor = new DigitalInput(RobotMap.lightSensorPort);
+
+PigeonIMU pigeon = new PigeonIMU(RobotMap.ID_PIGEON);
+
 public boolean isWorking = false;
 
-public Drive(){
-  leftFrontMaster = new TalonSRX(RobotMap.ID_LEFT_FRONT);
-  leftRearSlave = new TalonSRX(RobotMap.ID_LEFT_REAR);
-  rightFrontMaster = new TalonSRX(RobotMap.ID_RIGHT_FRONT);
-  rightRearSlave = new TalonSRX(RobotMap.ID_RIGHT_REAR);
+public DriveSubsystem(){
+  leftFrontMaster = new TalonSRX(RobotMap.ID_LEFT_FRONT_DRIVE);
+  leftRearSlave = new TalonSRX(RobotMap.ID_LEFT_REAR_DRIVE);
+  rightFrontMaster = new TalonSRX(RobotMap.ID_RIGHT_FRONT_DRIVE);
+  rightRearSlave = new TalonSRX(RobotMap.ID_RIGHT_REAR_DRIVE);
+  PigeonIMU pigeon = new PigeonIMU(RobotMap.ID_PIGEON);
+
+  //gyro calibration
+  pigeon.enterCalibrationMode(CalibrationMode.BootTareGyroAccel);
+  pigeon.enterCalibrationMode(CalibrationMode.Temperature);
 
   //set master-slave motors
   leftRearSlave.set(ControlMode.Follower, leftFrontMaster.getDeviceID());
@@ -48,12 +59,15 @@ public Drive(){
   rightFrontMaster.configContinuousCurrentLimit(RobotMap.CONTINUOUS_CURRENT, 0);
   rightFrontMaster.configPeakCurrentLimit(RobotMap.PEAK_CURRENT, 10);
   rightFrontMaster.configPeakCurrentDuration(RobotMap.PEAK_CURRENT_DURATION, 10);
-
-  
+  //set neutral deadband
+  rightFrontMaster.configNeutralDeadband(.1);
+  leftFrontMaster.configNeutralDeadband(.1);
+ // rightFrontMaster.setInverted(true);
+ // leftFrontMaster.setInverted(true);
 
 }
 
-public void setLeftSpeed(double speed){
+  public void setLeftSpeed(double speed) {
   leftFrontMaster.set(ControlMode.PercentOutput, speed);
 }
 
@@ -72,11 +86,44 @@ public void arcadeDrive(double speed, double turn) {
   rightFrontMaster.set(ControlMode.PercentOutput, turn, DemandType.ArbitraryFeedForward, -speed);
 }
 
-public void turn(double turn){
-  setLeftSpeed(turn);
-  setRightSpeed(turn);
+public void tankDrive(double left, double right){
+  setLeftSpeed(left);
+  setRightSpeed(right);
 }
-public boolean work(boolean isWorking){
+
+public boolean getLightSensor(){
+  return lightSensor.get();
+}
+
+  //classes for inbuilt PID
+    public class TapePID implements PIDSource{
+
+    @Override
+    public double pidGet() {
+      return pigeon.getAbsoluteCompassHeading();
+    }
+  }
+  public class TapeOutput implements PIDOutput{
+
+    double output;
+    @Override
+    public void pidSet(double speed) {
+      output = speed;
+    }
+    
+    public double getOutput(){
+      return output;
+    }
+  }
+
+
+  @Override
+  public void initDefaultCommand() {
+    // Set the default command for a subsystem here.
+    setDefaultCommand(new DriveCommand());
+  }
+
+  /*public boolean work(boolean isWorking){
   if(!this.isWorking){
     this.isWorking = isWorking;
   } else{
@@ -84,11 +131,5 @@ public boolean work(boolean isWorking){
   }
   System.out.println("Working? " + this.isWorking);
   return this.isWorking;
-}
-
-  @Override
-  public void initDefaultCommand() {
-    // Set the default command for a subsystem here.
-    setDefaultCommand(new DriveCommand());
-  }
+}*/
 }
