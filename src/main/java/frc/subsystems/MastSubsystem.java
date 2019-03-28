@@ -8,8 +8,8 @@
 package frc.subsystems;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
-import edu.wpi.first.wpilibj.AnalogPotentiometer;
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.commands.mast.LiftCommand;
@@ -27,8 +27,9 @@ public class MastSubsystem extends Subsystem {
   public TalonSRX mastSlave = new TalonSRX(RobotMap.ID_MAST_SLAVE);
 
  public Solenoid mastCylinder = new Solenoid(RobotMap.ID_PCM, RobotMap.mastCylinderPort);
+ public Encoder MastEncoder = new Encoder(RobotMap.MastEncoderA, RobotMap.MastEncoderB, false, Encoder.EncodingType.k4X);
 
-  public AnalogPotentiometer mastPot = new AnalogPotentiometer(RobotMap.mastPotPort); 
+  //public AnalogPotentiometer mastPot = new AnalogPotentiometer(RobotMap.mastPotPort); 
   public DigitalInput mastUpperLimitSwitch = new DigitalInput(RobotMap.mastUpperLimitSwitch);
   public DigitalInput mastLowerLimitSwitch = new DigitalInput(RobotMap.mastLowerLimitSwitch);
 
@@ -46,20 +47,24 @@ public class MastSubsystem extends Subsystem {
       }
   
   protected double returnPIDInput() {
-    return mastPot.pidGet();
+    return MastEncoder.pidGet();
   }
 
   protected void usePIDOutput(double output) {
     moveLift(output);
+  }
+  
+  public void ResetEncoder(){
+    MastEncoder.reset();
   }
 
   //Raises or lowers lift
   public void moveLift(double speed) {
     if(RobotMap.isMastLimitEnabled){
      // speed = -speed;
-       if( (speed < 0) && ((mastPot.get() >= RobotMap.maxMastHeight || !getUpperLimitSwitch())) ){
+       if( (speed < 0) && ((MastEncoder.get() >= RobotMap.maxMastHeight || !getUpperLimitSwitch())) ){
         stop();
-      } else if( (speed > 0) && ((mastPot.get() <= RobotMap.minMastHeight || !getLowerLimitSwitch())) ){
+      } else if( (speed > 0) && ((MastEncoder.get() <= RobotMap.minMastHeight || !getLowerLimitSwitch())) ){
         stop();
       } else {
         mastMaster.set(ControlMode.PercentOutput, speed);
@@ -70,6 +75,7 @@ public class MastSubsystem extends Subsystem {
       }
       else if( (speed < 0) && getLowerLimitSwitch() ){
         stop();
+        ResetEncoder();
       } else {
         mastMaster.set(ControlMode.PercentOutput, speed);
       }
@@ -81,10 +87,10 @@ public class MastSubsystem extends Subsystem {
     double rangeHigh = pulses + 10;
     double rangeLow = pulses - 10;
 
-    if(mastPot.get() > rangeHigh) {
+    if(MastEncoder.get() > rangeHigh) {
     moveLift(-0.65);
     }
-    else if(mastPot.get() < rangeLow) { 
+    else if(MastEncoder.get() < rangeLow) { 
     moveLift(0.65);      
     } else {
       Robot.brake.brakeOn();
@@ -116,7 +122,7 @@ public class MastSubsystem extends Subsystem {
     public boolean getMast(){
       return mastCylinder.get();
     }
-  
+
     //put these in robot map
   //Moves the mast to the three loading levels for the cargo on the rocket.
   public void moveMastToCargoBottomPosition() {
@@ -152,6 +158,8 @@ public class MastSubsystem extends Subsystem {
     // Set the default command for a subsystem here.
     setDefaultCommand(new LiftCommand());
   }
+
+  
 
   }
 

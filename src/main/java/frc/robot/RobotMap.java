@@ -19,15 +19,15 @@ public class RobotMap {
     public static final int ID_RIGHT_REAR_DRIVE = 16;
     public static final int ID_LEFT_FRONT_DRIVE = 2;
     public static final int ID_LEFT_REAR_DRIVE = 3;
-    //ID for wrist motor
-    public static final int ID_WRIST = 4;
+    //ID for lightring motor controller
+    public static final int ID_LIGHT = 4;
     //ID for intake motors
     public static final int ID_FRONT_MASTER = 8;
     public static final int ID_SHOOTER_MASTER = 9;
     //ID for roller lifting motor 
     public static final int ID_ROLLER = 10;
-    //ID for vacuum motor
-   // public static final int ID_VACUUM = 11;
+    //ID for winch motor
+    public static final int ID_WINCH = 11;
     //ID for jack motor
     public static final int ID_JACK = 12;
     //IDs for mast motors 
@@ -44,24 +44,19 @@ public class RobotMap {
     
     //ID for USB Camera
     public static final int sandstormCameraPort = 1;
-    
-    //port for light sensors
-    public static int lightSensorPort = 1; 
-    //mast pot port
-    public static int mastPotPort = 0;
+ 
     //wrist pot port
     public static int wristPotPort = 5;
   
-    //port for suction cup piston
-    public static int cupsCylinderPort = 6;
-    //ports for wrist piston
-    public static int wristCylinderPort = 7;
     //port for brake cylinder
     public static int brakeCylinderPort = 0;
-    //ports for fang cylinder
-    public static int fangCylinderPort = 4;
+    
     //ports for mast cylinder
     public static int mastCylinderPort = 1;
+
+    public static int HatchCylinderPort = 2;
+
+    public static int climbCylinderPort = 4;
     
 
     //xbox controller ports
@@ -100,6 +95,8 @@ public class RobotMap {
     //panic button values
     public static boolean isMastLimitEnabled = true;
 
+    public static int MastEncoderA = 8;
+    public static int MastEncoderB = 9;
     //Drive params                                                           
     public static final DriveParameters DRIVE_PARAMS  = new DriveParameters(.0058, .0064, .003, -.8);
 
@@ -108,5 +105,15 @@ public class RobotMap {
     public static final PIDParameters TURN_PARAMS_45    = new PIDParameters(.06 , .0  , -.003, 1 / 100.0);
     public static final PIDParameters TURN_PARAMS_90    = new PIDParameters(.005, .002, -.002, 1 / 100.0);
     public static final PIDParameters TURN_PARAMS_180   = new PIDParameters(.06 , .003, -.001, 1 / 100.0);
+
+    //vision
+    public static final boolean visionEnabled = true;
+
+    public static double driveForwardOffset = 0.25;
+	public static double driveTurnOffset = 0.25;
+	public static double driveGTurnOffset = 2.0;
+    public static double driveCorrection = -0.2;
+    
+    public static int cam = 0;
     }
 

@@ -17,9 +17,7 @@ git
 */
 package frc.robot;
 
-import java.nio.channels.spi.AbstractSelector;
 
-import edu.wpi.cscore.MjpegServer;
 import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.Compressor;
@@ -29,12 +27,12 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.commands.auto.Cross;
-import frc.commands.drive.DriveCommand;
 import frc.subsystems.BrakeSubsystem;
+import frc.subsystems.ClimbingSubsystem;
 import frc.subsystems.DriveSubsystem;
-import frc.subsystems.FangSubsystem;
+import frc.subsystems.HatchPickup;
 import frc.subsystems.IntakeSubsystem;
+import frc.subsystems.LightRingSubsystem;
 import frc.subsystems.MastSubsystem;
 import frc.subsystems.ThrustSubsystem;
 
@@ -47,9 +45,7 @@ import frc.subsystems.ThrustSubsystem;
  * project.
  */
 public class Robot extends TimedRobot {
-  private static final String kDefaultAuto = "Default";
-  private static final String kCustomAuto = "My Auto";
-  private String m_autoSelected;
+
   private final SendableChooser<String> m_chooser = new SendableChooser<>();
 
   public PowerDistributionPanel pdp = new PowerDistributionPanel(0);
@@ -59,41 +55,57 @@ public class Robot extends TimedRobot {
   public static IntakeSubsystem intake = new IntakeSubsystem();
   public static ThrustSubsystem thrust = new ThrustSubsystem();
   public static BrakeSubsystem brake = new BrakeSubsystem();
-  public static FangSubsystem fang = new FangSubsystem();
- 
+  public static ClimbingSubsystem climb = new ClimbingSubsystem();
+  public static HatchPickup hatch = new HatchPickup();
+  public static LightRingSubsystem light = new LightRingSubsystem();
+
   public Compressor compressor = new Compressor(RobotMap.ID_PCM);
-  
+
+  public static UsbCamera cam = new UsbCamera("cam", 0);
 
   public static OI oi = new OI();
 
   Command m_autonomousCommand;
 
+  public static boolean visionEnabled = true;
+
 //	SendableChooser<Command> m_chooser = new SendableChooser<>();
-  
-
- 
-
   /**
    * This function is run when the robot is first started up and should be
    * used for any initialization code.
    */
+
   @Override
   public void robotInit() 
-  {
+  {/*
     UsbCamera cam = CameraServer.getInstance().startAutomaticCapture();
+    cam.free();
     cam.setExposureManual(50);
     cam.setResolution(320, 240);
-    cam.setFPS(20);
+    cam.setFPS(20);*/
    // m_chooser.setDefaultOption("Default Auto", Cross);
    // m_chooser.addOption("My Auto", DriveCommand);
     SmartDashboard.putData("Auto choices", m_chooser);
     
     compressor.start();
 
-    
-  
-	
+  }
 
+  public static void EnableVisionTracking(boolean enabled){
+    if (enabled){ //vision mode (he on xgames mode)
+      cam.setBrightness(20);
+      cam.setExposureManual(5);
+      cam.setFPS(20);
+      visionEnabled = true;
+      LightRingSubsystem.lightOn();
+    }
+    else{
+      cam.setBrightness(20);
+      cam.setExposureAuto();
+      cam.setFPS(20);
+      visionEnabled = false;
+      LightRingSubsystem.lightOff();
+    }
   }
 
 
@@ -151,8 +163,7 @@ public class Robot extends TimedRobot {
   public void teleopPeriodic() {
     Scheduler.getInstance().run();
 
-    SmartDashboard.putNumber("mastPot", mast.mastPot.get());
-    SmartDashboard.putBoolean("lightSensor", drive.getLightSensor());
+    SmartDashboard.putNumber("mastPot", mast.MastEncoder.get());
     /*
     SmartDashboard.putBoolean("mastLimitSwitchDown", mast.getLowerLimitSwitch());
     SmartDashboard.putBoolean("mastLimitSwitchUp", mast.getUpperLimitSwitch());

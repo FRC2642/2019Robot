@@ -5,48 +5,45 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.commands.thrust;
+package frc.commands.climb;
 
 import edu.wpi.first.wpilibj.command.Command;
+import frc.robot.OI;
 import frc.robot.Robot;
 
-public class RollerCommand extends Command {
-  
-
-  public RollerCommand() {
-    requires(Robot.thrust);
-    // Use requires() here to declare subsystem dependencies
-    // eg. requires(chassis);
+public class newClimbCommand extends Command {
+  public newClimbCommand() {
+  requires(Robot.climb);
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
+    Robot.climb.clutchOut(); 
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
-  protected void execute() {
-  Robot.thrust.rollRoller();
-  }
-
+  protected void execute() {   
+   Robot.climb.moveWinch(OI.xbox.getRawAxis(5));
+ }
+  
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
     return false;
-  }
+    }
 
   // Called once after isFinished returns true
   @Override
   protected void end() {
-    
+    Robot.climb.clutchIn();
   }
 
   // Called when another command which requires one or more of the same
-  // subsystems is scheduled to run
+  // subsystems is scheduled to run.
   @Override
   protected void interrupted() {
-Robot.thrust.stopRoller();
   }
 }

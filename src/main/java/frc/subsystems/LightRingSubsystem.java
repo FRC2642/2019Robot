@@ -10,47 +10,37 @@ package frc.subsystems;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
-import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.command.Subsystem;
-import frc.commands.intake.IntakeCommand;
 import frc.robot.RobotMap;
 
 /**
  * Add your docs here.
  */
-public class IntakeSubsystem extends Subsystem {
+public class LightRingSubsystem extends Subsystem {
+  // Put methods for controlling this subsystem
+  // here. Call these from Commands.
+  Spark lightTestSpark = new Spark(0);
+ public static VictorSPX lightController = new VictorSPX(RobotMap.ID_LIGHT);
 
-  public VictorSPX frontMaster = new VictorSPX(RobotMap.ID_FRONT_MASTER);
-  public VictorSPX shooterMaster = new VictorSPX(RobotMap.ID_SHOOTER_MASTER);
+public void testOn(){
+  lightTestSpark.setSpeed(1);
+}
 
-  public DigitalInput intakeSwitch = new DigitalInput(RobotMap.intakeLimitSwitch);
-  
-  public IntakeSubsystem() {
-  }
+public void testOff(){
+  lightTestSpark.setSpeed(0);
+}
 
-  public void intake() {
-    frontMaster.set(ControlMode.PercentOutput, -0.8);
-    shooterMaster.set(ControlMode.PercentOutput, 0.8);
-  }
-
-  public void outtake() {
-    shooterMaster.set(ControlMode.PercentOutput, -0.8);
-  }
-
-  public void stop() {
-    frontMaster.set(ControlMode.PercentOutput, 0);
-    shooterMaster.set(ControlMode.PercentOutput, 0);
-  }
-
-  
-public boolean getIntakeLimitSwitch(){
-  return !intakeSwitch.get();
+public static void lightOn(){
+  lightController.set(ControlMode.PercentOutput, 1);
+}
+public static void lightOff(){
+  lightController.set(ControlMode.PercentOutput, 0);
 }
 
   @Override
   public void initDefaultCommand() {
     // Set the default command for a subsystem here.
     // setDefaultCommand(new MySpecialCommand());
-    setDefaultCommand(new IntakeCommand());
   }
 }

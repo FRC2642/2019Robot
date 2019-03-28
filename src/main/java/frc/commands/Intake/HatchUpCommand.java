@@ -5,16 +5,16 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.commands.fangs;
+package frc.commands.intake;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.OI;
 import frc.robot.Robot;
 
-public class newFangsCommand extends Command {
-  public newFangsCommand() {
+public class HatchUpCommand extends Command {
+  public HatchUpCommand() {
     // Use requires() here to declare subsystem dependencies
-    requires(Robot.fang);
+  requires(Robot.hatch);
   }
 
   // Called just before this Command runs the first time
@@ -25,15 +25,19 @@ public class newFangsCommand extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-   Robot.fang.set();    
- }
-  
+   /* if(OI.aux.getRawButton(4)){
+     Robot.hatch.hatchUp();
+    } else if(OI.aux.getRawButton(3)){
+     Robot.hatch.hatchDown();
+    }*/
+    Robot.hatch.set();
+  }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
     return false;
-    }
+  }
 
   // Called once after isFinished returns true
   @Override

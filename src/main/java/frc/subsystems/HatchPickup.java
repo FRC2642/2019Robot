@@ -7,50 +7,45 @@
 
 package frc.subsystems;
 
-
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
-import frc.commands.fangs.newFangsCommand;
+import frc.commands.intake.HatchUpCommand;
 import frc.robot.OI;
 import frc.robot.RobotMap;
 
 /**
  * Add your docs here.
  */
-public class FangSubsystem extends Subsystem {
-  // Put methods for controlling this subsystem
+public class HatchPickup extends Subsystem {
+    // Put methods for controlling this subsystem
   // here. Call these from Commands.
 
   
-  public Solenoid fangCylinder = new Solenoid(RobotMap.ID_PCM, RobotMap.fangCylinderPort);
+public Solenoid hatchCylinder = new Solenoid(RobotMap.ID_PCM, RobotMap.HatchCylinderPort);
 
-public void fangsIn() {
-fangCylinder.set(true);
+public void hatchUp() {
+  hatchCylinder.set(true);
 }
 
 
-public void fangsOut() {
- fangCylinder.set(false);
+public void hatchDown() {
+  hatchCylinder.set(false);
 }
 
 public void set(){
-  if(OI.aux.getRawButton(3)){
-    fangCylinder.set(true);
-  } else{
-    fangCylinder.set(false);
+  if(OI.aux.getRawButton(4)){
+    hatchCylinder.set(true);
+  } 
+  else if(OI.aux.getRawButton(3)){
+    hatchCylinder.set(false);
   }
 }
-//public boolean FangStatus(){
- /* if(fangsOut()){
-    return false;
-  }
-  else{
-    return true;
-  }*/
+
+
 
 @Override
   public void initDefaultCommand() {
     // Set the default command for a subsystem here.
-    setDefaultCommand(new newFangsCommand());
+   setDefaultCommand(new HatchUpCommand());
   }
 }

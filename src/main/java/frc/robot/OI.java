@@ -11,12 +11,13 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
-import frc.commands.drive.DriveCommand;
-import frc.commands.drive.DriveOnTapeCommand;
-import frc.commands.fangs.newFangsCommand;
+import frc.commands.auto.vision.DriveAtRRTape;
+import frc.commands.climb.newClimbCommand;
+import frc.commands.intake.HatchDownCommand;
+import frc.commands.intake.HatchUpCommand;
 //import frc.commands.mast.MastPistonDown;
 //import frc.commands.mast.MastPistonUp;
-import frc.commands.mast.MoveMastToBottomCommand;
+//import frc.commands.mast.MoveMastToBottomCommand;
 import frc.commands.mast.MoveMastToMiddleCommand;
 import frc.commands.mast.MoveMastToTopCommand;
 import frc.commands.thrust.JackDownCommand;
@@ -24,16 +25,15 @@ import frc.commands.thrust.JackOffCommand;
 import frc.commands.thrust.JackUpCommand;
 import frc.commands.util.DisableLimitsCommand;
 
-
 public class OI {
     public static XboxController xbox = new XboxController(RobotMap.xboxControllerPort);
     public static XboxController aux = new XboxController(RobotMap.auxXboxControllerPort);
     public static Joystick autoDial = new Joystick(RobotMap.autoSelectorJoystickPort);
 
- Button xboxA = new JoystickButton(xbox, 1);
- Button xboxB = new JoystickButton(xbox, 2);
- Button xboxX = new JoystickButton(xbox, 3);
- Button xboxY = new JoystickButton(xbox, 4);
+    Button xboxA = new JoystickButton(xbox, 1);
+    Button xboxB = new JoystickButton(xbox, 2);
+    Button xboxX = new JoystickButton(xbox, 3);
+    Button xboxY = new JoystickButton(xbox, 4);
  Button xboxLeftBumper = new JoystickButton(xbox, 5);
  Button xboxRightBumper = new JoystickButton(xbox, 6);
  Button xboxSelect = new JoystickButton(xbox, 7);
@@ -48,6 +48,9 @@ public class OI {
  Button auxXboxLeftBumper = new JoystickButton(aux, 5);
  Button auxXboxSelect = new JoystickButton(xbox, 7);
  Button auxXboxStart = new JoystickButton(xbox, 8);
+
+
+
 
  public static Button dial1 = new JoystickButton(autoDial, 1);
  public static Button dial2 = new JoystickButton(autoDial, 2);
@@ -69,14 +72,22 @@ public class OI {
     xboxLeftBumper.whenReleased(new JackOffCommand()); 
     xboxRightBumper.whileHeld(new JackUpCommand());
     xboxRightBumper.whenReleased(new JackOffCommand()); 
-    xboxSelect.whileHeld(new DriveOnTapeCommand());
-    xboxSelect.whenReleased(new DriveCommand());
+    xboxA.whileHeld(new newClimbCommand());
+
+    //xboxB is used for roller
+    
 
     auxXboxSelect.whenPressed(new DisableLimitsCommand());
-    auxXboxX.whenPressed(new newFangsCommand());
-    auxXboxA.whenPressed(new MoveMastToBottomCommand());
+   // auxXboxX.whenPressed(new newClimbCommand());
+    auxXboxA.whenPressed(new DriveAtRRTape());
     auxXboxB.whenPressed(new MoveMastToMiddleCommand());
     auxXboxY.whenPressed(new MoveMastToTopCommand());
+    //left trigger intake in
+    //right trigger intake out
+
+
+    auxXboxLeftBumper.whenPressed(new HatchUpCommand());
+    auxXboxRightBumper.whenPressed(new HatchDownCommand());
     
 
     

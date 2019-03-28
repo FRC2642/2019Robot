@@ -5,16 +5,13 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.commands.thrust;
+package frc.commands.light;
 
 import edu.wpi.first.wpilibj.command.Command;
-import frc.robot.Robot;
+import frc.robot.OI;
 
-public class RollerCommand extends Command {
-  
-
-  public RollerCommand() {
-    requires(Robot.thrust);
+public class TestLightCommand extends Command {
+  public TestLightCommand() {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
   }
@@ -27,9 +24,8 @@ public class RollerCommand extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-  Robot.thrust.rollRoller();
+    if(OI.xbox.getRawButton(0));
   }
-
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
@@ -40,13 +36,11 @@ public class RollerCommand extends Command {
   // Called once after isFinished returns true
   @Override
   protected void end() {
-    
   }
 
   // Called when another command which requires one or more of the same
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
-Robot.thrust.stopRoller();
   }
 }

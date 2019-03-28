@@ -5,91 +5,32 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.commands.fangs;
+package frc.commands.intake;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
-import edu.wpi.first.wpilibj.Timer;
 
-public class FangsDeploy extends Command {
-  public FangsDeploy() {
+public class HatchDownCommand extends Command {
+  public HatchDownCommand() {
     // Use requires() here to declare subsystem dependencies
-    // eg. requires(chassis);
-    requires(Robot.fang);
+    requires(Robot.hatch);
   }
-
-  //state of fangs 
-  //false = in, true = out
-  //flipped 3/9
-  static boolean state = true;
-  boolean hasRun;
-
-  Timer timer = new Timer();
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    timer.start();
-    hasRun = false;
-    Robot.fang.fangsIn();
-}
+  }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-
-    Robot.fang.fangsIn();
-    hasRun = true;
-    /*if(timer.get() > 1.5){
-
-      timer.stop();
-
-    }
-
-
-
-   if(state && timer.get() > 1){
-
-    Robot.fang.fangsIn();
-
-    state = !state;
-
-    timer.reset();
-
-    hasRun = true;
-
-   }
-
-
-
-  if(!state && timer.get() > 1){
-
-    Robot.fang.fangsOut();
-
-    state = !state;
-
-    timer.reset();
-
-    hasRun = true;*/
-
-   }
-
-
-
-  // Robot.fang.fangsOut();
-
-
-  
-
-  // Robot.fang.fang
-  
-
-  
+    Robot.hatch.hatchDown();
+  }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-        return hasRun;
+    return false;
   }
 
   // Called once after isFinished returns true

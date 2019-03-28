@@ -12,12 +12,15 @@ import com.ctre.phoenix.motorcontrol.DemandType;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.sensors.PigeonIMU;
 import com.ctre.phoenix.sensors.PigeonIMU.CalibrationMode;
+import com.kauailabs.navx.frc.AHRS;
 
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.commands.drive.DriveCommand;
+import frc.library.lib.pid.PIDOutput;
+import frc.library.lib.pid.PIDSource;
 import frc.robot.RobotMap;
-import frc.library.lib.pid.*;
 /**
  * Add your docs here.
  */
@@ -28,9 +31,11 @@ public class DriveSubsystem extends Subsystem {
 public TalonSRX leftFrontMaster, leftRearSlave;
 public TalonSRX rightFrontMaster, rightRearSlave;
 
-DigitalInput lightSensor = new DigitalInput(RobotMap.lightSensorPort);
-
 PigeonIMU pigeon = new PigeonIMU(RobotMap.ID_PIGEON);
+
+public AHRS navx = new AHRS(SPI.Port.kMXP);
+
+private boolean isDriveStraight = true;
 
 public boolean isWorking = false;
 
@@ -91,9 +96,7 @@ public void tankDrive(double left, double right){
   setRightSpeed(right);
 }
 
-public boolean getLightSensor(){
-  return lightSensor.get();
-}
+
 
   //classes for inbuilt PID
     public class TapePID implements PIDSource{
@@ -117,19 +120,86 @@ public boolean getLightSensor(){
   }
 
 
+
+  public double getEncoderLeft(){
+		System.out.println(leftFrontMaster.getSelectedSensorPosition());
+		return leftFrontMaster.getSelectedSensorPosition();
+	}
+	
+	public double getEncoderRight(){
+    System.out.println(rightFrontMaster.getSelectedSensorPosition());
+    return rightFrontMaster.getSelectedSensorPosition();
+  	}
+	
+	public void resetBothEncoders(){
+    leftFrontMaster.setSelectedSensorPosition(0);
+    rightFrontMaster.setSelectedSensorPosition(0);
+	}
+	
+	//Returns a given encoder value as inches
+	public double encoderInches(double encoderValue){
+		return encoderValue / 12.9;
+	}
+	
+	//Returns the left encoder distance as inches
+	public double leftEncoderInches(){
+		return encoderInches(getEncoderLeft());
+	}
+	
+	public double rightEncoderInches(){
+		return encoderInches(getEncoderRight());
+	}
+	
+	public double setDegrees(double degrees){
+		return degrees * -0.26;
+	}
+
+
   @Override
   public void initDefaultCommand() {
     // Set the default command for a subsystem here.
     setDefaultCommand(new DriveCommand());
   }
 
-  /*public boolean work(boolean isWorking){
-  if(!this.isWorking){
-    this.isWorking = isWorking;
-  } else{
-    System.out.println("You already work tf?");
+//Drives straight in autonomous with PID control
+public void driveStraight(double speed){
+  double correction = 0.0;
+  //Checks to see if the difference between the left and right is within a margin of error
+  if(Math.abs(leftEncoderInches() - rightEncoderInches()) > RobotMap.driveForwardOffset){	
+    //Left distance is less than right distance
+    if(leftEncoderInches() < rightEncoderInches()){
+      correction = -RobotMap.driveCorrection;
+    }else{	//Right distance is less than left distance
+      correction = RobotMap.driveCorrection;
+    }
   }
-  System.out.println("Working? " + this.isWorking);
-  return this.isWorking;
-}*/
+  arcadeDrive(-speed, correction);	//Drives with the correction value
+}
+
+//Turns in autonomous with PID control
+public void driveTurn(double speed){
+  double correctionL = 0.0;
+  double correctionR = 0.0;
+  //Checks to see if the difference between the left and right is within a margin of error
+  if(Math.abs(leftEncoderInches() + rightEncoderInches()) > RobotMap.driveForwardOffset){
+    if(leftEncoderInches() > rightEncoderInches())	//Left distance is greater than right distance
+      correctionR = -RobotMap.driveCorrection;
+    }else{
+      correctionL = -RobotMap.driveCorrection;
+    }
+  tankDrive(-speed - correctionL, speed - correctionR);	//Drives as a tank drive to correct turning drift
+}
+
+public void setIsDriveStraight(boolean state){
+  isDriveStraight = state;
+}
+
+protected double returnPIDInput() {
+  if(isDriveStraight)
+    return (rightEncoderInches() + leftEncoderInches()) / 2.0;	//Returns the average distance of both encoders
+  else
+    return (rightEncoderInches() - leftEncoderInches()) / 2.0;	//Returns the average distance of both encoders
+}
+
+
 }
