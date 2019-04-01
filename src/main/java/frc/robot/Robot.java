@@ -16,19 +16,23 @@ git
 
 */
 package frc.robot;
-import edu.wpi.cscore.MjpegServer;
+
+
 import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.subsystems.BrakeSubsystem;
+import frc.subsystems.ClimbingSubsystem;
 import frc.subsystems.DriveSubsystem;
-import frc.subsystems.FangSubsystem;
+import frc.subsystems.HatchPickup;
 import frc.subsystems.IntakeSubsystem;
+import frc.subsystems.LightRingSubsystem;
 import frc.subsystems.MastSubsystem;
 import frc.subsystems.ThrustSubsystem;
 
@@ -41,9 +45,7 @@ import frc.subsystems.ThrustSubsystem;
  * project.
  */
 public class Robot extends TimedRobot {
-  private static final String kDefaultAuto = "Default";
-  private static final String kCustomAuto = "My Auto";
-  private String m_autoSelected;
+
   private final SendableChooser<String> m_chooser = new SendableChooser<>();
 
   public PowerDistributionPanel pdp = new PowerDistributionPanel(0);
@@ -53,56 +55,60 @@ public class Robot extends TimedRobot {
   public static IntakeSubsystem intake = new IntakeSubsystem();
   public static ThrustSubsystem thrust = new ThrustSubsystem();
   public static BrakeSubsystem brake = new BrakeSubsystem();
-  public static FangSubsystem fang = new FangSubsystem();
- 
+  public static ClimbingSubsystem climb = new ClimbingSubsystem();
+  public static HatchPickup hatch = new HatchPickup();
+  public static LightRingSubsystem light = new LightRingSubsystem();
+
   public Compressor compressor = new Compressor(RobotMap.ID_PCM);
-  
+
+  //public static UsbCamera cam = new UsbCamera("cam", 0);
 
   public static OI oi = new OI();
 
-  public static UsbCamera sandstormCamera;
-	public static MjpegServer cameraFront;
+  Command m_autonomousCommand;
 
+ // public static boolean visionEnabled = true;
+
+//	SendableChooser<Command> m_chooser = new SendableChooser<>();
   /**
    * This function is run when the robot is first started up and should be
    * used for any initialization code.
    */
+
   @Override
   public void robotInit() 
   {
-    m_chooser.setDefaultOption("Default Auto", kDefaultAuto);
-    m_chooser.addOption("My Auto", kCustomAuto);
+    UsbCamera cam = CameraServer.getInstance().startAutomaticCapture();
+    //cam.close();
+    cam.setExposureAuto();
+   // cam.setExposureManual(50);
+    cam.setResolution(320, 240);
+    cam.setFPS(20);
+   // m_chooser.setDefaultOption("Default Auto", Cross);
+   // m_chooser.addOption("My Auto", DriveCommand);
     SmartDashboard.putData("Auto choices", m_chooser);
+    
     compressor.start();
 
-    
-    //Camera instances
-		sandstormCamera = CameraServer.getInstance().startAutomaticCapture("Boiler", RobotMap.sandstormCameraPort);
-		cameraFront = new MjpegServer("Front", 0);
-			//Camera resolutions
-		sandstormCamera.setResolution(RobotMap.IMG_WIDTH, RobotMap.IMG_HEIGHT);
-
-		//Camera FPS
-		sandstormCamera.setFPS(10);
-		
-//		sandstormCamera.setPixelFormat(VideoMode.PixelFormat.kMJPEG);
-		
-		
-		//Turns off vision by default
-		setSandstormCameraVision(false);
-
   }
 
-	//Changes camera mode for the boiler camera
-	public static void setSandstormCameraVision(boolean enabled) {
-		if (enabled) {    //Vision Mode
-			sandstormCamera.setBrightness(0);
-			sandstormCamera.setExposureManual(0);
-		} else {        //Driving Mode
-			sandstormCamera.setBrightness(30);
-			sandstormCamera.setExposureManual(35);
-		}
-  }
+ /* public static void EnableVisionTracking(boolean enabled){
+    if (enabled){ //vision mode (he on xgames mode)
+      cam.setBrightness(20);
+      cam.setExposureManual(5);
+      cam.setFPS(20);
+      visionEnabled = true;
+      LightRingSubsystem.lightOn();
+    }
+    else{
+      cam.setBrightness(20);
+      cam.setExposureAuto();
+      cam.setFPS(20);
+      visionEnabled = false;
+      LightRingSubsystem.lightOff();
+    }
+  }*/
+
 
   
 
@@ -127,7 +133,7 @@ public class Robot extends TimedRobot {
 
   /**
    * This autonomous (along with the chooser code above) shows how to select
-   * between different autonomous modes using the dashboard. The sendable
+   * between differenst autonomous modes using the dashboard. The sendable
    * chooser code works with the Java SmartDashboard. If you prefer the
    * LabVIEW Dashboard, remove all of the chooser code and uncomment the
    * getString line to get the auto name from the text box below the Gyro
@@ -138,11 +144,9 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousInit() {
-    sandstormCamera.setFPS(10);
-    m_autoSelected = m_chooser.getSelected();
-    // m_autoSelected = SmartDashboard.getString("Auto Selector", kDefaultAuto);
-    System.out.println("Auto selected: " + m_autoSelected);
-    setSandstormCameraVision(true);
+    
+    teleopInit();
+ 
   }
 
   /**
@@ -150,15 +154,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousPeriodic() {
-    switch (m_autoSelected) {
-      case kCustomAuto:
-        // Put custom auto code here
-        break;
-      case kDefaultAuto:
-      default:
-        // Put default auto code here
-        break;
-    }
+   teleopPeriodic();
   }
 
   /**
@@ -168,14 +164,16 @@ public class Robot extends TimedRobot {
   public void teleopPeriodic() {
     Scheduler.getInstance().run();
 
-    SmartDashboard.putNumber("mastPot", mast.mastPot.get());
-    SmartDashboard.putBoolean("lightSensor", drive.getLightSensor());
+    SmartDashboard.putNumber("mastEncoder", mast.MastEncoder.get());
     /*
     SmartDashboard.putBoolean("mastLimitSwitchDown", mast.getLowerLimitSwitch());
     SmartDashboard.putBoolean("mastLimitSwitchUp", mast.getUpperLimitSwitch());
+    
     SmartDashboard.putBoolean("intakeLimitSwitch", intake.getIntakeLimitSwitch());
     SmartDashboard.putBoolean("jackLimitSwitch", thrust.getJackLimitSwitch());
     */
+ 
+
   }
 
   /**

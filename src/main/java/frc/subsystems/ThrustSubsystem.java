@@ -9,10 +9,10 @@ package frc.subsystems;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
-
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.commands.thrust.RollerCommand;
+import frc.robot.OI;
 import frc.robot.RobotMap;
 
 /**
@@ -42,8 +42,13 @@ public DigitalInput jackLimitSwitch = new DigitalInput(RobotMap.jackLimitSwitch)
       }
     }
 
-  public void rollerRolling(double speed) {
-    rollerMaster.set(ControlMode.PercentOutput, speed);
+  public void rollRoller() {
+    //B button
+    if(OI.xbox.getRawButton(7)){
+      rollerMaster.set(ControlMode.PercentOutput, -.9);
+    } else{
+      stopRoller();
+    }
   }
 
   public void stopRoller(){

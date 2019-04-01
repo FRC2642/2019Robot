@@ -22,13 +22,12 @@ public class DisableLimitsCommand extends Command {
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
+
     if(state){
     RobotMap.isMastLimitEnabled = false;
-    RobotMap.isWristLimitEnabled = false;
     }
     if(!state){ 
     RobotMap.isMastLimitEnabled = true;
-    RobotMap.isWristLimitEnabled = true;
     }
   }
 

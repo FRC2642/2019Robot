@@ -27,7 +27,7 @@ public class DriveSubsystem extends Subsystem {
 public TalonSRX leftFrontMaster, leftRearSlave;
 public TalonSRX rightFrontMaster, rightRearSlave;
 
-DigitalInput lightSensor = new DigitalInput(RobotMap.lightSensorPort);
+//DigitalInput lightSensor = new DigitalInput(RobotMap.lightSensorPort);
 
 PigeonIMU pigeon = new PigeonIMU(RobotMap.ID_PIGEON);
 
@@ -89,11 +89,11 @@ public void turn(double turn){
   setLeftSpeed(turn);
   setRightSpeed(turn);
 }
-
+/*
 public boolean getLightSensor(){
   return lightSensor.get();
 }
-
+*/
 public double getPigeonHeading(){
   return pigeon.getAbsoluteCompassHeading();
 }
