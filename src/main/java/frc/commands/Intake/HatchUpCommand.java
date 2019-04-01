@@ -8,7 +8,6 @@
 package frc.commands.intake;
 
 import edu.wpi.first.wpilibj.command.Command;
-import frc.robot.OI;
 import frc.robot.Robot;
 
 public class HatchUpCommand extends Command {
@@ -42,11 +41,13 @@ public class HatchUpCommand extends Command {
   // Called once after isFinished returns true
   @Override
   protected void end() {
+    Robot.hatch.hatchDown();
   }
 
   // Called when another command which requires one or more of the same
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
+    Robot.hatch.hatchDown();
   }
 }

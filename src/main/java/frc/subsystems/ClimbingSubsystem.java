@@ -13,7 +13,6 @@ import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
-import frc.commands.climb.newClimbCommand;
 import frc.robot.RobotMap;
 
 /**
@@ -23,7 +22,7 @@ public class ClimbingSubsystem extends Subsystem {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
 
-public VictorSPX winchMotor = new VictorSPX(RobotMap.ID_WINCH);
+public VictorSPX climbMotor = new VictorSPX(RobotMap.ID_CLIMB);
 public Solenoid clutchCylinder = new Solenoid(RobotMap.ID_PCM, RobotMap.climbCylinderPort);
 
 public void clutchIn() {
@@ -42,20 +41,18 @@ public void setClutch(){
   }
 }*/
 
-public void moveWinch(double speed){
-  winchMotor.set(ControlMode.PercentOutput, speed);
+public void climb(double speed){
+  climbMotor.set(ControlMode.PercentOutput, speed);
 }
-//public boolean FangStatus(){
- /* if(fangsOut()){
-    return false;
-  }
-  else{
-    return true;
-  }*/
+
+public void stop(){
+  climbMotor.set(ControlMode.PercentOutput, 0);
+}
+
 
 @Override
   public void initDefaultCommand() {
     // Set the default command for a subsystem here.
-    setDefaultCommand(new newClimbCommand());
+    //setDefaultCommand(new ClimbCommand());
   }
 }

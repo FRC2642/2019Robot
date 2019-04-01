@@ -28,7 +28,7 @@ public class EnableVisionTracking extends InstantCommand {
 
     // Called once when the command executes
     protected void initialize() {
-    	Robot.EnableVisionTracking(state);
+    //	Robot.EnableVisionTracking(state);
     }
 
 

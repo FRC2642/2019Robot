@@ -61,13 +61,13 @@ public class Robot extends TimedRobot {
 
   public Compressor compressor = new Compressor(RobotMap.ID_PCM);
 
-  public static UsbCamera cam = new UsbCamera("cam", 0);
+  //public static UsbCamera cam = new UsbCamera("cam", 0);
 
   public static OI oi = new OI();
 
   Command m_autonomousCommand;
 
-  public static boolean visionEnabled = true;
+ // public static boolean visionEnabled = true;
 
 //	SendableChooser<Command> m_chooser = new SendableChooser<>();
   /**
@@ -77,12 +77,13 @@ public class Robot extends TimedRobot {
 
   @Override
   public void robotInit() 
-  {/*
+  {
     UsbCamera cam = CameraServer.getInstance().startAutomaticCapture();
-    cam.free();
-    cam.setExposureManual(50);
+    //cam.close();
+    cam.setExposureAuto();
+   // cam.setExposureManual(50);
     cam.setResolution(320, 240);
-    cam.setFPS(20);*/
+    cam.setFPS(20);
    // m_chooser.setDefaultOption("Default Auto", Cross);
    // m_chooser.addOption("My Auto", DriveCommand);
     SmartDashboard.putData("Auto choices", m_chooser);
@@ -91,7 +92,7 @@ public class Robot extends TimedRobot {
 
   }
 
-  public static void EnableVisionTracking(boolean enabled){
+ /* public static void EnableVisionTracking(boolean enabled){
     if (enabled){ //vision mode (he on xgames mode)
       cam.setBrightness(20);
       cam.setExposureManual(5);
@@ -106,7 +107,7 @@ public class Robot extends TimedRobot {
       visionEnabled = false;
       LightRingSubsystem.lightOff();
     }
-  }
+  }*/
 
 
   
@@ -132,7 +133,7 @@ public class Robot extends TimedRobot {
 
   /**
    * This autonomous (along with the chooser code above) shows how to select
-   * between different autonomous modes using the dashboard. The sendable
+   * between differenst autonomous modes using the dashboard. The sendable
    * chooser code works with the Java SmartDashboard. If you prefer the
    * LabVIEW Dashboard, remove all of the chooser code and uncomment the
    * getString line to get the auto name from the text box below the Gyro
@@ -163,10 +164,11 @@ public class Robot extends TimedRobot {
   public void teleopPeriodic() {
     Scheduler.getInstance().run();
 
-    SmartDashboard.putNumber("mastPot", mast.MastEncoder.get());
+    SmartDashboard.putNumber("mastEncoder", mast.MastEncoder.get());
     /*
     SmartDashboard.putBoolean("mastLimitSwitchDown", mast.getLowerLimitSwitch());
     SmartDashboard.putBoolean("mastLimitSwitchUp", mast.getUpperLimitSwitch());
+    
     SmartDashboard.putBoolean("intakeLimitSwitch", intake.getIntakeLimitSwitch());
     SmartDashboard.putBoolean("jackLimitSwitch", thrust.getJackLimitSwitch());
     */

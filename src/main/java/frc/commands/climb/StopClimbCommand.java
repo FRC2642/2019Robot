@@ -5,26 +5,29 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.commands.light;
+package frc.commands.climb;
 
 import edu.wpi.first.wpilibj.command.Command;
-import frc.robot.OI;
+import frc.robot.Robot;
 
-public class TestLightCommand extends Command {
-  public TestLightCommand() {
+public class StopClimbCommand extends Command {
+  public StopClimbCommand() {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
+    requires(Robot.climb);
   }
+
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
+    Robot.climb.clutchOut();
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    if(OI.xbox.getRawButton(0));
+    Robot.climb.stop();
   }
 
   // Make this return true when this Command no longer needs to run execute()
@@ -42,5 +45,6 @@ public class TestLightCommand extends Command {
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
+    Robot.climb.stop();
   }
 }

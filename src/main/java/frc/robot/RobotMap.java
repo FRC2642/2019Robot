@@ -26,8 +26,8 @@ public class RobotMap {
     public static final int ID_SHOOTER_MASTER = 9;
     //ID for roller lifting motor 
     public static final int ID_ROLLER = 10;
-    //ID for winch motor
-    public static final int ID_WINCH = 11;
+    //ID for climb motor
+    public static final int ID_CLIMB = 11;
     //ID for jack motor
     public static final int ID_JACK = 12;
     //IDs for mast motors 

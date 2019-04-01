@@ -62,10 +62,17 @@ public class MastSubsystem extends Subsystem {
   public void moveLift(double speed) {
     if(RobotMap.isMastLimitEnabled){
      // speed = -speed;
-       if( (speed < 0) && ((MastEncoder.get() >= RobotMap.maxMastHeight || !getUpperLimitSwitch())) ){
+       if( (speed < 0) && /*((MastEncoder.get() >= RobotMap.maxMastHeight ||*/ !getUpperLimitSwitch())//) )
+       {
+        
         stop();
-      } else if( (speed > 0) && ((MastEncoder.get() <= RobotMap.minMastHeight || !getLowerLimitSwitch())) ){
+        Robot.brake.brakeOn();
+      } else if( (speed > 0) && /*((MastEncoder.get() <= RobotMap.minMastHeight ||*/ !getLowerLimitSwitch())//) )
+      {
         stop();
+        Robot.brake.brakeOn();
+      } else if(speed > 0){
+        mastMaster.set(ControlMode.PercentOutput, speed * .2);
       } else {
         mastMaster.set(ControlMode.PercentOutput, speed);
       }
@@ -76,6 +83,8 @@ public class MastSubsystem extends Subsystem {
       else if( (speed < 0) && getLowerLimitSwitch() ){
         stop();
         ResetEncoder();
+      } else if(speed < 0) {
+        stop();
       } else {
         mastMaster.set(ControlMode.PercentOutput, speed);
       }
@@ -99,6 +108,11 @@ public class MastSubsystem extends Subsystem {
 
     public void stop(){
       mastMaster.set(ControlMode.PercentOutput, 0);
+    }
+
+    public double getMastPercentOutput(){
+      double output = mastMaster.getMotorOutputPercent();
+     return output;
     }
 
     public boolean getUpperLimitSwitch(){

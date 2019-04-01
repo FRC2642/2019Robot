@@ -8,24 +8,24 @@
 package frc.commands.climb;
 
 import edu.wpi.first.wpilibj.command.Command;
-import frc.robot.OI;
 import frc.robot.Robot;
 
-public class newClimbCommand extends Command {
-  public newClimbCommand() {
+public class ClimbCommand extends Command {
+  public ClimbCommand() {
   requires(Robot.climb);
   }
 
   // Called just before this Command runs the first time
   @Override
-  protected void initialize() {
-    Robot.climb.clutchOut(); 
+  protected void initialize() { 
+    Robot.climb.clutchOut();
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {   
-   Robot.climb.moveWinch(OI.xbox.getRawAxis(5));
+   //Robot.climb.climb(OI.xbox.getRawAxis(5) * .1);
+   Robot.climb.climb(-1.0);
  }
   
 
@@ -38,12 +38,13 @@ public class newClimbCommand extends Command {
   // Called once after isFinished returns true
   @Override
   protected void end() {
-    Robot.climb.clutchIn();
+    Robot.climb.stop();
   }
 
   // Called when another command which requires one or more of the same
   // subsystems is scheduled to run.
   @Override
   protected void interrupted() {
+    Robot.climb.stop();
   }
 }

@@ -11,8 +11,8 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
-import frc.commands.auto.vision.DriveAtRRTape;
-import frc.commands.climb.newClimbCommand;
+import frc.commands.climb.StopClimbCommand;
+import frc.commands.climb.ClimbCommand;
 import frc.commands.intake.HatchDownCommand;
 import frc.commands.intake.HatchUpCommand;
 //import frc.commands.mast.MastPistonDown;
@@ -72,24 +72,23 @@ public class OI {
     xboxLeftBumper.whenReleased(new JackOffCommand()); 
     xboxRightBumper.whileHeld(new JackUpCommand());
     xboxRightBumper.whenReleased(new JackOffCommand()); 
-    xboxA.whileHeld(new newClimbCommand());
-
+    xboxA.whileHeld(new ClimbCommand());
+    xboxA.whenReleased(new StopClimbCommand());
+    //axis 1 is drive
     //xboxB is used for roller
+    //sicko mode on axis 2/3 
+    //roller on 7 (xbox select)
     
 
     auxXboxSelect.whenPressed(new DisableLimitsCommand());
-   // auxXboxX.whenPressed(new newClimbCommand());
-    auxXboxA.whenPressed(new DriveAtRRTape());
-    auxXboxB.whenPressed(new MoveMastToMiddleCommand());
-    auxXboxY.whenPressed(new MoveMastToTopCommand());
-    //left trigger intake in
-    //right trigger intake out
-
-
-    auxXboxLeftBumper.whenPressed(new HatchUpCommand());
-    auxXboxRightBumper.whenPressed(new HatchDownCommand());
-    
-
+   // auxXboxA.whenPressed(new DriveAtRRTape());
+   // auxXboxB.whenPressed(new MoveMastToMiddleCommand());
+   // auxXboxY.whenPressed(new MoveMastToTopCommand());
+    //left trigger intake in     \ axis 2&3
+    //right trigger intake out   /
+    //move lift on axis 5
+    //3rd stage piston on bumbers 
+    //hatch buttons on 3 and 4
     
 }
 }

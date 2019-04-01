@@ -29,7 +29,7 @@ public class FlipCameras extends InstantCommand {
 
   // Called just before this Command runs the first time
   protected void initialize() {
-    if(cam){
+   /* if(cam){
       CameraServer.getInstance().removeCamera("cam");
       Robot.cam = CameraServer.getInstance().startAutomaticCapture("cam", RobotMap.cam);
       Robot.cam.setFPS(10);
@@ -40,7 +40,7 @@ public class FlipCameras extends InstantCommand {
       Robot.cam = CameraServer.getInstance().startAutomaticCapture("cam", RobotMap.cam);
       Robot.cam.setFPS(10);
       Robot.cam.setResolution(RobotMap.IMG_WIDTH, RobotMap.IMG_HEIGHT);
-    }
+    }*/
   }
 
 }

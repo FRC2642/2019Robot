@@ -20,7 +20,7 @@ public class DriveCommand extends Command {
 
   // Called just before this Command runs the first time
   @Override
-  protected void initialize() { 
+  protected void initialize() {
   }
 
   // Called repeatedly when this Command is scheduled to run
@@ -28,7 +28,7 @@ public class DriveCommand extends Command {
   protected void execute() {
     //Fast Turn, fast straight 
     if(isLeftTriggerPulled()){
-      Robot.drive.arcadeDrive(-OI.xbox.getRawAxis(1) * .96,-(OI.xbox.getRawAxis(0) * .80));
+      Robot.drive.arcadeDrive(-OI.xbox.getRawAxis(1) * .5,-(OI.xbox.getRawAxis(0) * .3));
     }
     //slower turn, fast straight
     else if(isRightTriggerPulled()){
@@ -38,7 +38,6 @@ public class DriveCommand extends Command {
     else{
       Robot.drive.arcadeDrive(-OI.xbox.getRawAxis(1) * .7,-(OI.xbox.getRawAxis(0) * .48));
     }
-   
   }
 
   // Make this return true when this Command no longer needs to run execute()

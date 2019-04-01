@@ -29,7 +29,7 @@ public class BrakeCommand extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    //check if mast is not moving
+  /*  //check if mast is not moving
     if(!Robot.brake.isMastMoving()){
       //check if timer hasn't started yet
       if(onTimer.get() == 0){
@@ -63,10 +63,17 @@ public class BrakeCommand extends Command {
       if(offTimer.get() > .4 && Robot.brake.getBrakeCylinderState()) {
         //if ^ met, disengage brake
         Robot.brake.brakeOff();
+      }*/
+      
+      if(Robot.mast.getMastPercentOutput() == 0){
+        Robot.brake.brakeOn();
+      } else {
+        Robot.brake.brakeOff();
       }
+      
     }
     
-  }
+  
 
   // Make this return true when this Command no longer needs to run execute()
   @Override

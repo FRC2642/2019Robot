@@ -34,10 +34,10 @@ public void hatchDown() {
 
 public void set(){
   if(OI.aux.getRawButton(4)){
-    hatchCylinder.set(true);
+    hatchCylinder.set(false);
   } 
   else if(OI.aux.getRawButton(3)){
-    hatchCylinder.set(false);
+    hatchCylinder.set(true);
   }
 }
 

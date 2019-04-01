@@ -22,7 +22,7 @@ public class LightRingSubsystem extends Subsystem {
   // here. Call these from Commands.
   Spark lightTestSpark = new Spark(0);
  public static VictorSPX lightController = new VictorSPX(RobotMap.ID_LIGHT);
-
+/*
 public void testOn(){
   lightTestSpark.setSpeed(1);
 }
@@ -30,6 +30,7 @@ public void testOn(){
 public void testOff(){
   lightTestSpark.setSpeed(0);
 }
+*/
 
 public static void lightOn(){
   lightController.set(ControlMode.PercentOutput, 1);
