@@ -21,7 +21,7 @@ public class HatchPickup extends Subsystem {
   // here. Call these from Commands.
 
   
-public Solenoid hatchCylinder = new Solenoid(RobotMap.ID_PCM, RobotMap.HatchCylinderPort);
+public Solenoid hatchCylinder = new Solenoid(RobotMap.ID_PCM, RobotMap.hatchCylinderPort);
 
 public void hatchUp() {
   hatchCylinder.set(true);

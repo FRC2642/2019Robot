@@ -29,8 +29,8 @@ public class MastSubsystem extends Subsystem {
   public Solenoid mastCylinder = new Solenoid(RobotMap.ID_PCM, RobotMap.mastCylinderPort);
 
   public Encoder mastEncoder = new Encoder(RobotMap.mastEncoderA, RobotMap.mastEncoderB, false, Encoder.EncodingType.k4X);
-  public DigitalInput mastUpperLimitSwitch = new DigitalInput(RobotMap.mastUpperLimitSwitch);
-  public DigitalInput mastLowerLimitSwitch = new DigitalInput(RobotMap.mastLowerLimitSwitch);
+  public DigitalInput mastUpperLimitSwitch = new DigitalInput(RobotMap.mastUpperLimitSwitchPort);
+  public DigitalInput mastLowerLimitSwitch = new DigitalInput(RobotMap.mastLowerLimitSwitchPort);
 
   public MastSubsystem(){
     mastSlave.set(ControlMode.Follower, mastMaster.getDeviceID());

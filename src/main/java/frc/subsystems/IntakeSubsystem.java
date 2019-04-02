@@ -23,7 +23,7 @@ public class IntakeSubsystem extends Subsystem {
   public VictorSPX frontMaster = new VictorSPX(RobotMap.ID_FRONT_MASTER);
   public VictorSPX shooterMaster = new VictorSPX(RobotMap.ID_SHOOTER_MASTER);
 
-  public DigitalInput intakeSwitch = new DigitalInput(RobotMap.intakeLimitSwitch);
+  public DigitalInput intakeSwitch = new DigitalInput(RobotMap.intakeLimitSwitchPort);
   
   public IntakeSubsystem() {
   }

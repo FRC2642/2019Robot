@@ -23,7 +23,7 @@ public class ClimbingSubsystem extends Subsystem {
   // here. Call these from Commands.
 
 public VictorSPX climbMotor = new VictorSPX(RobotMap.ID_CLIMB);
-public Solenoid clutchCylinder = new Solenoid(RobotMap.ID_PCM, RobotMap.climbCylinderPort);
+//public Solenoid clutchCylinder = new Solenoid(RobotMap.ID_PCM, RobotMap.climbCylinderPort);
 
 public void clutchIn() {
   clutchCylinder.set(true);
