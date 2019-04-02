@@ -10,7 +10,6 @@ package frc.subsystems;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.commands.brake.BrakeCommand;
-import frc.robot.OI;
 import frc.robot.RobotMap;
 
 /**
