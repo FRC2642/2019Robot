@@ -29,7 +29,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.subsystems.BrakeSubsystem;
 import frc.subsystems.ClimbingSubsystem;
 import frc.subsystems.DriveSubsystem;
-import frc.subsystems.HatchPickup;
 import frc.subsystems.IntakeSubsystem;
 import frc.subsystems.LightRingSubsystem;
 import frc.subsystems.MastSubsystem;
@@ -51,7 +50,6 @@ public class Robot extends TimedRobot {
   public static IntakeSubsystem intake = new IntakeSubsystem();
   public static BrakeSubsystem brake = new BrakeSubsystem();
   public static ClimbingSubsystem climb = new ClimbingSubsystem();
-  public static HatchPickup hatch = new HatchPickup();
   public static LightRingSubsystem light = new LightRingSubsystem();
 
   public Compressor compressor = new Compressor(RobotMap.ID_PCM);
