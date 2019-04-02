@@ -11,8 +11,10 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.commands.intake.IntakeCommand;
+import frc.robot.OI;
 import frc.robot.RobotMap;
 
 /**
@@ -23,18 +25,22 @@ public class IntakeSubsystem extends Subsystem {
   public VictorSPX frontMaster = new VictorSPX(RobotMap.ID_FRONT_MASTER);
   public VictorSPX shooterMaster = new VictorSPX(RobotMap.ID_SHOOTER_MASTER);
 
-  public DigitalInput intakeSwitch = new DigitalInput(RobotMap.intakeLimitSwitch);
+  public Solenoid hatchCylinder = new Solenoid(RobotMap.ID_PCM, RobotMap.hatchCylinderPort);
+
+  public DigitalInput intakeSwitch = new DigitalInput(RobotMap.intakeLimitSwitchPort);
   
-  public IntakeSubsystem() {
+    public IntakeSubsystem() {
+    }
+
+  //intake wheels methods 
+
+  public void intakeIn() {
+    frontMaster.set(ControlMode.PercentOutput, -0.8);
+    shooterMaster.set(ControlMode.PercentOutput, 0.8);
   }
 
-  public void intake() {
-    frontMaster.set(ControlMode.PercentOutput, 0.6);
-    shooterMaster.set(ControlMode.PercentOutput, 0.6);
-  }
-
-  public void outtake() {
-    shooterMaster.set(ControlMode.PercentOutput, -0.6);
+  public void intakeOut() {
+    shooterMaster.set(ControlMode.PercentOutput, -0.8);
   }
 
   public void stop() {
@@ -42,15 +48,26 @@ public class IntakeSubsystem extends Subsystem {
     shooterMaster.set(ControlMode.PercentOutput, 0);
   }
 
+  //hatch finger method
+ 
+  public void flipFinger(){
+    if(OI.aux.getRawButton(4)){
+      hatchCylinder.set(false);
+    } 
+    else if(OI.aux.getRawButton(3)){
+      hatchCylinder.set(true);
+    }
+  }
   
-public boolean getIntakeLimitSwitch(){
-  return !intakeSwitch.get();
-}
+  //limit switch method
+
+  public boolean getIntakeLimitSwitch(){
+    return !intakeSwitch.get();
+  }
 
   @Override
   public void initDefaultCommand() {
     // Set the default command for a subsystem here.
-    // setDefaultCommand(new MySpecialCommand());
     setDefaultCommand(new IntakeCommand());
   }
 }

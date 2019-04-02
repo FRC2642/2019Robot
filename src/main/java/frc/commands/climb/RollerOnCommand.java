@@ -5,19 +5,16 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.commands.thrust;
+package frc.commands.climb;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
-public class JackUpCommand extends Command {
-  public JackUpCommand() {
-    // Use requires() here to declare subsystem dependencies
-    // eg. requires(chassis);
-    requires(Robot.thrust);
+public class RollerOnCommand extends Command {
+  public RollerOnCommand() {
+    //requires
+    requires(Robot.climb);
   }
-
-  boolean hasRun = false;
 
   // Called just before this Command runs the first time
   @Override
@@ -27,27 +24,25 @@ public class JackUpCommand extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.thrust.jackUp();
+  Robot.climb.rollRoller();
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    if(hasRun){
-      return true;
-    } else {
-      return false;
-    }
+    return false;
   }
 
   // Called once after isFinished returns true
   @Override
   protected void end() {
+    Robot.climb.stopRoller();
   }
 
   // Called when another command which requires one or more of the same
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
+    Robot.climb.stopRoller();
   }
 }

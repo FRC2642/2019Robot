@@ -13,8 +13,7 @@ import frc.robot.Robot;
 
 public class DriveCommand extends Command {
   public DriveCommand() {
-    // Use requires() here to declare subsystem dependencies
-    // eg. requires(chassis);
+    //requires
     requires(Robot.drive);
   }
 
@@ -26,11 +25,11 @@ public class DriveCommand extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    //Fast Turn, fast straight 
+    //slow drive for precision
     if(isLeftTriggerPulled()){
-      Robot.drive.arcadeDrive(-OI.xbox.getRawAxis(1) * .96,-(OI.xbox.getRawAxis(0) * .80));
+      Robot.drive.arcadeDrive(-OI.xbox.getRawAxis(1) * .5,-(OI.xbox.getRawAxis(0) * .3));
     }
-    //slower turn, fast straight
+    //fast drive, sicko
     else if(isRightTriggerPulled()){
       Robot.drive.arcadeDrive(-OI.xbox.getRawAxis(1) * .96,-(OI.xbox.getRawAxis(0) * .58));
     }
@@ -38,52 +37,41 @@ public class DriveCommand extends Command {
     else{
       Robot.drive.arcadeDrive(-OI.xbox.getRawAxis(1) * .7,-(OI.xbox.getRawAxis(0) * .48));
     }
-
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    //if x axis is being held down, end drive command
-   /* if(OI.xbox.getRawAxis(0) > 0.1 || OI.xbox.getRawAxis(0) < -0.1){
-      return true;
-    } else {*/
       return false;
-    //}
   }
 
   // Called once after isFinished returns true
   @Override
   protected void end() {
-    
-    
+    Robot.drive.stop();
   }
 
   // Called when another command which requires one or more of the same
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
-   
+   Robot.drive.stop();
   }
 
   public boolean isLeftTriggerPulled() {
     if(OI.xbox.getRawAxis(2) > .5){
       return true;
-    }
-    else{
+    } else {
       return false;
     }
-  
   }
 
   public boolean isRightTriggerPulled(){
     if(OI.xbox.getRawAxis(3) > .5) {
       return true;
-    }
-    else{
+    } else {
       return false;
-    }
+    } 
   }
-
-
+  
 }

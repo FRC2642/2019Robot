@@ -7,30 +7,39 @@
 
 package frc.subsystems;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
-import edu.wpi.first.wpilibj.Solenoid;
+import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.RobotMap;
 
 /**
  * Add your docs here.
  */
-public class FangSubsystem extends Subsystem {
+public class LightRingSubsystem extends Subsystem {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
-
-  
-  public Solenoid fangCylinder = new Solenoid(RobotMap.ID_PCM, RobotMap.fangCylinderPort);
-
-public void fangsOut() {
-fangCylinder.set(true);
+  Spark lightTestSpark = new Spark(0);
+ public static VictorSPX lightController = new VictorSPX(RobotMap.ID_LIGHT);
+/*
+public void testOn(){
+  lightTestSpark.setSpeed(1);
 }
 
-
-public void fangsIn() {
-  fangCylinder.set(false);
+public void testOff(){
+  lightTestSpark.setSpeed(0);
 }
-@Override
+*/
+
+public static void lightOn(){
+  lightController.set(ControlMode.PercentOutput, 1);
+}
+public static void lightOff(){
+  lightController.set(ControlMode.PercentOutput, 0);
+}
+
+  @Override
   public void initDefaultCommand() {
     // Set the default command for a subsystem here.
     // setDefaultCommand(new MySpecialCommand());

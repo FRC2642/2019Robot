@@ -5,17 +5,18 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.commands.mast;
+package frc.commands.climb;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
-public class MoveMastToTopCommand extends Command {
-  public MoveMastToTopCommand() {
-    // Use requires() here to declare subsystem dependencies
-    // eg. requires(chassis);
-    requires(Robot.mast);
+public class RollerOffCommand extends Command {
+  public RollerOffCommand() {
+    //requires
+    requires(Robot.climb);
   }
+
+  boolean hasRun = false;
 
   // Called just before this Command runs the first time
   @Override
@@ -25,25 +26,26 @@ public class MoveMastToTopCommand extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.mast.moveMastToCargoTopPosition();
+    Robot.climb.stopRoller();
+    hasRun = true;
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return false;
+    return hasRun;
   }
 
   // Called once after isFinished returns true
   @Override
   protected void end() {
-    Robot.mast.stop();
+    Robot.climb.stopRoller();
   }
 
   // Called when another command which requires one or more of the same
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
-    Robot.mast.stop();
+    Robot.climb.stopRoller();
   }
 }

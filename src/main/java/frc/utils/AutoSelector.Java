@@ -128,8 +128,12 @@ public class AutoSelector {
    class LStart_LShip_LShip extends CommandGroup{}
 
     public void selectAuto() {
-   
     
+    if(isAtHighLeft){
+        autoCommand = new Cross();
+    }
+   
+    /*
     if (isCargoCargo() && isAtLowLeft() && isRocketRocket()) {
         autoCommand = new LStart_LRocket_LRocket();
     }
@@ -321,7 +325,6 @@ public class AutoSelector {
     if (isHatchHatch() && isAtHighRight() && isAtShipShip()) {
         autoCommand = new LStart_LShip_LShip();
     }
-
     if (isHatchCargo() && isAtLowLeft() && isRocketRocket()) {
         autoCommand = new LStart_LRocket_LRocket();
     }
@@ -515,4 +518,5 @@ public class AutoSelector {
     }
 
     }
+    */
 }

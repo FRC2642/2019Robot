@@ -5,19 +5,15 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.commands.thrust;
+package frc.commands.climb;
 
 import edu.wpi.first.wpilibj.command.Command;
-import frc.robot.OI;
 import frc.robot.Robot;
 
-public class RollerCommand extends Command {
-  
-
-  public RollerCommand() {
-    requires(Robot.thrust);
-    // Use requires() here to declare subsystem dependencies
-    // eg. requires(chassis);
+public class JackDownCommand extends Command {
+  public JackDownCommand() {
+    //requires
+    requires(Robot.climb);
   }
 
   // Called just before this Command runs the first time
@@ -28,13 +24,12 @@ public class RollerCommand extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    if(OI.xbox.getRawAxis(5) > .6 || OI.xbox.getRawAxis(5) < -.6){
-     Robot.thrust.rollerRolling(OI.xbox.getRawAxis(5));
+    if(Robot.climb.getJackLimitSwitch()){
+      Robot.climb.jackDown();
     } else {
-      Robot.thrust.stopRoller();
+      Robot.climb.stopJack();
     }
   }
-
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
@@ -45,13 +40,13 @@ public class RollerCommand extends Command {
   // Called once after isFinished returns true
   @Override
   protected void end() {
-    
+    Robot.climb.stopJack();
   }
 
   // Called when another command which requires one or more of the same
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
-Robot.thrust.stopRoller();
+    Robot.climb.stopJack();
   }
 }

@@ -28,16 +28,18 @@ public class IntakeCommand extends Command {
    
     if(OI.aux.getRawAxis(2) > .6){
       if(!Robot.intake.getIntakeLimitSwitch()){
-      Robot.intake.intake();
+      Robot.intake.intakeIn();
       } else{
         Robot.intake.stop();
       }
 
     } else if(OI.aux.getRawAxis(3) > .6){
-      Robot.intake.outtake();
+      Robot.intake.intakeOut();
     } else {
       Robot.intake.stop();
     }
+
+    Robot.intake.flipFinger();
   }
   
 
@@ -50,13 +52,13 @@ public class IntakeCommand extends Command {
   // Called once after isFinished returns true
   @Override
   protected void end() {
-      Robot.intake.stop();
+    Robot.intake.stop();
   }
 
   // Called when another command which requires one or more of the same
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
-      Robot.intake.stop();
+    Robot.intake.stop();
   }
 }

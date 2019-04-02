@@ -13,11 +13,9 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.sensors.PigeonIMU;
 import com.ctre.phoenix.sensors.PigeonIMU.CalibrationMode;
 
-import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.commands.drive.DriveCommand;
 import frc.robot.RobotMap;
-import frc.library.lib.pid.*;
 /**
  * Add your docs here.
  */
@@ -25,97 +23,62 @@ public class DriveSubsystem extends Subsystem {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
 
-public TalonSRX leftFrontMaster, leftRearSlave;
-public TalonSRX rightFrontMaster, rightRearSlave;
+  public TalonSRX leftFrontMaster, leftRearSlave;
+  public TalonSRX rightFrontMaster, rightRearSlave;
 
-DigitalInput lightSensor = new DigitalInput(RobotMap.lightSensorPort);
-
-PigeonIMU pigeon = new PigeonIMU(RobotMap.ID_PIGEON);
-
-public boolean isWorking = false;
-
-public DriveSubsystem(){
-  leftFrontMaster = new TalonSRX(RobotMap.ID_LEFT_FRONT_DRIVE);
-  leftRearSlave = new TalonSRX(RobotMap.ID_LEFT_REAR_DRIVE);
-  rightFrontMaster = new TalonSRX(RobotMap.ID_RIGHT_FRONT_DRIVE);
-  rightRearSlave = new TalonSRX(RobotMap.ID_RIGHT_REAR_DRIVE);
   PigeonIMU pigeon = new PigeonIMU(RobotMap.ID_PIGEON);
 
-  //gyro calibration
-  pigeon.enterCalibrationMode(CalibrationMode.BootTareGyroAccel);
-  pigeon.enterCalibrationMode(CalibrationMode.Temperature);
+    public DriveSubsystem(){
+      leftFrontMaster = new TalonSRX(RobotMap.ID_LEFT_FRONT_DRIVE);
+      leftRearSlave = new TalonSRX(RobotMap.ID_LEFT_REAR_DRIVE);
+      rightFrontMaster = new TalonSRX(RobotMap.ID_RIGHT_FRONT_DRIVE);
+      rightRearSlave = new TalonSRX(RobotMap.ID_RIGHT_REAR_DRIVE);
 
-  //set master-slave motors
-  leftRearSlave.set(ControlMode.Follower, leftFrontMaster.getDeviceID());
-  rightRearSlave.set(ControlMode.Follower, rightFrontMaster.getDeviceID());
+      //gyro calibration
+      pigeon.enterCalibrationMode(CalibrationMode.BootTareGyroAccel);
+      //set master-slave motors
+      leftRearSlave.set(ControlMode.Follower, leftFrontMaster.getDeviceID());
+      rightRearSlave.set(ControlMode.Follower, rightFrontMaster.getDeviceID());
+      //limit settings
+      leftFrontMaster.enableCurrentLimit(RobotMap.IS_CURRENT_LIMIT);
+      leftFrontMaster.configContinuousCurrentLimit(RobotMap.CONTINUOUS_CURRENT, 0);
+      leftFrontMaster.configPeakCurrentLimit(RobotMap.PEAK_CURRENT, 10);
+      leftFrontMaster.configPeakCurrentDuration(RobotMap.PEAK_CURRENT_DURATION, 10);
+      //voltage compensation settings
+      rightFrontMaster.enableCurrentLimit(RobotMap.IS_CURRENT_LIMIT);
+      rightFrontMaster.configContinuousCurrentLimit(RobotMap.CONTINUOUS_CURRENT, 0);
+      rightFrontMaster.configPeakCurrentLimit(RobotMap.PEAK_CURRENT, 10);
+      rightFrontMaster.configPeakCurrentDuration(RobotMap.PEAK_CURRENT_DURATION, 10);
+      //deadband settings
+      rightFrontMaster.configNeutralDeadband(.1);
+      leftFrontMaster.configNeutralDeadband(.1);
 
-  //set limit stuff
-  leftFrontMaster.enableCurrentLimit(RobotMap.IS_CURRENT_LIMIT);
-  leftFrontMaster.configContinuousCurrentLimit(RobotMap.CONTINUOUS_CURRENT, 0);
-  leftFrontMaster.configPeakCurrentLimit(RobotMap.PEAK_CURRENT, 10);
-  leftFrontMaster.configPeakCurrentDuration(RobotMap.PEAK_CURRENT_DURATION, 10);
-  //set voltage comp stuff
-  rightFrontMaster.enableCurrentLimit(RobotMap.IS_CURRENT_LIMIT);
-  rightFrontMaster.configContinuousCurrentLimit(RobotMap.CONTINUOUS_CURRENT, 0);
-  rightFrontMaster.configPeakCurrentLimit(RobotMap.PEAK_CURRENT, 10);
-  rightFrontMaster.configPeakCurrentDuration(RobotMap.PEAK_CURRENT_DURATION, 10);
-  //set neutral deadband
-  rightFrontMaster.configNeutralDeadband(.1);
-  leftFrontMaster.configNeutralDeadband(.1);
- // rightFrontMaster.setInverted(true);
- // leftFrontMaster.setInverted(true);
-
-}
+      // rightFrontMaster.setInverted(true);
+      // leftFrontMaster.setInverted(true);
+    }
 
   public void setLeftSpeed(double speed) {
-  leftFrontMaster.set(ControlMode.PercentOutput, speed);
-}
-
-public void setRightSpeed(double speed){
-  rightFrontMaster.set(ControlMode.PercentOutput, speed);
-}
-
-public void stop(){
-  setLeftSpeed(0);
-  setRightSpeed(0);
-}
-
-public void arcadeDrive(double speed, double turn) {
-  turn = -turn;
-  leftFrontMaster.set(ControlMode.PercentOutput, turn, DemandType.ArbitraryFeedForward, speed);
-  rightFrontMaster.set(ControlMode.PercentOutput, turn, DemandType.ArbitraryFeedForward, -speed);
-}
-
-public void tankDrive(double left, double right){
-  setLeftSpeed(left);
-  setRightSpeed(right);
-}
-
-public boolean getLightSensor(){
-  return lightSensor.get();
-}
-
-  //classes for inbuilt PID
-    public class TapePID implements PIDSource{
-
-    @Override
-    public double pidGet() {
-      return pigeon.getAbsoluteCompassHeading();
-    }
-  }
-  public class TapeOutput implements PIDOutput{
-
-    double output;
-    @Override
-    public void pidSet(double speed) {
-      output = speed;
-    }
-    
-    public double getOutput(){
-      return output;
-    }
+    leftFrontMaster.set(ControlMode.PercentOutput, speed);
   }
 
+  public void setRightSpeed(double speed){
+    rightFrontMaster.set(ControlMode.PercentOutput, speed);
+  }
+
+  public void stop(){
+    setLeftSpeed(0);
+    setRightSpeed(0);
+  }
+
+  public void arcadeDrive(double speed, double turn) {
+    turn = -turn;
+    leftFrontMaster.set(ControlMode.PercentOutput, turn, DemandType.ArbitraryFeedForward, speed);
+    rightFrontMaster.set(ControlMode.PercentOutput, turn, DemandType.ArbitraryFeedForward, -speed);
+  }
+
+  public double getPigeonHeading(){
+    return pigeon.getAbsoluteCompassHeading();
+  }
 
   @Override
   public void initDefaultCommand() {
