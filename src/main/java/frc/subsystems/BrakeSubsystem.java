@@ -14,10 +14,16 @@ import frc.robot.OI;
 import frc.robot.RobotMap;
 
 /**
- * Add your docs here.
+ * This system activates the braking system on the mast.
+ * This keeps the mast from drifting down when there is no driver input.
  */
 public class BrakeSubsystem extends Subsystem {
+
   public Solenoid brakeCylinder = new Solenoid(RobotMap.ID_PCM,RobotMap.brakeCylinderPort);
+
+      public BrakeSubsystem(){
+
+      }
 
   public void brakeOn(){
     brakeCylinder.set(true);
@@ -38,9 +44,7 @@ public class BrakeSubsystem extends Subsystem {
       return false;
     }
   }
-
-
-
+  
   @Override
   public void initDefaultCommand() {
     // Set the default command for a subsystem here.

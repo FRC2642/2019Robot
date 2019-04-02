@@ -14,10 +14,10 @@ import frc.robot.Robot;
 
 public class LiftCommand extends Command {
   public LiftCommand() {
+    //requires
     requires(Robot.mast);
   }
   
-
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
