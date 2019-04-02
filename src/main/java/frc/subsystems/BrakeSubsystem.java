@@ -22,7 +22,6 @@ public class BrakeSubsystem extends Subsystem {
   public Solenoid brakeCylinder = new Solenoid(RobotMap.ID_PCM,RobotMap.brakeCylinderPort);
 
       public BrakeSubsystem(){
-
       }
 
   public void brakeOn(){
@@ -37,20 +36,9 @@ public class BrakeSubsystem extends Subsystem {
     return brakeCylinder.get();
   }
 
-  public boolean isMastMoving(){
-    if(OI.aux.getRawAxis(5) > .2 || OI.aux.getRawAxis(5) < -.2){
-      return true;
-    } else{
-      return false;
-    }
-  }
-  
   @Override
   public void initDefaultCommand() {
     // Set the default command for a subsystem here.
     setDefaultCommand(new BrakeCommand());
   }
-
-
-
 }

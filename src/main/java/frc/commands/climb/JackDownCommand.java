@@ -10,41 +10,43 @@ package frc.commands.climb;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
-public class ClimbCommand extends Command {
-  public ClimbCommand() {
-  requires(Robot.climb);
+public class JackDownCommand extends Command {
+  public JackDownCommand() {
+    //requires
+    requires(Robot.climb);
   }
 
   // Called just before this Command runs the first time
   @Override
-  protected void initialize() { 
-    Robot.climb.clutchOut();
+  protected void initialize() {
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
-  protected void execute() {   
-   //Robot.climb.climb(OI.xbox.getRawAxis(5) * .1);
-   Robot.climb.climb(-1.0);
- }
-  
+  protected void execute() {
+    if(Robot.climb.getJackLimitSwitch()){
+      Robot.climb.jackDown();
+    } else {
+      Robot.climb.stopJack();
+    }
+  }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
     return false;
-    }
+  }
 
   // Called once after isFinished returns true
   @Override
   protected void end() {
-    Robot.climb.stop();
+    Robot.climb.stopJack();
   }
 
   // Called when another command which requires one or more of the same
-  // subsystems is scheduled to run.
+  // subsystems is scheduled to run
   @Override
   protected void interrupted() {
-    Robot.climb.stop();
+    Robot.climb.stopJack();
   }
 }

@@ -25,7 +25,6 @@ import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
-import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.subsystems.BrakeSubsystem;
 import frc.subsystems.ClimbingSubsystem;
@@ -34,7 +33,6 @@ import frc.subsystems.HatchPickup;
 import frc.subsystems.IntakeSubsystem;
 import frc.subsystems.LightRingSubsystem;
 import frc.subsystems.MastSubsystem;
-import frc.subsystems.ThrustSubsystem;
 
 
 /**
@@ -46,14 +44,11 @@ import frc.subsystems.ThrustSubsystem;
  */
 public class Robot extends TimedRobot {
 
-  private final SendableChooser<String> m_chooser = new SendableChooser<>();
-
   public PowerDistributionPanel pdp = new PowerDistributionPanel(0);
 
   public static DriveSubsystem drive = new DriveSubsystem();
   public static MastSubsystem mast = new MastSubsystem();
   public static IntakeSubsystem intake = new IntakeSubsystem();
-  public static ThrustSubsystem thrust = new ThrustSubsystem();
   public static BrakeSubsystem brake = new BrakeSubsystem();
   public static ClimbingSubsystem climb = new ClimbingSubsystem();
   public static HatchPickup hatch = new HatchPickup();
@@ -61,15 +56,12 @@ public class Robot extends TimedRobot {
 
   public Compressor compressor = new Compressor(RobotMap.ID_PCM);
 
-  //public static UsbCamera cam = new UsbCamera("cam", 0);
-
   public static OI oi = new OI();
 
   Command m_autonomousCommand;
 
- // public static boolean visionEnabled = true;
+  public static boolean visionEnabled = true;
 
-//	SendableChooser<Command> m_chooser = new SendableChooser<>();
   /**
    * This function is run when the robot is first started up and should be
    * used for any initialization code.
@@ -79,17 +71,11 @@ public class Robot extends TimedRobot {
   public void robotInit() 
   {
     UsbCamera cam = CameraServer.getInstance().startAutomaticCapture();
-    //cam.close();
     cam.setExposureAuto();
-   // cam.setExposureManual(50);
     cam.setResolution(320, 240);
     cam.setFPS(20);
-   // m_chooser.setDefaultOption("Default Auto", Cross);
-   // m_chooser.addOption("My Auto", DriveCommand);
-    SmartDashboard.putData("Auto choices", m_chooser);
     
     compressor.start();
-
   }
 
  /* public static void EnableVisionTracking(boolean enabled){
@@ -108,9 +94,6 @@ public class Robot extends TimedRobot {
       LightRingSubsystem.lightOff();
     }
   }*/
-
-
-  
 
   /**
    * This function is called every robot packet, no matter the mode. Use
@@ -164,16 +147,15 @@ public class Robot extends TimedRobot {
   public void teleopPeriodic() {
     Scheduler.getInstance().run();
 
-    SmartDashboard.putNumber("mastEncoder", mast.MastEncoder.get());
+    SmartDashboard.putNumber("mastEncoder", mast.mastEncoder.get());
     /*
     SmartDashboard.putBoolean("mastLimitSwitchDown", mast.getLowerLimitSwitch());
     SmartDashboard.putBoolean("mastLimitSwitchUp", mast.getUpperLimitSwitch());
     
     SmartDashboard.putBoolean("intakeLimitSwitch", intake.getIntakeLimitSwitch());
+
     SmartDashboard.putBoolean("jackLimitSwitch", thrust.getJackLimitSwitch());
     */
- 
-
   }
 
   /**

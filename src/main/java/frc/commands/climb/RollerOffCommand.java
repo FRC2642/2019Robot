@@ -10,41 +10,42 @@ package frc.commands.climb;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
-public class StopClimbCommand extends Command {
-  public StopClimbCommand() {
-    // Use requires() here to declare subsystem dependencies
-    // eg. requires(chassis);
+public class RollerOffCommand extends Command {
+  public RollerOffCommand() {
+    //requires
     requires(Robot.climb);
   }
 
+  boolean hasRun = false;
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    Robot.climb.clutchOut();
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.climb.stop();
+    Robot.climb.stopRoller();
+    hasRun = true;
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return false;
+    return hasRun;
   }
 
   // Called once after isFinished returns true
   @Override
   protected void end() {
+    Robot.climb.stopRoller();
   }
 
   // Called when another command which requires one or more of the same
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
-    Robot.climb.stop();
+    Robot.climb.stopRoller();
   }
 }

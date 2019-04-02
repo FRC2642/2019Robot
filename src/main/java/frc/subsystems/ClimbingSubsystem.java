@@ -11,48 +11,61 @@ package frc.subsystems;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
-import edu.wpi.first.wpilibj.Solenoid;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import frc.robot.OI;
 import frc.robot.RobotMap;
 
 /**
  * Add your docs here.
  */
 public class ClimbingSubsystem extends Subsystem {
-  // Put methods for controlling this subsystem
-  // here. Call these from Commands.
 
-public VictorSPX climbMotor = new VictorSPX(RobotMap.ID_CLIMB);
-//public Solenoid clutchCylinder = new Solenoid(RobotMap.ID_PCM, RobotMap.climbCylinderPort);
+  public VictorSPX jackMaster = new VictorSPX(RobotMap.ID_JACK);
+  public VictorSPX rollerMaster = new VictorSPX(RobotMap.ID_ROLLER);
+  
+  public DigitalInput jackLimitSwitch = new DigitalInput(RobotMap.jackLimitSwitchPort);
+   
+      public ClimbingSubsystem() {
+      }
+  
+  //jack (rear climb) methods
 
-public void clutchIn() {
-  clutchCylinder.set(true);
-}
-
-public void clutchOut() {
-  clutchCylinder.set(false);
-}
-/*
-public void setClutch(){
-  if(OI.aux.getRawButton(3)){
-    clutchCylinder.set(true);
-  } else{
-    clutchCylinder.set(false);
+  public void jackUp() {
+    jackMaster.set(ControlMode.PercentOutput, -0.5);
   }
-}*/
+      
+  public void jackDown() {
+      jackMaster.set(ControlMode.PercentOutput, 0.5);
+  }
 
-public void climb(double speed){
-  climbMotor.set(ControlMode.PercentOutput, speed);
-}
+   public void stopJack() {
+    jackMaster.set(ControlMode.PercentOutput, 0);
+  }
 
-public void stop(){
-  climbMotor.set(ControlMode.PercentOutput, 0);
-}
+  //roller (wheels under jack) methods
 
+  public void rollRoller() {
+    if(OI.xbox.getRawButton(7)){
+      rollerMaster.set(ControlMode.PercentOutput, -.9);
+    } else{
+      stopRoller();
+    }
+  }
+  
+  public void stopRoller(){
+    rollerMaster.set(ControlMode.PercentOutput, 0);
+  }
+  
+  //limit switch method
 
-@Override
+  public boolean getJackLimitSwitch(){
+    return jackLimitSwitch.get();
+  }
+ 
+  @Override
   public void initDefaultCommand() {
     // Set the default command for a subsystem here.
-    //setDefaultCommand(new ClimbCommand());
+    //setDefaultCommand(new ());
   }
 }
