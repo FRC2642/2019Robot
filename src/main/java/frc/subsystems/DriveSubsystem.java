@@ -12,6 +12,7 @@ import com.ctre.phoenix.motorcontrol.DemandType;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.sensors.PigeonIMU;
 import com.ctre.phoenix.sensors.PigeonIMU.CalibrationMode;
+
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.commands.drive.DriveCommand;
 import frc.robot.RobotMap;
@@ -84,4 +85,14 @@ public class DriveSubsystem extends Subsystem {
     // Set the default command for a subsystem here.
     setDefaultCommand(new DriveCommand());
   }
+
+  /*public boolean work(boolean isWorking){
+  if(!this.isWorking){
+    this.isWorking = isWorking;
+  } else{
+    System.out.println("You already work tf?");
+  }
+  System.out.println("Working? " + this.isWorking);
+  return this.isWorking;
+}*/
 }
