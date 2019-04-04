@@ -7,6 +7,8 @@
 
 package frc.commands.climb;
 
+import edu.wpi.first.wpilibj.Timer;
+
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
@@ -16,6 +18,8 @@ public class JackOffCommand extends Command {
     requires(Robot.climb);
   }
 
+  Timer timer = new Timer();
+  boolean hasTimerStarted = false;
   boolean hasRun = false;
 
   // Called just before this Command runs the first time
@@ -27,19 +31,24 @@ public class JackOffCommand extends Command {
   @Override
   protected void execute() {
     Robot.climb.stopJack();
-    hasRun = true;
+    if(!hasTimerStarted) {
+      timer.start();
+      hasTimerStarted = true;
+    }
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return hasRun;
+    return timer.get() >= 1;
   }
 
   // Called once after isFinished returns true
   @Override
   protected void end() {
+    timer.stop();
     Robot.climb.stopJack();
+    Robot.climb.disablePID();
   }
 
   // Called when another command which requires one or more of the same

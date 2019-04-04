@@ -11,6 +11,8 @@ import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
 public class JackDownCommand extends Command {
+
+
   public JackDownCommand() {
     //requires
     requires(Robot.climb);
@@ -19,6 +21,7 @@ public class JackDownCommand extends Command {
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
+    Robot.climb.enablePID();
   }
 
   // Called repeatedly when this Command is scheduled to run
