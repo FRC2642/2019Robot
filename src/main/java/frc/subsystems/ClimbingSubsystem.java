@@ -13,6 +13,7 @@ import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import frc.commands.climb.ManualClimbCommand;
 import frc.library.lib.pid.PID;
 import frc.library.lib.pid.PIDOutput;
 import frc.library.lib.pid.PIDSource;
@@ -71,6 +72,14 @@ public class ClimbingSubsystem extends Subsystem implements PIDSource, PIDOutput
   public void moveFrontClimb(double speed){
     frontClimbMaster.set(ControlMode.PercentOutput, speed);
   }
+  
+  public void moveFrontClimbUp(){
+    moveFrontClimb(-.5);
+  }
+
+  public void moveFrontClimbDown(){
+    moveFrontClimb(.5);
+  }
 
   public void stopFrontClimb(){
     frontClimbMaster.set(ControlMode.PercentOutput, 0);
@@ -105,7 +114,7 @@ public class ClimbingSubsystem extends Subsystem implements PIDSource, PIDOutput
   @Override
   public void initDefaultCommand() {
     // Set the default command for a subsystem here.
-    //setDefaultCommand(new ());
+    setDefaultCommand(new ManualClimbCommand());
   }
 
 }
