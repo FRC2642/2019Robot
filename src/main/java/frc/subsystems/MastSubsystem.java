@@ -8,11 +8,14 @@
 package frc.subsystems;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.commands.mast.LiftCommand;
+import frc.library.lib.pid.PIDOutput;
+import frc.library.lib.pid.PIDSource;
 import frc.robot.RobotMap;
 
 
@@ -20,7 +23,7 @@ import frc.robot.RobotMap;
  * This system runs the mast up and down.
  * This allows the robot to place game pieces at the upper levels.
  */
-public class MastSubsystem extends Subsystem {
+public class MastSubsystem extends Subsystem implements PIDSource, PIDOutput{
 
   public TalonSRX mastMaster = new TalonSRX(RobotMap.ID_MAST_MASTER);
   public TalonSRX mastSlave = new TalonSRX(RobotMap.ID_MAST_SLAVE);
@@ -31,12 +34,6 @@ public class MastSubsystem extends Subsystem {
   public DigitalInput mastUpperLimitSwitch = new DigitalInput(RobotMap.mastUpperLimitSwitchPort);
   public DigitalInput mastLowerLimitSwitch = new DigitalInput(RobotMap.mastLowerLimitSwitchPort);
 
-  public void mastPistonUp() {
-        mastCylinder.set(true);
-  }
-public void mastPistonDown() {
-      mastCylinder.set(false);
-}
   public MastSubsystem(){
     mastSlave.set(ControlMode.Follower, mastMaster.getDeviceID());
 
@@ -94,14 +91,16 @@ public void mastPistonDown() {
 
   //sensor related methods
     
-  protected double returnPIDInput() {
+  @Override
+  public void pidSet(double speed) {
+    moveLift(speed);
+  }
+
+  @Override
+  public double pidGet() {
     return mastEncoder.pidGet();
   }
 
-  protected void usePIDOutput(double output) {
-    moveLift(output);
-  }
-  
   public void resetEncoder(){
     mastEncoder.reset();
   }
@@ -119,6 +118,7 @@ public void mastPistonDown() {
     // Set the default command for a subsystem here.
     setDefaultCommand(new LiftCommand());
   }
+
 }
 
 

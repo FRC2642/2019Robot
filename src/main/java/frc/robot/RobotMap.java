@@ -29,10 +29,10 @@ public class RobotMap {
     public static final int ID_SHOOTER_MASTER = 9;
     //ID for roller lifting motor 
     public static final int ID_ROLLER = 10;
-    //ID for climb motor
-    public static final int ID_CLIMB = 11;
     //ID for jack motor
     public static final int ID_JACK = 12;
+    //ID for climb motor
+    public static final int ID_FRONT_CLIMB = 13;
     //IDs for mast motors 
     public static final int ID_MAST_SLAVE = 14;
     public static final int ID_MAST_MASTER = 15;
@@ -100,11 +100,17 @@ public class RobotMap {
     public static final PIDParameters TURN_PARAMS_45    = new PIDParameters(.06 , .0  , -.003, 1 / 100.0);
     public static final PIDParameters TURN_PARAMS_90    = new PIDParameters(.005, .002, -.002, 1 / 100.0);
     public static final PIDParameters TURN_PARAMS_180   = new PIDParameters(.06 , .003, -.001, 1 / 100.0);
+    //pid for climb balancing
+    public static final PIDParameters CLIMB_PARAMS = new PIDParameters(.01, 0.0, 0.0, 1 / 100);
+    //pid for mast 
+    public static final PIDParameters MAST_PARAMS = new PIDParameters(.01, 0.0, 0.0, 1 / 100);
     //gyro offset values
     public static double driveForwardOffset = 0.25;
 	public static double driveTurnOffset = 0.25;
     public static double driveGTurnOffset = 2.0;
     //motor speed correction value
     public static double driveCorrection = -0.2; 
+    //mast height for hatch 
+    public static double mastHatchHeight = 1.0;
     }
 
