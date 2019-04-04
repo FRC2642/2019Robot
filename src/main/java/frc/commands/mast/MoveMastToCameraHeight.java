@@ -5,51 +5,67 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.commands.climb;
+package frc.commands.mast;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
+import frc.library.lib.pid.PID;
 import frc.robot.Robot;
+import frc.robot.RobotMap;
 
-public class JackDownCommand extends Command {
-
-
-  public JackDownCommand() {
-    //requires
-    requires(Robot.climb);
+public class MoveMastToCameraHeight extends Command {
+  public MoveMastToCameraHeight() {
+    // requires
+    requires(Robot.mast);
   }
 
+  Timer timer = new Timer();
+  PID pid = new PID(Robot.mast, Robot.mast, RobotMap.MAST_PARAMS);
+
+  boolean hitSetpoint = false;
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    Robot.climb.enablePID();
+    pid.enable();
+    pid.setSetpoint(RobotMap.mastHatchHeight);
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    if(Robot.climb.getJackLimitSwitch()){
-      Robot.climb.jackDown();
-    } else {
-      Robot.climb.stopJack();
+    Robot.mast.mastCylinderUp();
+    //Robot.mast.setToVisionHeight();
+    /*
+    if(Robot.mast.pidGet() > RobotMap.mastCameraHeight){
+      Robot.mast.pidSet(-0.2);
+    }else if(Robot.mast.pidGet() < RobotMap.mastCameraHeight){
+      Robot.mast.pidSet(0.2);
+    }else if(Robot.mast.pidGet() == RobotMap.mastCameraHeight){
+      Robot.mast.pidSet(0);
+    }
+    */
+    if(!hitSetpoint && (Robot.mast.pidGet() >= -2 && Robot.mast.pidGet() <= 2)){
+      timer.start();
+      hitSetpoint = true;
     }
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return false;
+    return (timer.get() >= 1);
   }
 
   // Called once after isFinished returns true
   @Override
   protected void end() {
-    Robot.climb.stopJack();
+    Robot.mast.stop();
   }
 
   // Called when another command which requires one or more of the same
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
-    Robot.climb.stopJack();
+    Robot.mast.stop();
   }
 }

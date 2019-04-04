@@ -9,6 +9,7 @@ package frc.commands.auto.vision;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import frc.commands.drive.DriveAtTarget;
+import frc.commands.mast.MoveMastToCameraHeight;
 
 public class DriveAtRRTape extends CommandGroup {
   /**
@@ -16,6 +17,7 @@ public class DriveAtRRTape extends CommandGroup {
    */
   public DriveAtRRTape() {
   
+    addSequential(new MoveMastToCameraHeight());
     addSequential(new EnableVisionTracking(true));
     addSequential(new DriveAtTarget());
 

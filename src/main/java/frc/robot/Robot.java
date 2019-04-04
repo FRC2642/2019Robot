@@ -58,8 +58,9 @@ public class Robot extends TimedRobot {
 
   Command m_autonomousCommand;
 
-  public static boolean visionEnabled = true;
+  public static boolean visionEnabled = false;
 
+  public static UsbCamera cam;
   /**
    * This function is run when the robot is first started up and should be
    * used for any initialization code.
@@ -68,7 +69,7 @@ public class Robot extends TimedRobot {
   @Override
   public void robotInit() 
   {
-    UsbCamera cam = CameraServer.getInstance().startAutomaticCapture();
+    cam = CameraServer.getInstance().startAutomaticCapture();
     cam.setExposureAuto();
     cam.setResolution(320, 240);
     cam.setFPS(20);
@@ -76,7 +77,7 @@ public class Robot extends TimedRobot {
     compressor.start();
   }
 
- /* public static void EnableVisionTracking(boolean enabled){
+  public static void EnableVisionTracking(boolean enabled){
     if (enabled){ //vision mode (he on xgames mode)
       cam.setBrightness(20);
       cam.setExposureManual(5);
@@ -91,7 +92,7 @@ public class Robot extends TimedRobot {
       visionEnabled = false;
       LightRingSubsystem.lightOff();
     }
-  }*/
+  }
 
   /**
    * This function is called every robot packet, no matter the mode. Use
@@ -146,6 +147,8 @@ public class Robot extends TimedRobot {
     Scheduler.getInstance().run();
 
     SmartDashboard.putNumber("mastEncoder", mast.mastEncoder.get());
+
+    SmartDashboard.putNumber("pitch", drive.getPitch());
     /*
     SmartDashboard.putBoolean("mastLimitSwitchDown", mast.getLowerLimitSwitch());
     SmartDashboard.putBoolean("mastLimitSwitchUp", mast.getUpperLimitSwitch());

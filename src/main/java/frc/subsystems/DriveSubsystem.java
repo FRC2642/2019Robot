@@ -26,7 +26,8 @@ public class DriveSubsystem extends Subsystem {
   public TalonSRX leftFrontMaster, leftRearSlave;
   public TalonSRX rightFrontMaster, rightRearSlave;
 
-  PigeonIMU pigeon = new PigeonIMU(RobotMap.ID_PIGEON);
+  //connected through the ribbon cable to talon motor controller
+  public PigeonIMU pigeon = new PigeonIMU(leftFrontMaster);
 
     public DriveSubsystem(){
       leftFrontMaster = new TalonSRX(RobotMap.ID_LEFT_FRONT_DRIVE);
@@ -57,6 +58,8 @@ public class DriveSubsystem extends Subsystem {
       // leftFrontMaster.setInverted(true);
     }
 
+    //drive motor methods
+
   public void setLeftSpeed(double speed) {
     leftFrontMaster.set(ControlMode.PercentOutput, speed);
   }
@@ -76,8 +79,27 @@ public class DriveSubsystem extends Subsystem {
     rightFrontMaster.set(ControlMode.PercentOutput, turn, DemandType.ArbitraryFeedForward, -speed);
   }
 
+  //sensor methods
+
   public double getPigeonHeading(){
     return pigeon.getAbsoluteCompassHeading();
+  }
+
+  public double getPitch(){
+    double[] ypr = new double[3];
+    pigeon.getAccelerometerAngles(ypr);
+    System.out.println("Pitch: " + ypr[1]);
+    return ypr[1];
+  }
+
+  public boolean isRobotLevel(){
+    boolean level = (getPitch() <= 3 && getPitch() >= -3) ? true : false;
+    return level;
+  }
+
+  public boolean isNoseDown(){
+    boolean noseDown = (getPitch() <= -3) ? true : false;
+    return noseDown;
   }
 
   @Override
@@ -86,13 +108,4 @@ public class DriveSubsystem extends Subsystem {
     setDefaultCommand(new DriveCommand());
   }
 
-  /*public boolean work(boolean isWorking){
-  if(!this.isWorking){
-    this.isWorking = isWorking;
-  } else{
-    System.out.println("You already work tf?");
-  }
-  System.out.println("Working? " + this.isWorking);
-  return this.isWorking;
-}*/
 }
