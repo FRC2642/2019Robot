@@ -38,8 +38,6 @@ public class RobotMap {
     public static final int ID_MAST_MASTER = 15;
     //ID for PCM 
     public static final int ID_PCM = 17;
-    //PigeonIMU ID
-    public static int ID_PIGEON = 20;
     
     //solenoid ports
 
@@ -49,6 +47,9 @@ public class RobotMap {
     public static int mastCylinderPort = 1;
     //port for hatch finger cylinder
     public static int hatchCylinderPort = 2;
+    //ports for backup climb cylinder
+    public static int climbCylinderForwardChannel = 4;
+    public static int climbCylinderBackwardChannel = 5;
 
     //DIO ports (for limit switches)
 

@@ -71,8 +71,9 @@ public class Robot extends TimedRobot {
   {
     cam = CameraServer.getInstance().startAutomaticCapture();
     cam.setExposureAuto();
-    cam.setResolution(320, 240);
-    cam.setFPS(20);
+    //was 320, 240
+    cam.setResolution(230, 150);
+    cam.setFPS(10);
     
     compressor.start();
   }
@@ -81,14 +82,14 @@ public class Robot extends TimedRobot {
     if (enabled){ //vision mode (he on xgames mode)
       cam.setBrightness(20);
       cam.setExposureManual(5);
-      cam.setFPS(20);
+      cam.setFPS(10);
       visionEnabled = true;
       LightRingSubsystem.lightOn();
     }
     else{
       cam.setBrightness(20);
       cam.setExposureAuto();
-      cam.setFPS(20);
+      cam.setFPS(10);
       visionEnabled = false;
       LightRingSubsystem.lightOff();
     }
@@ -145,11 +146,12 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
     Scheduler.getInstance().run();
-
-    SmartDashboard.putNumber("mastEncoder", mast.mastEncoder.get());
-
-    SmartDashboard.putNumber("pitch", drive.getPitch());
+    
     /*
+    SmartDashboard.putNumber("mastEncoder", mast.mastEncoder.get());
+    
+    SmartDashboard.putNumber("pitch", drive.getPitch());
+    
     SmartDashboard.putBoolean("mastLimitSwitchDown", mast.getLowerLimitSwitch());
     SmartDashboard.putBoolean("mastLimitSwitchUp", mast.getUpperLimitSwitch());
     

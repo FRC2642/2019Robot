@@ -27,7 +27,7 @@ public class ManualClimbCommand extends Command {
   protected void execute() {
     //right stick (front jack)
     if(OI.xbox.getRawAxis(5) > .5){
-      Robot.climb.moveFrontClimbDown();
+      Robot.climb.moveFrontClimbUp();
     } else if(OI.xbox.getRawAxis(5) < -.5){
       Robot.climb.moveFrontClimbDown();
     } else {
@@ -42,6 +42,15 @@ public class ManualClimbCommand extends Command {
     } else {
       Robot.climb.stopJack();
     }
+
+    /*
+    //backup climb cylinder
+    if(OI.xbox.getYButtonPressed()){
+      Robot.climb.climbCylinderUp();
+    } else if(OI.xbox.getXButtonPressed()){
+      Robot.climb.climbCylinderDown();
+    }
+    */
   }
 
   // Make this return true when this Command no longer needs to run execute()

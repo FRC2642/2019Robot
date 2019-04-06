@@ -26,14 +26,16 @@ public class DriveSubsystem extends Subsystem {
   public TalonSRX leftFrontMaster, leftRearSlave;
   public TalonSRX rightFrontMaster, rightRearSlave;
 
-  //connected through the ribbon cable to talon motor controller
-  public PigeonIMU pigeon = new PigeonIMU(leftFrontMaster);
+  public PigeonIMU pigeon;
 
     public DriveSubsystem(){
       leftFrontMaster = new TalonSRX(RobotMap.ID_LEFT_FRONT_DRIVE);
       leftRearSlave = new TalonSRX(RobotMap.ID_LEFT_REAR_DRIVE);
       rightFrontMaster = new TalonSRX(RobotMap.ID_RIGHT_FRONT_DRIVE);
       rightRearSlave = new TalonSRX(RobotMap.ID_RIGHT_REAR_DRIVE);
+
+      //connected through the ribbon cable onto the talon
+      pigeon = new PigeonIMU(leftRearSlave);
 
       //gyro calibration
       pigeon.enterCalibrationMode(CalibrationMode.BootTareGyroAccel);

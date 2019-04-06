@@ -18,8 +18,8 @@ public class JackOffCommand extends Command {
     requires(Robot.climb);
   }
 
-  Timer timer = new Timer();
-  boolean hasTimerStarted = false;
+  //Timer timer = new Timer();
+ // boolean hasTimerStarted = false;
   boolean hasRun = false;
 
   // Called just before this Command runs the first time
@@ -31,30 +31,37 @@ public class JackOffCommand extends Command {
   @Override
   protected void execute() {
     Robot.climb.stopJack();
-    if(!hasTimerStarted) {
+    hasRun = true;
+   /* if(!hasTimerStarted) {
       timer.start();
       hasTimerStarted = true;
     }
+    */
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return timer.get() >= 1;
+   // return timer.get() >= .7;
+   return hasRun;
   }
 
   // Called once after isFinished returns true
   @Override
   protected void end() {
-    timer.stop();
+  //  timer.stop();
+  //  timer.reset();
     Robot.climb.stopJack();
-    Robot.climb.disablePID();
+    //Robot.climb.disablePID();
   }
 
   // Called when another command which requires one or more of the same
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
+  // timer.stop();
+  // timer.reset();
     Robot.climb.stopJack();
+    //Robot.climb.disablePID();
   }
 }

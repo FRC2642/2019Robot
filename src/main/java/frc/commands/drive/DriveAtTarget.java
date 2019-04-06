@@ -8,9 +8,10 @@
 package frc.commands.drive;
 
 import edu.wpi.first.wpilibj.command.Command;
+import frc.commands.auto.vision.TargetInfo;
+import frc.robot.OI;
 import frc.robot.Robot;
 import frc.robot.RobotMap;
-import frc.commands.auto.vision.TargetInfo;
 
 public class DriveAtTarget extends Command {
   double timeout;
@@ -51,16 +52,18 @@ public class DriveAtTarget extends Command {
 
   // Make this return true when this Command no longer needs to run execute()
   protected boolean isFinished() {
-    return false;
+    return !OI.xbox.getRawButton(1);
   }
 
   // Called once after isFinished returns true
   protected void end() {
+    Robot.drive.stop();
   }
 
   // Called when another command which requires one or more of the same
   // subsystems is scheduled to run
   protected void interrupted() {
+    Robot.drive.stop();
   }
 
 }

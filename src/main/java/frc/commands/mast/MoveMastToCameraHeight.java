@@ -19,15 +19,15 @@ public class MoveMastToCameraHeight extends Command {
     requires(Robot.mast);
   }
 
-  Timer timer = new Timer();
-  PID pid = new PID(Robot.mast, Robot.mast, RobotMap.MAST_PARAMS);
+ // Timer timer = new Timer();
+ // PID pid = new PID(Robot.mast, Robot.mast, RobotMap.MAST_PARAMS);
 
-  boolean hitSetpoint = false;
+  //boolean hitSetpoint = false;
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    pid.enable();
-    pid.setSetpoint(RobotMap.mastHatchHeight);
+  //  pid.enable();
+  //  pid.setSetpoint(RobotMap.mastHatchHeight);
   }
 
   // Called repeatedly when this Command is scheduled to run
@@ -44,16 +44,17 @@ public class MoveMastToCameraHeight extends Command {
       Robot.mast.pidSet(0);
     }
     */
-    if(!hitSetpoint && (Robot.mast.pidGet() >= -2 && Robot.mast.pidGet() <= 2)){
+    /*if(!hitSetpoint && (Robot.mast.pidGet() >= -2 && Robot.mast.pidGet() <= 2)){
       timer.start();
       hitSetpoint = true;
-    }
+    }*/
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return (timer.get() >= 1);
+   // return (timer.get() >= 1);
+   return true;
   }
 
   // Called once after isFinished returns true

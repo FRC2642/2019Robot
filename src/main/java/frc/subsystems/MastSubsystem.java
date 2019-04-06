@@ -23,7 +23,7 @@ import frc.robot.RobotMap;
  * This system runs the mast up and down.
  * This allows the robot to place game pieces at the upper levels.
  */
-public class MastSubsystem extends Subsystem implements PIDSource, PIDOutput{
+public class MastSubsystem extends Subsystem /*implements PIDSource, PIDOutput*/ {
 
   public TalonSRX mastMaster = new TalonSRX(RobotMap.ID_MAST_MASTER);
   public TalonSRX mastSlave = new TalonSRX(RobotMap.ID_MAST_SLAVE);
@@ -90,7 +90,8 @@ public class MastSubsystem extends Subsystem implements PIDSource, PIDOutput{
   }
 
   //sensor related methods
-    
+  
+  /* 
   @Override
   public void pidSet(double speed) {
     moveLift(speed);
@@ -100,6 +101,7 @@ public class MastSubsystem extends Subsystem implements PIDSource, PIDOutput{
   public double pidGet() {
     return mastEncoder.pidGet();
   }
+  */
 
   public void resetEncoder(){
     mastEncoder.reset();
