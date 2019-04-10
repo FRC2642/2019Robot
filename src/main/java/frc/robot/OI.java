@@ -11,7 +11,6 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
-import frc.commands.auto.vision.DriveAtRRTape;
 import frc.commands.climb.JackDownCommand;
 import frc.commands.climb.JackOffCommand;
 import frc.commands.climb.JackUpCommand;
@@ -67,6 +66,9 @@ public class OI {
 
     left bumper = jack (rear climb) down  (push and hold)
     right bumper = jack (rear climb) up   (push and hold)
+
+    right stick (axis 4 +5) = front jack for climb
+    d-pad up and down = back jack for climb
 
     select = run rollers at bottom of jack  (push and hold)
     */

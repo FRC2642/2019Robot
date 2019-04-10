@@ -7,8 +7,6 @@
 
 package frc.commands.climb;
 
-import edu.wpi.first.wpilibj.Timer;
-
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
@@ -52,7 +50,6 @@ public class JackOffCommand extends Command {
   //  timer.stop();
   //  timer.reset();
     Robot.climb.stopJack();
-    //Robot.climb.disablePID();
   }
 
   // Called when another command which requires one or more of the same
@@ -62,6 +59,5 @@ public class JackOffCommand extends Command {
   // timer.stop();
   // timer.reset();
     Robot.climb.stopJack();
-    //Robot.climb.disablePID();
   }
 }
