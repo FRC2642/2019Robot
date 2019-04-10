@@ -7,9 +7,6 @@
 
 package frc.robot;
 
-import frc.library.lib.motionProfile.DriveParameters;
-import frc.library.lib.pid.PIDParameters;
-
 /**
  * This holds all static port numbers, CAN IDs, static values, etc.
  */
@@ -18,10 +15,10 @@ public class RobotMap {
     //CAN IDs
 
     //IDs for drive motors
-    public static final int ID_RIGHT_FRONT_DRIVE = 1;
-    public static final int ID_RIGHT_REAR_DRIVE = 16;
-    public static final int ID_LEFT_FRONT_DRIVE = 2;
-    public static final int ID_LEFT_REAR_DRIVE = 3;
+    public static final int ID_RIGHT_DRIVE_MASTER = 1;
+    public static final int ID_RIGHT_DRIVE_SLAVE = 16;
+    public static final int ID_LEFT_DRIVE_MASTER = 2;
+    public static final int ID_LEFT_DRIVE_SLAVE = 3;
     //ID for lightring motor controller
     public static final int ID_LIGHT = 4;
     //ID for intake motors
