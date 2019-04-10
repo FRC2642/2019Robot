@@ -27,7 +27,7 @@ public class DriveCommand extends Command {
   protected void execute() {
     //slow drive for precision
     if(isLeftTriggerPulled()){
-      Robot.drive.arcadeDrive(-OI.xbox.getRawAxis(1) * .5,-(OI.xbox.getRawAxis(0) * .3));
+      Robot.drive.arcadeDrive(-OI.xbox.getRawAxis(1) * .4,-(OI.xbox.getRawAxis(0) * .2));
     }
     //fast drive, sicko
     else if(isRightTriggerPulled()){

@@ -21,7 +21,7 @@ public class JackDownCommand extends Command {
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    Robot.climb.enablePID();
+    //Robot.climb.enablePID();
   }
 
   // Called repeatedly when this Command is scheduled to run

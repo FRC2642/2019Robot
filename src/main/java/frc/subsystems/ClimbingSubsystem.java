@@ -12,6 +12,8 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.commands.climb.ManualClimbCommand;
 import frc.library.lib.pid.PID;
@@ -24,19 +26,23 @@ import frc.robot.RobotMap;
 /**
  * Add your docs here.
  */
-public class ClimbingSubsystem extends Subsystem implements PIDSource, PIDOutput {
+public class ClimbingSubsystem extends Subsystem /*implements PIDSource, PIDOutput*/ {
 
   public VictorSPX jackMaster = new VictorSPX(RobotMap.ID_JACK);
   public VictorSPX rollerMaster = new VictorSPX(RobotMap.ID_ROLLER);
+
   public VictorSPX frontClimbMaster = new VictorSPX(RobotMap.ID_FRONT_CLIMB);
-  
+/*
+  public DoubleSolenoid climbCylinder = new DoubleSolenoid(RobotMap.ID_PCM, RobotMap.climbCylinderForwardChannel, 
+                                                           RobotMap.climbCylinderBackwardChannel);
+  */
   public DigitalInput jackLimitSwitch = new DigitalInput(RobotMap.jackLimitSwitchPort);
 
                                                 //probably needs P and I definitely, maybe small D
-  public static PID climbPID = new PID(Robot.climb, Robot.climb, RobotMap.CLIMB_PARAMS);
+  //public static PID climbPID = new PID(Robot.climb, Robot.climb, RobotMap.CLIMB_PARAMS);
    
       public ClimbingSubsystem() {
-        climbPID.setSetpoint(0);
+       // climbPID.setSetpoint(0);
       }
   
   //jack (rear climb) methods
@@ -57,7 +63,7 @@ public class ClimbingSubsystem extends Subsystem implements PIDSource, PIDOutput
 
   public void rollRoller() {
     if(OI.xbox.getRawButton(7)){
-      rollerMaster.set(ControlMode.PercentOutput, -.9);
+      rollerMaster.set(ControlMode.PercentOutput, -1.0);
     } else{
       stopRoller();
     }
@@ -74,17 +80,18 @@ public class ClimbingSubsystem extends Subsystem implements PIDSource, PIDOutput
   }
   
   public void moveFrontClimbUp(){
-    moveFrontClimb(-.5);
+    moveFrontClimb(.85);
   }
 
   public void moveFrontClimbDown(){
-    moveFrontClimb(.5);
+    moveFrontClimb(-.85);
   }
 
   public void stopFrontClimb(){
     frontClimbMaster.set(ControlMode.PercentOutput, 0);
   }
 
+  /*
   public void enablePID(){
     climbPID.enable();
   }
@@ -92,7 +99,20 @@ public class ClimbingSubsystem extends Subsystem implements PIDSource, PIDOutput
   public void disablePID(){
     climbPID.disable();
   }
-  
+  */
+
+  /*
+  //backup climb methods
+
+  public void climbCylinderUp(){
+    climbCylinder.set(Value.kForward);
+  }
+
+  public void climbCylinderDown(){
+    climbCylinder.set(Value.kReverse);
+  }
+  */
+
   //limit switch method
 
   public boolean getJackLimitSwitch(){
@@ -101,6 +121,7 @@ public class ClimbingSubsystem extends Subsystem implements PIDSource, PIDOutput
 
   //sensor methods
 
+  /*
   @Override
   public double pidGet() {
     return Robot.drive.getPitch();
@@ -108,8 +129,13 @@ public class ClimbingSubsystem extends Subsystem implements PIDSource, PIDOutput
 
   @Override
   public void pidSet(double speed) {
-    moveFrontClimb(speed);
+    moveFrontClimb(-speed);
   }
+
+  public double getError(){
+    return climbPID.getError();
+  }
+  */
  
   @Override
   public void initDefaultCommand() {

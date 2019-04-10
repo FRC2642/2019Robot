@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import frc.commands.auto.vision.DriveAtRRTape;
 import frc.commands.climb.JackDownCommand;
 import frc.commands.climb.JackOffCommand;
 import frc.commands.climb.JackUpCommand;
@@ -75,6 +76,7 @@ public class OI {
     xboxRightBumper.whenReleased(new JackOffCommand()); 
     xboxSelect.whileHeld(new RollerOnCommand());
     xboxSelect.whenReleased(new RollerOffCommand());
+    //xboxA.whileHeld(new DriveAtRRTape());
 
     /*
     aux (auxillery drive) controls
