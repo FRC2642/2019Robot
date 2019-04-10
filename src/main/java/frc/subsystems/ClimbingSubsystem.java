@@ -63,7 +63,7 @@ public class ClimbingSubsystem extends Subsystem /*implements PIDSource, PIDOutp
 
   public void rollRoller() {
     if(OI.xbox.getRawButton(7)){
-      rollerMaster.set(ControlMode.PercentOutput, -.9);
+      rollerMaster.set(ControlMode.PercentOutput, -1.0);
     } else{
       stopRoller();
     }
