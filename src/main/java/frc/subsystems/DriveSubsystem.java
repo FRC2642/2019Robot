@@ -7,13 +7,13 @@
 
 package frc.subsystems;
 
-import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.DemandType;
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.sensors.PigeonIMU;
 import com.ctre.phoenix.sensors.PigeonIMU.CalibrationMode;
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import frc.commands.drive.DriveCommand;
 import frc.robot.RobotMap;
 /**
@@ -23,62 +23,54 @@ public class DriveSubsystem extends Subsystem {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
 
-  public TalonSRX leftFrontMaster, leftRearSlave;
-  public TalonSRX rightFrontMaster, rightRearSlave;
+  public CANSparkMax leftMaster, leftSlave;
+  public CANSparkMax rightMaster, rightSlave;
+
+  public DifferentialDrive drive;
 
   public PigeonIMU pigeon;
 
     public DriveSubsystem(){
-      leftFrontMaster = new TalonSRX(RobotMap.ID_LEFT_FRONT_DRIVE);
-      leftRearSlave = new TalonSRX(RobotMap.ID_LEFT_REAR_DRIVE);
-      rightFrontMaster = new TalonSRX(RobotMap.ID_RIGHT_FRONT_DRIVE);
-      rightRearSlave = new TalonSRX(RobotMap.ID_RIGHT_REAR_DRIVE);
-
       //connected through the ribbon cable onto the talon
-      pigeon = new PigeonIMU(leftRearSlave);
+     // pigeon = new PigeonIMU();
+
+     leftMaster = new CANSparkMax(RobotMap.ID_LEFT_DRIVE_MASTER, MotorType.kBrushless);
+     leftSlave = new CANSparkMax(RobotMap.ID_LEFT_DRIVE_SLAVE, MotorType.kBrushless);
+     rightMaster = new CANSparkMax(RobotMap.ID_RIGHT_DRIVE_MASTER, MotorType.kBrushless);
+     rightSlave = new CANSparkMax(RobotMap.ID_RIGHT_DRIVE_SLAVE, MotorType.kBrushless);
+
+     drive = new DifferentialDrive(leftMaster, rightMaster);
+
+     leftSlave.follow(leftMaster);
+     rightSlave.follow(rightMaster);
+
+     //ramp up? 
+    /*
+     leftMaster.setOpenLoopRampRate(4);
+     rightMaster.setOpenLoopRampRate(4);
+      */
 
       //gyro calibration
       pigeon.enterCalibrationMode(CalibrationMode.BootTareGyroAccel);
-      //set master-slave motors
-      leftRearSlave.set(ControlMode.Follower, leftFrontMaster.getDeviceID());
-      rightRearSlave.set(ControlMode.Follower, rightFrontMaster.getDeviceID());
-      //limit settings
-      leftFrontMaster.enableCurrentLimit(RobotMap.IS_CURRENT_LIMIT);
-      leftFrontMaster.configContinuousCurrentLimit(RobotMap.CONTINUOUS_CURRENT, 0);
-      leftFrontMaster.configPeakCurrentLimit(RobotMap.PEAK_CURRENT, 10);
-      leftFrontMaster.configPeakCurrentDuration(RobotMap.PEAK_CURRENT_DURATION, 10);
-      //voltage compensation settings
-      rightFrontMaster.enableCurrentLimit(RobotMap.IS_CURRENT_LIMIT);
-      rightFrontMaster.configContinuousCurrentLimit(RobotMap.CONTINUOUS_CURRENT, 0);
-      rightFrontMaster.configPeakCurrentLimit(RobotMap.PEAK_CURRENT, 10);
-      rightFrontMaster.configPeakCurrentDuration(RobotMap.PEAK_CURRENT_DURATION, 10);
-      //deadband settings
-      rightFrontMaster.configNeutralDeadband(.1);
-      leftFrontMaster.configNeutralDeadband(.1);
-
-      // rightFrontMaster.setInverted(true);
-      // leftFrontMaster.setInverted(true);
     }
 
     //drive motor methods
 
   public void setLeftSpeed(double speed) {
-    leftFrontMaster.set(ControlMode.PercentOutput, speed);
+    leftMaster.set(speed);
   }
 
   public void setRightSpeed(double speed){
-    rightFrontMaster.set(ControlMode.PercentOutput, speed);
+    rightMaster.set(speed);
   }
 
   public void stop(){
-    setLeftSpeed(0);
-    setRightSpeed(0);
+   setLeftSpeed(0);
+   setRightSpeed(0);
   }
 
   public void arcadeDrive(double speed, double turn) {
-    turn = -turn;
-    leftFrontMaster.set(ControlMode.PercentOutput, turn, DemandType.ArbitraryFeedForward, speed);
-    rightFrontMaster.set(ControlMode.PercentOutput, turn, DemandType.ArbitraryFeedForward, -speed);
+   drive.arcadeDrive(speed, turn);
   }
 
   //sensor methods
@@ -92,16 +84,6 @@ public class DriveSubsystem extends Subsystem {
     pigeon.getAccelerometerAngles(ypr);
     System.out.println("Pitch: " + ypr[1]);
     return ypr[1];
-  }
-
-  public boolean isRobotLevel(){
-    boolean level = (getPitch() <= 3 && getPitch() >= -3) ? true : false;
-    return level;
-  }
-
-  public boolean isNoseDown(){
-    boolean noseDown = (getPitch() <= -3) ? true : false;
-    return noseDown;
   }
 
   @Override

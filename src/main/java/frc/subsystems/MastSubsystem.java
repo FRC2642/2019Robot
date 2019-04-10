@@ -14,8 +14,6 @@ import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.commands.mast.LiftCommand;
-import frc.library.lib.pid.PIDOutput;
-import frc.library.lib.pid.PIDSource;
 import frc.robot.RobotMap;
 
 
@@ -23,7 +21,7 @@ import frc.robot.RobotMap;
  * This system runs the mast up and down.
  * This allows the robot to place game pieces at the upper levels.
  */
-public class MastSubsystem extends Subsystem /*implements PIDSource, PIDOutput*/ {
+public class MastSubsystem extends Subsystem {
 
   public TalonSRX mastMaster = new TalonSRX(RobotMap.ID_MAST_MASTER);
   public TalonSRX mastSlave = new TalonSRX(RobotMap.ID_MAST_SLAVE);
@@ -56,11 +54,6 @@ public class MastSubsystem extends Subsystem /*implements PIDSource, PIDOutput*/
       stop();
     } else if(speed > 0){
       mastMaster.set(ControlMode.PercentOutput, speed * .2);
-    /*
-    } else if(speed > 0){
-      double s = !getLowerLimitSwitch() ? speed * .2 : 0;
-      mastMaster.set(ControlMode.PercentOutput, s);
-      */
     } else {
       mastMaster.set(ControlMode.PercentOutput, speed);
       }
@@ -90,18 +83,6 @@ public class MastSubsystem extends Subsystem /*implements PIDSource, PIDOutput*/
   }
 
   //sensor related methods
-  
-  /* 
-  @Override
-  public void pidSet(double speed) {
-    moveLift(speed);
-  }
-
-  @Override
-  public double pidGet() {
-    return mastEncoder.pidGet();
-  }
-  */
 
   public void resetEncoder(){
     mastEncoder.reset();

@@ -25,7 +25,6 @@ import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.subsystems.BrakeSubsystem;
 import frc.subsystems.ClimbingSubsystem;
 import frc.subsystems.DriveSubsystem;
@@ -156,8 +155,6 @@ public class Robot extends TimedRobot {
     SmartDashboard.putBoolean("mastLimitSwitchUp", mast.getUpperLimitSwitch());
     
     SmartDashboard.putBoolean("intakeLimitSwitch", intake.getIntakeLimitSwitch());
-
-    SmartDashboard.putBoolean("jackLimitSwitch", thrust.getJackLimitSwitch());
     */
   }
 

@@ -7,9 +7,6 @@
 
 package frc.robot;
 
-import frc.library.lib.motionProfile.DriveParameters;
-import frc.library.lib.pid.PIDParameters;
-
 /**
  * This holds all static port numbers, CAN IDs, static values, etc.
  */
@@ -18,10 +15,10 @@ public class RobotMap {
     //CAN IDs
 
     //IDs for drive motors
-    public static final int ID_RIGHT_FRONT_DRIVE = 1;
-    public static final int ID_RIGHT_REAR_DRIVE = 16;
-    public static final int ID_LEFT_FRONT_DRIVE = 2;
-    public static final int ID_LEFT_REAR_DRIVE = 3;
+    public static final int ID_RIGHT_DRIVE_MASTER = 1;
+    public static final int ID_RIGHT_DRIVE_SLAVE = 16;
+    public static final int ID_LEFT_DRIVE_MASTER = 2;
+    public static final int ID_LEFT_DRIVE_SLAVE = 3;
     //ID for lightring motor controller
     public static final int ID_LIGHT = 4;
     //ID for intake motors
@@ -93,18 +90,7 @@ public class RobotMap {
     public static final boolean IS_VOLTAGE_COMP = false;
     public static final double VOLTAGE_SATURATION = 12.5;
 
-    //PID profiles and settings
-
-    //Drive params                                                           
-    public static final DriveParameters DRIVE_PARAMS  = new DriveParameters(.0058, .0064, .003, -.8);
-    //PID params                                                             P    I       D    interval
-    public static final PIDParameters TURN_PARAMS_45    = new PIDParameters(.06 , .0  , -.003, 1 / 100.0);
-    public static final PIDParameters TURN_PARAMS_90    = new PIDParameters(.005, .002, -.002, 1 / 100.0);
-    public static final PIDParameters TURN_PARAMS_180   = new PIDParameters(.06 , .003, -.001, 1 / 100.0);
-    //pid for climb balancing
-    public static final PIDParameters CLIMB_PARAMS = new PIDParameters(.01, 0.0, 0.0, 1 / 100);
-    //pid for mast 
-    public static final PIDParameters MAST_PARAMS = new PIDParameters(.01, 0.0, 0.0, 1 / 100);
+    //static values
     //gyro offset values
     public static double driveForwardOffset = 0.25;
 	public static double driveTurnOffset = 0.25;

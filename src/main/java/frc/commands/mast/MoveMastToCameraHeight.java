@@ -7,11 +7,8 @@
 
 package frc.commands.mast;
 
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
-import frc.library.lib.pid.PID;
 import frc.robot.Robot;
-import frc.robot.RobotMap;
 
 public class MoveMastToCameraHeight extends Command {
   public MoveMastToCameraHeight() {

@@ -12,21 +12,15 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
 import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.DoubleSolenoid;
-import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.commands.climb.ManualClimbCommand;
-import frc.library.lib.pid.PID;
-import frc.library.lib.pid.PIDOutput;
-import frc.library.lib.pid.PIDSource;
 import frc.robot.OI;
-import frc.robot.Robot;
 import frc.robot.RobotMap;
 
 /**
  * Add your docs here.
  */
-public class ClimbingSubsystem extends Subsystem /*implements PIDSource, PIDOutput*/ {
+public class ClimbingSubsystem extends Subsystem {
 
   public VictorSPX jackMaster = new VictorSPX(RobotMap.ID_JACK);
   public VictorSPX rollerMaster = new VictorSPX(RobotMap.ID_ROLLER);
@@ -37,9 +31,6 @@ public class ClimbingSubsystem extends Subsystem /*implements PIDSource, PIDOutp
                                                            RobotMap.climbCylinderBackwardChannel);
   */
   public DigitalInput jackLimitSwitch = new DigitalInput(RobotMap.jackLimitSwitchPort);
-
-                                                //probably needs P and I definitely, maybe small D
-  //public static PID climbPID = new PID(Robot.climb, Robot.climb, RobotMap.CLIMB_PARAMS);
    
       public ClimbingSubsystem() {
        // climbPID.setSetpoint(0);
@@ -92,16 +83,6 @@ public class ClimbingSubsystem extends Subsystem /*implements PIDSource, PIDOutp
   }
 
   /*
-  public void enablePID(){
-    climbPID.enable();
-  }
-
-  public void disablePID(){
-    climbPID.disable();
-  }
-  */
-
-  /*
   //backup climb methods
 
   public void climbCylinderUp(){
@@ -118,24 +99,6 @@ public class ClimbingSubsystem extends Subsystem /*implements PIDSource, PIDOutp
   public boolean getJackLimitSwitch(){
     return jackLimitSwitch.get();
   }
-
-  //sensor methods
-
-  /*
-  @Override
-  public double pidGet() {
-    return Robot.drive.getPitch();
-  }
-
-  @Override
-  public void pidSet(double speed) {
-    moveFrontClimb(-speed);
-  }
-
-  public double getError(){
-    return climbPID.getError();
-  }
-  */
  
   @Override
   public void initDefaultCommand() {
